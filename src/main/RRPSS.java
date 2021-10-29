@@ -1,11 +1,12 @@
 package main;
-
 import java.util.Scanner;
 
-public class MainApp 
+public class RRPSS 
 {
 	public static void main(String[] args) 
 	{
+		MenuApp restaurantMenu = new MenuApp();
+
 		System.out.println
 		(
 				"(1) Create/Update/Remove Menu Item\n" +
@@ -30,7 +31,7 @@ public class MainApp
 			switch(choice)
 			{
 				case 1:
-					main.MenuItemApp.main();
+					restaurantMenu.getFunctions();
 					break;
 			}
 		} while (choice <= 10);
