@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class MainApp 
 {
-
 	public static void main(String[] args) 
 	{
 		System.out.println
@@ -32,11 +31,8 @@ public class MainApp
 			{
 				case 1:
 					main.MenuItemApp.main();
-				case 2:
-					
+					break;
 			}
 		} while (choice <= 10);
-
 	}
-
 }
