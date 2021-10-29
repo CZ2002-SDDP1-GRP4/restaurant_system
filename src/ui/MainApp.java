@@ -1,4 +1,4 @@
-package restaurant_system;
+package ui;
 
 public class MainApp {
 
