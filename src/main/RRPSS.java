@@ -6,7 +6,7 @@ public class RRPSS
 	public static void main(String[] args) 
 	{
 		MenuApp restaurantMenu = new MenuApp();
-
+		ReservationApp reservation = new ReservationApp();
 		System.out.println
 		(
 				"(1) Create/Update/Remove Menu Item\n" +
@@ -32,6 +32,9 @@ public class RRPSS
 			{
 				case 1:
 					restaurantMenu.getFunctions();
+					break;
+				case 2:
+					reservation.getFunctions();
 					break;
 			}
 		} while (choice <= 10);
