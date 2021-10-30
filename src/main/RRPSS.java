@@ -7,6 +7,7 @@ public class RRPSS
 	{
 		MenuApp restaurantMenu = new MenuApp();
 		ReservationApp reservation = new ReservationApp();
+		StaffApp staff = new StaffApp();
 		System.out.println
 		(
 				"(1) Create/Update/Remove Menu Item\n" +
