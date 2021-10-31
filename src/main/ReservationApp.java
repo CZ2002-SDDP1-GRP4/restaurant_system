@@ -3,6 +3,7 @@ package main;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import main.Reservation.Reservation;
@@ -73,13 +74,19 @@ public class ReservationApp {
                 case 1:
                     System.out.println("Input date (eg. 2021-07-30):");
                     date = LocalDate.parse(sc.nextLine());
+                    //date must be after current date
+                    if (date.isBefore(LocalDate.now())){
+                        System.out.println("Invalid date");
+                        break;
+                    }
+
                     System.out.println("Select timeslot:");
                     counter = 0;
                     for (String timeString : timeslots) {
                         counter++;
                         System.out.println(counter + ". " + timeString);
                     }
-                    time = LocalTime.parse(timeslots[sc.nextInt()]);
+                    time = LocalTime.parse(timeslots[sc.nextInt()-1]);
                     sc.nextLine(); //throw away the \n not consumed by nextInt()
                     System.out.println("Enter pax:");
                     pax = sc.nextInt();
@@ -98,6 +105,7 @@ public class ReservationApp {
                         System.out.println("Full reservation. No table available.");
                     }
                     break;
+                    
                 case 2:
                     System.out.println("Enter name:");
                     name = sc.nextLine();
@@ -109,9 +117,10 @@ public class ReservationApp {
                         counter++;
                         System.out.println(counter + ". " + timeString);
                     }
-                    time = LocalTime.parse(timeslots[sc.nextInt()]);
+                    time = LocalTime.parse(timeslots[sc.nextInt()-1]);
                     removeReservation(checkReservation(name, date, time));
                     break;
+                
                 case 3:
                     System.out.println("Enter name:");
                     name = sc.nextLine();
@@ -123,7 +132,7 @@ public class ReservationApp {
                         counter++;
                         System.out.println(counter + ". " + timeString);
                     }
-                    time = LocalTime.parse(timeslots[sc.nextInt()]);
+                    time = LocalTime.parse(timeslots[sc.nextInt()-1]);
                     
                     Reservation temp = checkReservation(name, date, time);
                     if (temp != null){
@@ -132,6 +141,7 @@ public class ReservationApp {
                         System.out.println("No reservation found for this date & time.");
                     }
                     break;
+
                 case 4:
                     System.out.println("Enter table number:");
                     int table_number = sc.nextInt();
@@ -140,7 +150,9 @@ public class ReservationApp {
                     int capacity = sc.nextInt();
                     sc.nextLine();
                     addTable(table_number, capacity);
+                    System.out.println("Table has been added.");
                     break;
+
                 case 5:
                     date = LocalDate.parse(sc.nextLine());
                     System.out.println("Select timeslot:");
@@ -149,11 +161,22 @@ public class ReservationApp {
                         counter++;
                         System.out.println(counter + ". " + timeString);
                     }
-                    time = LocalTime.parse(timeslots[sc.nextInt()]);
+                    time = LocalTime.parse(timeslots[sc.nextInt()-1]);
                     System.out.println("Enter pax:");
                     pax = sc.nextInt();
-                    checkTableAvailability(date, time, pax);
+                    table = checkTableAvailability(date, time, pax);
+                    if (table == -1) System.out.println("No table available.");
+                    else System.out.println("Table " + table + " is available.");
                     break;
+
+                //test case to view reservations in development
+                case 6:
+                    System.out.println("Enter table number:");
+                    table = sc.nextInt();
+                    sc.nextLine();
+                    viewReservation(table);
+                    break;
+
                 default:
                     break;
             }
@@ -187,13 +210,15 @@ public class ReservationApp {
         int expiryTime = 10;
 
         for (Table table : tables) {
+            List <Reservation> found = new ArrayList<Reservation>();
             for (Reservation reservation : table.getReservations()) {
                 if (reservation.getDate().isBefore(LocalDate.now())){
-                    table.getReservations().remove(reservation);
+                    found.add(reservation);
                 }else if (reservation.getDate().isEqual(LocalDate.now()) && reservation.getTime().plusMinutes(expiryTime).isBefore(LocalTime.now())){
-                    table.getReservations().remove(reservation);
+                    found.add(reservation);
                 }
             }
+            table.getReservations().removeAll(found);
         }
     }
 
