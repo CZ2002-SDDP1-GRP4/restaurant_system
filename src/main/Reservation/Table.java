@@ -1,9 +1,8 @@
 package main.Reservation;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
+/**Represents the Table object in the restaurant */
 public class Table {
     private int table_number;
     private int capacity;
@@ -11,6 +10,11 @@ public class Table {
     private ArrayList <Reservation> reservations;
     //private Order order;
 
+    /**
+     * Create new table object
+     * @param table_number Number of the table.
+     * @param capacity Capacity of the table.
+     */
     public Table(int table_number, int capacity){
         this.table_number = table_number;
         this.capacity = capacity;
@@ -19,18 +23,34 @@ public class Table {
         // order = new Order();
     }
 
+    /**
+     * Get table number
+     * @return Table number
+     */
     public int getTableNumber(){
         return table_number;
     }
 
+    /**
+     * Get capacity of table
+     * @return Capacity of table
+     */
     public int getCapacity(){
         return capacity;
     }
 
+    /**
+     * Get availability status of table
+     * @return Availability of table
+     */
     public boolean getAvailability(){
         return available;
     }
 
+    /**
+     * Get list of reservations for the table
+     * @return ArrayList of reservations
+     */
     public ArrayList<Reservation> getReservations(){
         return reservations;
     }
