@@ -37,5 +37,9 @@ public class Staff {
 		
 	}
 	
-
+	@Override
+	public String toString() {
+		return "Name: " + this.name + ", " + "ID: " + this.id + ", "+
+	"Gender: " + this.gender + ", " +"Title: " + this.title;
+	}
 }

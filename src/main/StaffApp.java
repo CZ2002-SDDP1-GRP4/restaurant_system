@@ -25,18 +25,21 @@ public class StaffApp {
         System.out.println(
             "Available Functions:\n"+
             "1. Input Staff Details\n"+
+            "2. Print details of all employees\n"+
             "Cancel (-1)\n"+
             "Enter choice:"
         );
         choice = sc.nextInt();
         
         
-        if(choice == 1) {
+        switch(choice) {
+        case 1:
         	String name,title;
         	int sex,id;
         	System.out.print("Please enter the name of staff:\n");
-        	name = sc.nextLine();
         	sc.nextLine();
+        	name = sc.nextLine();
+
         	System.out.print("Please enter the gender of staff: 1.Male 2.Female 3.Others\n");
         	sex = sc.nextInt();
         	
@@ -54,7 +57,11 @@ public class StaffApp {
     
         	staff.add(new Staff(name,id,title,sex));
         	System.out.println("Staff has been added!");
- 
+        	break;
+        case 2:
+        	for(Staff Staff: staff) {
+        		Staff.printDetails();
+        	}
         }
         
         

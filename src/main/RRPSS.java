@@ -19,7 +19,7 @@ public class RRPSS
 				"(7) Check/Remove Reservation Booking\n" +
 				"(8) Check Table Availability\n" +
 				"(9) Print Order Invoice\n" +
-				"(10) Print Sale Revenue Report"+
+				"(10) Print Sale Revenue Report\n"+
 				"(11) Add in staff details"
 		);
 		
