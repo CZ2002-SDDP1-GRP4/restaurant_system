@@ -80,7 +80,7 @@ public class ReservationApp {
                         System.out.println(counter + ". " + timeString);
                     }
                     time = LocalTime.parse(timeslots[sc.nextInt()]);
-                    sc.nextLine(); //throw away the \n not consumed by nextInt()
+                     //throw away the \n not consumed by nextInt()
                     System.out.println("Enter pax:");
                     pax = sc.nextInt();
                     sc.nextLine(); //throw away the \n not consumed by nextInt()

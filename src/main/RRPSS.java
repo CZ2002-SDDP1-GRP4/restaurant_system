@@ -19,7 +19,8 @@ public class RRPSS
 				"(7) Check/Remove Reservation Booking\n" +
 				"(8) Check Table Availability\n" +
 				"(9) Print Order Invoice\n" +
-				"(10) Print Sale Revenue Report"
+				"(10) Print Sale Revenue Report"+
+				"(11) Add in staff details"
 		);
 		
 		Scanner sc = new Scanner(System.in);
@@ -37,7 +38,9 @@ public class RRPSS
 				case 2:
 					reservation.getFunctions();
 					break;
+				case 11:
+					staff.createStaff();
 			}
-		} while (choice <= 10);
+		} while (choice <= 11);
 	}
 }

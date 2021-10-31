@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.*; 
 import java.util.Scanner;
 
 import main.Staff.Staff;
@@ -33,20 +34,22 @@ public class StaffApp {
         if(choice == 1) {
         	String name,title;
         	int sex,id;
-        	System.out.println("Please enter the name of staff:\n");
+        	System.out.print("Please enter the name of staff:\n");
         	name = sc.nextLine();
-        	System.out.println("Please enter the gender of staff: 1.Male 2.Female 3.Others\n");
+        	sc.nextLine();
+        	System.out.print("Please enter the gender of staff: 1.Male 2.Female 3.Others\n");
         	sex = sc.nextInt();
         	
         	if(sex > 3 || sex <0) {
-        		System.out.println("Please enter a valid option of 1/2/3 : 1.Male 2.Female 3.Others\n");
+        		System.out.print("Please enter a valid option of 1/2/3 : 1.Male 2.Female 3.Others\n");
         	    sex = sc.nextInt();
         	}
         	
-        	System.out.println("Please enter the ID number of staff:\n");
+        	System.out.print("Please enter the ID number of staff:\n");
         	id = sc.nextInt();
         	
-        	System.out.println("Please enter the title of the staff:\n");
+        	System.out.print("Please enter the title of the staff:\n");
+        	sc.nextLine();
         	title = sc.nextLine();    
     
         	staff.add(new Staff(name,id,title,sex));
