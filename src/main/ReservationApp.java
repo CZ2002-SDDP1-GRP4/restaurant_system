@@ -16,6 +16,8 @@ import main.Reservation.Table;
 public class ReservationApp {
     /**The list of tables which the restaurant has.*/
     private ArrayList<Table> tables;
+    /**Expiry time constant in minutes */
+    private static final int expiryTime = 10;
     /*
     private String [] timeslots = {
         "8am-9am",
@@ -105,7 +107,7 @@ public class ReservationApp {
                         System.out.println("Full reservation. No table available.");
                     }
                     break;
-                    
+
                 case 2:
                     System.out.println("Enter name:");
                     name = sc.nextLine();
@@ -195,10 +197,16 @@ public class ReservationApp {
         for (Table table : tables) {
             for (Reservation reservation : table.getReservations()) {
                 if (reservation.getName() == name && reservation.getDate() == date && reservation.getTime() == time){
+                    System.out.println(
+                        "Reservation found:\n"+
+                        "Name:"+reservation.getName()+"\n"+
+                        "Table Number:" + reservation.getTableNumber()
+                    );
                     return reservation;
                 }
             }
         }
+        System.out.println("No reservation found");
         return null;
     }
 
@@ -206,8 +214,6 @@ public class ReservationApp {
      * Remove reservations which have expired.
      */
     public void removeExpiredReservations(){
-
-        int expiryTime = 10;
 
         for (Table table : tables) {
             List <Reservation> found = new ArrayList<Reservation>();
