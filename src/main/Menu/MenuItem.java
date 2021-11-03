@@ -29,6 +29,11 @@ public class MenuItem {
         return this.type;
     }
 
+    public void printInfo() {
+        System.out.printf("Name: %s, Price: %f, Type: %s, Description: %s", this.name, this.price, this.type,
+                this.description);
+    }
+
     public void setName(String name) {
         this.name = name;
     }

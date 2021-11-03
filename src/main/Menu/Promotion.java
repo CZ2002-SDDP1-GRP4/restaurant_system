@@ -10,23 +10,35 @@ public class Promotion extends MenuItem {
         super(name, description, price, type);
     }
 
-    public ArrayList<String> getItems() {
-        return this.items;
+    @Override
+    public void printInfo() {
+        super.printInfo();
+        System.out.print(", Items included: ");
+        for (int i = 0; i < items.size(); i++) {
+            System.out.printf("%s", items.get(i));
+            if (i < items.size() - 1)
+                System.out.print(",");
+        }
+    }
+
+    public void printItems() {
+        for (int i = 0; i < items.size(); i++) {
+            System.out.printf("Item No. %d: %s\n", i + 1, items.get(i));
+        }
     }
 
     public void addItem(String name) {
         items.add(name);
     }
 
-    public void removeItem() {
-        for (int i = 0; i < items.size(); i++) {
-            System.out.printf("Item No. %d: %s", i, items.get(i));
-        }
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Which item would you like to remove from this promotion? Please enter its Item No.");
-        int userInput = scan.nextInt();
-        if (userInput < items.size()) {
-            items.remove(userInput);
+    public void updateItem() {
+        // print items
+        // choose individual items to change
+    }
+
+    public void removeItem(int index) {
+        if (index < items.size() && index >= 0) {
+            items.remove(index);
         } else {
             System.out.println("Invalid Item No.");
         }
