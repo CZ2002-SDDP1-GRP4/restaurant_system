@@ -40,6 +40,9 @@ public class ReservationApp {
     }
 
     public void checkRemoveReservations(){
+
+        //remove expired reservations
+        removeExpiredReservations();
         Scanner sc = new Scanner(System.in);
         System.out.println(
             "1. Check Reservation \n"+
@@ -47,7 +50,8 @@ public class ReservationApp {
             "Enter selection:"
         );
         int choice = sc.nextInt();
-        
+        sc.nextLine(); 
+
         LocalDate date; LocalTime time; int counter; String name;
         switch(choice){
             case 1:
@@ -98,7 +102,6 @@ public class ReservationApp {
      * @return Reservation object or null.
      * */
     public Reservation checkReservation(String name, LocalDate date, LocalTime time){
-        removeExpiredReservations();
         for (Table table : tables) {
             for (Reservation reservation : table.getReservations()) {
                 if (reservation.getName() == name && reservation.getDate() == date && reservation.getTime() == time){
@@ -125,7 +128,7 @@ public class ReservationApp {
             for (Reservation reservation : table.getReservations()) {
                 if (reservation.getDate().isBefore(LocalDate.now())){
                     found.add(reservation);
-                }else if (reservation.getDate().isEqual(LocalDate.now()) && reservation.getTime().plusMinutes(expiryTime).isBefore(LocalTime.now())){
+                }else if (reservation.getDate().isEqual(LocalDate.now()) && reservation.getTime().isBefore(LocalTime.now().plusMinutes(expiryTime))){
                     found.add(reservation);
                 }
             }
@@ -175,6 +178,7 @@ public class ReservationApp {
         //date must be after current date
         if (date.isBefore(LocalDate.now())){
             System.out.println("Invalid date");
+            sc.close();
             return;
         }
 
@@ -202,6 +206,7 @@ public class ReservationApp {
         }else{
             System.out.println("Full reservation. No table available.");
         }
+        sc.close();
         return;
     }
 
@@ -223,6 +228,8 @@ public class ReservationApp {
         table = checkTableAvailability(date, time, pax);
         if (table == -1) System.out.println("No table available.");
         else System.out.println("Table " + table + " is available.");
+
+        sc.close();
     }
 
     /**Returns table number of Table that is available and not reserved given the date, time and pax. 
