@@ -35,8 +35,14 @@ public class RRPSS
 				case 1:
 					restaurantMenu.getFunctions();
 					break;
-				case 2:
-					reservation.getFunctions();
+				case 6:
+					reservation.createReservation();
+					break;
+				case 7:
+					reservation.checkRemoveReservations();
+					break;
+				case 8:
+					reservation.checkTableAvailability();
 					break;
 				case 11:
 					staff.createStaff();

@@ -18,22 +18,6 @@ public class ReservationApp {
     private ArrayList<Table> tables;
     /**Expiry time constant in minutes */
     private static final int expiryTime = 10;
-    /*
-    private String [] timeslots = {
-        "8am-9am",
-        "9am-10am",
-        "10am-11am",
-        "11am-12am",
-        "12am-1pm",
-        "1pm-2pm",
-        "2pm-3pm",
-        "3pm-4pm",
-        "4pm-5pm",
-        "5pm-6pm",
-        "6pm-7pm",
-        "7pm-8pm",
-    };
-    */
     /**Start time of available reservation timeslots.*/
     private String [] timeslots = {
         "08:00",
@@ -49,141 +33,62 @@ public class ReservationApp {
         "18:00",
         "19:00",
     };
+
     /**Create new reservation app with list of tables.*/
     public ReservationApp(){
         tables = new ArrayList<Table>();
     }
-    /**Prints the functions available in ReservationApp and allow user input for choice. */
-    public void getFunctions(){
+
+    public void checkRemoveReservations(){
         Scanner sc = new Scanner(System.in);
-        int choice = -1;
-        do{
-            System.out.println(
-                "Available Functions:\n"+
-                "1. Create reservation\n"+
-                "2. Remove reservation\n"+
-                "3. Check reservation\n"+
-                "4. Add new table\n"+
-                "5. Check table availability\n"+
-                "Cancel (-1)\n"+
-                "Enter choice:"
-            );
-            choice = sc.nextInt();
-            sc.nextLine(); //throw away the \n not consumed by nextInt()
-            LocalDate date; LocalTime time; int counter, pax, table; String name;
-
-            switch(choice){
-                case 1:
-                    System.out.println("Input date (eg. 2021-07-30):");
-                    date = LocalDate.parse(sc.nextLine());
-                    //date must be after current date
-                    if (date.isBefore(LocalDate.now())){
-                        System.out.println("Invalid date");
-                        break;
-                    }
-
-                    System.out.println("Select timeslot:");
-                    counter = 0;
-                    for (String timeString : timeslots) {
-                        counter++;
-                        System.out.println(counter + ". " + timeString);
-                    }
-                    time = LocalTime.parse(timeslots[sc.nextInt()-1]);
-                    sc.nextLine(); //throw away the \n not consumed by nextInt()
-                    System.out.println("Enter pax:");
-                    pax = sc.nextInt();
-                    sc.nextLine(); //throw away the \n not consumed by nextInt()
-
-                    //if there is table not reserved for this time
-                    table = checkTableAvailability(date, time, pax);
-                    if (table != -1){
-                        System.out.println("Enter name:");
-                        name = sc.nextLine();
-                        System.out.println("Enter contact:");
-                        int contact = sc.nextInt();
-                        sc.nextLine(); //throw away the \n not consumed by nextInt()
-                        createReservation(table, date, time, pax, name, contact);;
-                    }else{
-                        System.out.println("Full reservation. No table available.");
-                    }
-                    break;
-
-                case 2:
-                    System.out.println("Enter name:");
-                    name = sc.nextLine();
-                    System.out.println("Input date (eg. 2021-07-30):");
-                    date = LocalDate.parse(sc.nextLine());
-                    System.out.println("Select timeslot:");
-                    counter = 0;
-                    for (String timeString : timeslots) {
-                        counter++;
-                        System.out.println(counter + ". " + timeString);
-                    }
-                    time = LocalTime.parse(timeslots[sc.nextInt()-1]);
-                    removeReservation(checkReservation(name, date, time));
-                    break;
+        System.out.println(
+            "1. Check Reservation \n"+
+            "2. Remove Reservation\n"+
+            "Enter selection:"
+        );
+        int choice = sc.nextInt();
+        
+        LocalDate date; LocalTime time; int counter; String name;
+        switch(choice){
+            case 1:
+                System.out.println("Enter name:");
+                name = sc.nextLine();
+                System.out.println("Input date (eg. 2021-07-30):");
+                date = LocalDate.parse(sc.nextLine());
+                System.out.println("Select timeslot:");
+                counter = 0;
+                for (String timeString : timeslots) {
+                    counter++;
+                    System.out.println(counter + ". " + timeString);
+                }
+                time = LocalTime.parse(timeslots[sc.nextInt()-1]);
                 
-                case 3:
-                    System.out.println("Enter name:");
-                    name = sc.nextLine();
-                    System.out.println("Input date (eg. 2021-07-30):");
-                    date = LocalDate.parse(sc.nextLine());
-                    System.out.println("Select timeslot:");
-                    counter = 0;
-                    for (String timeString : timeslots) {
-                        counter++;
-                        System.out.println(counter + ". " + timeString);
-                    }
-                    time = LocalTime.parse(timeslots[sc.nextInt()-1]);
-                    
-                    Reservation temp = checkReservation(name, date, time);
-                    if (temp != null){
-                        System.out.println("Reservation is found for table: " + temp.getTableNumber());
-                    }else{
-                        System.out.println("No reservation found for this date & time.");
-                    }
-                    break;
-
-                case 4:
-                    System.out.println("Enter table number:");
-                    int table_number = sc.nextInt();
-                    sc.nextLine();
-                    System.out.println("Enter table capacity:");
-                    int capacity = sc.nextInt();
-                    sc.nextLine();
-                    addTable(table_number, capacity);
-                    System.out.println("Table has been added.");
-                    break;
-
-                case 5:
-                    date = LocalDate.parse(sc.nextLine());
-                    System.out.println("Select timeslot:");
-                    counter = 0;
-                    for (String timeString : timeslots) {
-                        counter++;
-                        System.out.println(counter + ". " + timeString);
-                    }
-                    time = LocalTime.parse(timeslots[sc.nextInt()-1]);
-                    System.out.println("Enter pax:");
-                    pax = sc.nextInt();
-                    table = checkTableAvailability(date, time, pax);
-                    if (table == -1) System.out.println("No table available.");
-                    else System.out.println("Table " + table + " is available.");
-                    break;
-
-                //test case to view reservations in development
-                case 6:
-                    System.out.println("Enter table number:");
-                    table = sc.nextInt();
-                    sc.nextLine();
-                    viewReservation(table);
-                    break;
-
-                default:
-                    break;
-            }
-
-        }while(choice != -1);
+                Reservation temp = checkReservation(name, date, time);
+                if (temp != null){
+                    System.out.println("Reservation is found for table: " + temp.getTableNumber());
+                }else{
+                    System.out.println("No reservation found for this date & time.");
+                }
+                break;
+            
+            case 2:
+                System.out.println("Enter name:");
+                name = sc.nextLine();
+                System.out.println("Input date (eg. 2021-07-30):");
+                date = LocalDate.parse(sc.nextLine());
+                System.out.println("Select timeslot:");
+                counter = 0;
+                for (String timeString : timeslots) {
+                    counter++;
+                    System.out.println(counter + ". " + timeString);
+                }
+                time = LocalTime.parse(timeslots[sc.nextInt()-1]);
+                removeReservation(checkReservation(name, date, time));
+                break;
+            default:
+                break;
+        }
+        sc.close();
     }
 
     /**Returns the Reservation object if it exists. 
@@ -261,6 +166,65 @@ public class ReservationApp {
         System.out.println("Reservation created!");
     }
 
+    public void createReservation(){
+
+        Scanner sc = new Scanner(System.in);
+        LocalDate date; LocalTime time; int counter, pax, table; String name;
+        System.out.println("Input date (eg. 2021-07-30):");
+        date = LocalDate.parse(sc.nextLine());
+        //date must be after current date
+        if (date.isBefore(LocalDate.now())){
+            System.out.println("Invalid date");
+            return;
+        }
+
+        System.out.println("Select timeslot:");
+        counter = 0;
+        for (String timeString : timeslots) {
+            counter++;
+            System.out.println(counter + ". " + timeString);
+        }
+        time = LocalTime.parse(timeslots[sc.nextInt()-1]);
+        sc.nextLine(); //throw away the \n not consumed by nextInt()
+        System.out.println("Enter pax:");
+        pax = sc.nextInt();
+        sc.nextLine(); //throw away the \n not consumed by nextInt()
+
+        //if there is table not reserved for this time
+        table = checkTableAvailability(date, time, pax);
+        if (table != -1){
+            System.out.println("Enter name:");
+            name = sc.nextLine();
+            System.out.println("Enter contact:");
+            int contact = sc.nextInt();
+            sc.nextLine(); //throw away the \n not consumed by nextInt()
+            createReservation(table, date, time, pax, name, contact);;
+        }else{
+            System.out.println("Full reservation. No table available.");
+        }
+        return;
+    }
+
+    public void checkTableAvailability(){
+
+        Scanner sc = new Scanner(System.in);
+        LocalDate date; LocalTime time; int counter, pax, table; 
+
+        date = LocalDate.parse(sc.nextLine());
+        System.out.println("Select timeslot:");
+        counter = 0;
+        for (String timeString : timeslots) {
+            counter++;
+            System.out.println(counter + ". " + timeString);
+        }
+        time = LocalTime.parse(timeslots[sc.nextInt()-1]);
+        System.out.println("Enter pax:");
+        pax = sc.nextInt();
+        table = checkTableAvailability(date, time, pax);
+        if (table == -1) System.out.println("No table available.");
+        else System.out.println("Table " + table + " is available.");
+    }
+
     /**Returns table number of Table that is available and not reserved given the date, time and pax. 
      * @param date Date of reservation .
      * @param time Time of reservation. 
@@ -300,9 +264,18 @@ public class ReservationApp {
      * @param table_number Table number of the new table.
      * @param capacity Capacity of the new table.
      */
-    public void addTable(int table_number, int capacity){
+    public void addTable(){
+        System.out.println("Enter table number:");
+        Scanner sc = new Scanner(System.in);
+        int table_number = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Enter table capacity:");
+        int capacity = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Table has been added.");
         tables.add(new Table(table_number, capacity));
         System.out.println("Table added!");
+        sc.close();
     }
     
     //test function to view reservations
