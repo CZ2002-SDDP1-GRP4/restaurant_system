@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import main.Reservation.Reservation;
@@ -69,7 +70,11 @@ public class ReservationApp {
                 
                 Reservation temp = checkReservation(name, date, time);
                 if (temp != null){
-                    System.out.println("Reservation is found for table: " + temp.getTableNumber());
+                    System.out.println(
+                        "Reservation found:\n"+
+                        "Name:"+temp.getName()+"\n"+
+                        "Table Number:" + temp.getTableNumber()
+                    );
                 }else{
                     System.out.println("No reservation found for this date & time.");
                 }
@@ -92,7 +97,6 @@ public class ReservationApp {
             default:
                 break;
         }
-        sc.close();
     }
 
     /**Returns the Reservation object if it exists. 
@@ -104,17 +108,11 @@ public class ReservationApp {
     public Reservation checkReservation(String name, LocalDate date, LocalTime time){
         for (Table table : tables) {
             for (Reservation reservation : table.getReservations()) {
-                if (reservation.getName() == name && reservation.getDate() == date && reservation.getTime() == time){
-                    System.out.println(
-                        "Reservation found:\n"+
-                        "Name:"+reservation.getName()+"\n"+
-                        "Table Number:" + reservation.getTableNumber()
-                    );
+                if (reservation.getName().equals(name) && reservation.getDate().isEqual(date) && reservation.getTime().equals(time)){
                     return reservation;
                 }
             }
         }
-        System.out.println("No reservation found");
         return null;
     }
 
@@ -178,7 +176,6 @@ public class ReservationApp {
         //date must be after current date
         if (date.isBefore(LocalDate.now())){
             System.out.println("Invalid date");
-            sc.close();
             return;
         }
 
@@ -206,7 +203,6 @@ public class ReservationApp {
         }else{
             System.out.println("Full reservation. No table available.");
         }
-        sc.close();
         return;
     }
 
@@ -214,7 +210,7 @@ public class ReservationApp {
 
         Scanner sc = new Scanner(System.in);
         LocalDate date; LocalTime time; int counter, pax, table; 
-
+        System.out.println("Input date (eg. 2021-07-30):");
         date = LocalDate.parse(sc.nextLine());
         System.out.println("Select timeslot:");
         counter = 0;
@@ -229,7 +225,6 @@ public class ReservationApp {
         if (table == -1) System.out.println("No table available.");
         else System.out.println("Table " + table + " is available.");
 
-        sc.close();
     }
 
     /**Returns table number of Table that is available and not reserved given the date, time and pax. 
@@ -238,18 +233,21 @@ public class ReservationApp {
      * @param pax Number of people.
     */
     public int checkTableAvailability(LocalDate date, LocalTime time, int pax){
-        
-        for (Table table : tables) {
-            int check = 0;
-            if (table.getCapacity() >= pax && table.getAvailability() == true){
-                for (Reservation reservation : table.getReservations()) {
-                    if (reservation.getDate() == date && reservation.getTime() == time){
-                        check = -1;
-                        break;
+        try{
+            for (Table table : tables) {
+                int check = 0;
+                if (table.getCapacity() >= pax && table.getAvailability() == true){
+                    for (Reservation reservation : table.getReservations()) {
+                        if (reservation.getDate().isEqual(date) && reservation.getTime().equals(time)){
+                            check = -1;
+                            break;
+                        }
                     }
+                    if (check == 0) return table.getTableNumber();
                 }
-                if (check == 0) return table.getTableNumber();
             }
+        }catch(NoSuchElementException e){
+            return -1;
         }
         return -1;
     }
@@ -282,7 +280,6 @@ public class ReservationApp {
         System.out.println("Table has been added.");
         tables.add(new Table(table_number, capacity));
         System.out.println("Table added!");
-        sc.close();
     }
     
     //test function to view reservations
