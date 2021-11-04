@@ -6,11 +6,11 @@ public class MenuItem {
     private double price;
     private String type;
 
-    public MenuItem(String name, String description, double price, String type) {
+    public MenuItem(String name, double price, String type, String description) {
         this.name = name;
-        this.description = description;
         this.price = price;
         this.type = type;
+        this.description = description;
     }
 
     public String getName() {
@@ -30,7 +30,7 @@ public class MenuItem {
     }
 
     public void printInfo() {
-        System.out.printf("Name: %s, Price: %f, Type: %s, Description: %s", this.name, this.price, this.type,
+        System.out.printf("Name: %s, Price: %f, Type: %s, Description: %s\n", this.name, this.price, this.type,
                 this.description);
     }
 

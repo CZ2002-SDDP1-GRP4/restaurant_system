@@ -6,19 +6,20 @@ import java.util.ArrayList;
 public class Promotion extends MenuItem {
     private ArrayList<String> items = new ArrayList<>();
 
-    public Promotion(String name, String description, double price, String type) {
-        super(name, description, price, type);
+    public Promotion(String name, double price, String type, String description) {
+        super(name, price, type, description);
     }
 
     @Override
     public void printInfo() {
         super.printInfo();
-        System.out.print(", Items included: ");
+        System.out.print("  Items included: ");
         for (int i = 0; i < items.size(); i++) {
             System.out.printf("%s", items.get(i));
             if (i < items.size() - 1)
-                System.out.print(",");
+                System.out.print(", ");
         }
+        System.out.println();
     }
 
     public void printItems() {
