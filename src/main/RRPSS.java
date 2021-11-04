@@ -7,11 +7,11 @@ public class RRPSS {
 		MenuApp menu = new MenuApp();
 		ReservationApp reservation = new ReservationApp();
 		StaffApp staff = new StaffApp();
-		System.out.println("(1) Create/Update/Remove Menu Item\n" + "(2) Create/Update/Remove Promotion\n"
-				+ "(3) Create Order\n" + "(4) View Order\n" + "(5) Add/Remove Order Item(s) to/from Order\n"
-				+ "(6) Create Reservation Booking\n" + "(7) Check/Remove Reservation Booking\n"
-				+ "(8) Check Table Availability\n" + "(9) Print Order Invoice\n" + "(10) Print Sale Revenue Report\n"
-				+ "(11) Add in staff details\n" + "(12) Add tables\n" + "(-1) Exit");
+		System.out.println("(1) Edit Menu Item Catalog\n" + "(2) Edit Promotion Catalog\n" + "(3) Edit Menus\n"
+				+ "(4) Create Order\n" + "(5) View Order\n" + "(6) Add/Remove Order Item(s) to/from Order\n"
+				+ "(7) Create Reservation Booking\n" + "(8) Check/Remove Reservation Booking\n"
+				+ "(9) Check Table Availability\n" + "(10) Print Order Invoice\n" + "(11) Print Sale Revenue Report\n"
+				+ "(12) Add in staff details\n" + "(13) Add tables\n" + "(-1) Exit");
 
 		Scanner sc = new Scanner(System.in);
 		int choice = -1;
@@ -21,21 +21,27 @@ public class RRPSS {
 			sc.nextLine();
 			switch (choice) {
 			case 1:
-				menu.getFunctions();
+				menu.getItemCatalogFunctions();
 				break;
-			case 6:
-				reservation.createReservation();
+			case 2:
+				menu.getPromoCatalogFunctions();
+				break;
+			case 3:
+				menu.getMenuFunctions();
 				break;
 			case 7:
-				reservation.checkRemoveReservations();
+				reservation.createReservation();
 				break;
 			case 8:
+				reservation.checkRemoveReservations();
+				break;
+			case 9:
 				reservation.checkTableAvailability();
 				break;
-			case 11:
+			case 12:
 				staff.createStaff();
 				break;
-			case 12:
+			case 13:
 				reservation.addTable();
 				break;
 			default:
