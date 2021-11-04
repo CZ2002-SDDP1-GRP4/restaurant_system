@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class RRPSS {
 	public static void main(String[] args) {
-		MenuApp restaurantMenu = new MenuApp();
+		MenuApp menu = new MenuApp();
 		ReservationApp reservation = new ReservationApp();
 		StaffApp staff = new StaffApp();
 		System.out.println("(1) Create/Update/Remove Menu Item\n" + "(2) Create/Update/Remove Promotion\n"
@@ -18,29 +18,28 @@ public class RRPSS {
 		do {
 			System.out.println("Enter your Selection: ");
 			choice = sc.nextInt();
-			sc.nextLine();	
-			switch(choice)
-			{
-				case 1:
-					restaurantMenu.getFunctions();
-					break;
-				case 6:
-					reservation.createReservation();
-					break;
-				case 7:
-					reservation.checkRemoveReservations();
-					break;
-				case 8:
-					reservation.checkTableAvailability();
-					break;
-				case 11:
-					staff.createStaff();
-					break;
-				case 12:
-					reservation.addTable();
-					break;
-				default:
-					break;
+			sc.nextLine();
+			switch (choice) {
+			case 1:
+				menu.getFunctions();
+				break;
+			case 6:
+				reservation.createReservation();
+				break;
+			case 7:
+				reservation.checkRemoveReservations();
+				break;
+			case 8:
+				reservation.checkTableAvailability();
+				break;
+			case 11:
+				staff.createStaff();
+				break;
+			case 12:
+				reservation.addTable();
+				break;
+			default:
+				break;
 			}
 		} while (choice != -1);
 	}

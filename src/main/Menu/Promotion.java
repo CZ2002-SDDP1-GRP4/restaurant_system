@@ -31,11 +31,6 @@ public class Promotion extends MenuItem {
         items.add(name);
     }
 
-    public void updateItem() {
-        // print items
-        // choose individual items to change
-    }
-
     public void removeItem(int index) {
         if (index < items.size() && index >= 0) {
             items.remove(index);

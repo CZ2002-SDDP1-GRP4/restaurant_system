@@ -12,28 +12,23 @@ public class MenuApp {
         // empty constructor
     }
 
-    public void MenuItemUI() {
+    public void getItemFunctions() {
+        int userChoice = 0;
         Scanner scan = new Scanner(System.in);
-        int userInput = 0;
         do {
-            System.out.println("(1) Create Menu Item in Catalog\n" + "(2) Update Menu Item in Catalog\n"
-                    + "(3) Delete Menu Item from Catalog\n" + "Or enter -1 to go to the previous menu.");
-            userInput = scan.nextInt();
-            switch (userInput) {
+            System.out.println("Would you like to add/update/remove menu items in the catalog or menus?");
+            System.out.println("(1) Catalog\n" + "(2) Menus\n" + "Enter -1 to exit.");
+            userChoice = scan.nextInt();
+            switch (userChoice) {
             case 1:
-                this.addToCatalogs();
-                break;
+                // catalog editing
             case 2:
+                // menu editing
             }
-        } while (userInput != -1);
+        } while (userChoice != -1);
     }
 
-    public void PromotionUI() {
-        Scanner scan = new Scanner(System.in);
-        int userInput = 0;
-    }
-
-    public void MenuUI() {
+    public void getPromoFunctions() {
 
     }
 
