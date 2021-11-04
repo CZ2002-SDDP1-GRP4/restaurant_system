@@ -12,11 +12,7 @@ public class MenuApp {
     private ArrayList<MenuItem> normalCatalog = new ArrayList<>();
     private ArrayList<Promotion> promoCatalog = new ArrayList<>();
 
-    public MenuApp() {
-        // empty constructor
-    }
-
-    public void getItemCatalogFunctions() {
+    public void getNormalCatalogFunctions() {
         int userChoice = 0;
         Scanner scan = new Scanner(System.in);
         do {
@@ -25,18 +21,19 @@ public class MenuApp {
             userChoice = scan.nextInt();
             switch (userChoice) {
             case 1:
-                // add to menu item catalog
+                this.addToNormalCatalog();
                 break;
             case 2:
-                // update menu item in catalog
+                this.updateNormalCatalog();
                 break;
             case 3:
-                // remove menu item from catalog
+                this.removeFromNormalCatalog();
                 break;
             default:
                 break;
             }
         } while (userChoice != -1);
+        scan.close();
     }
 
     public void getPromoCatalogFunctions() {
@@ -47,31 +44,17 @@ public class MenuApp {
 
     }
 
-    public void createMenu(String name) {
+    private void addToNormalCatalog() {
+        int userChoice = 0;
+        Scanner scan = new Scanner(System.in);
+        System.out.println("What is the name of your new menu item?");
+    }
+
+    private void updateNormalCatalog() {
 
     }
 
-    public void removeMenu() {
-        // UI
-    }
-
-    public void addToCatalogs() {
-
-    }
-
-    public void removeFromCatalogs() {
-
-    }
-
-    public void updateCatalogs() {
-
-    }
-
-    public void addToMenu() {
-
-    }
-
-    public void removeFromMenu() {
+    private void removeFromNormalCatalog() {
 
     }
 }
