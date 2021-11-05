@@ -8,10 +8,26 @@ import main.Menu.MenuItem;
 import main.Menu.Promotion;
 
 public class MenuApp {
+    /**
+     * List of menus containing menu items and promotions that will be displayed to
+     * customers
+     */
     private ArrayList<Menu> menus = new ArrayList<>();
+    /**
+     * List of normal menu items that may not currently be on sale, but serves as a
+     * "storage" for menu items and their details
+     */
     private ArrayList<MenuItem> normalCatalog = new ArrayList<>();
+    /**
+     * List of promotions that may not currently be on sale, but serves as a
+     * "storage" for promotions and their details
+     */
     private ArrayList<Promotion> promoCatalog = new ArrayList<>();
 
+    /**
+     * Contains control logic that enables users to print, add, update, or remove
+     * menu items from the normal menu item catalog
+     */
     public void getNormalCatalogFunctions() {
         int userChoice = 0;
         Scanner scan = new Scanner(System.in);
@@ -39,6 +55,10 @@ public class MenuApp {
         } while (userChoice != -1);
     }
 
+    /**
+     * Contains control logic that enables users to print, add, update, or remove
+     * menu items from the promotion catalog
+     */
     public void getPromoCatalogFunctions() {
         int userChoice = 0;
         Scanner scan = new Scanner(System.in);
@@ -66,6 +86,10 @@ public class MenuApp {
         } while (userChoice != -1);
     }
 
+    /**
+     * Contains control logic to enable users to print, add, update, and remove
+     * menus
+     */
     public void getMenuFunctions() {
         int userChoice = 0;
         Scanner scan = new Scanner(System.in);
@@ -103,6 +127,9 @@ public class MenuApp {
         } while (userChoice != -1);
     }
 
+    /**
+     * Prints the names of all menus
+     */
     private void printMenus() {
         if (menus.size() > 0) {
             System.out.println("Current Menus:");
@@ -113,6 +140,9 @@ public class MenuApp {
             System.out.println("There are no existing menus.");
     }
 
+    /**
+     * Allows user to create a new menu
+     */
     private void addNewMenu() {
         Scanner scan = new Scanner(System.in);
         System.out.println("What is the name of your new menu?");
@@ -159,6 +189,9 @@ public class MenuApp {
         this.printMenus();
     }
 
+    /**
+     * Allows users to update and edit existing menus
+     */
     private void updateMenu() {
         if (menus.size() > 0) {
             Scanner scan = new Scanner(System.in);
@@ -236,6 +269,9 @@ public class MenuApp {
             System.out.println("There are no existing menus.");
     }
 
+    /**
+     * Allows users to remove existing menus
+     */
     private void removeMenu() {
         if (menus.size() > 0) {
             Scanner scan = new Scanner(System.in);
@@ -251,6 +287,9 @@ public class MenuApp {
 
     }
 
+    /**
+     * Prints all menu items within the menu item catalog
+     */
     private void printNormalCatalog() {
         if (normalCatalog.size() == 0)
             System.out.println("Menu Item Catalog is empty.");
@@ -262,6 +301,9 @@ public class MenuApp {
         }
     }
 
+    /**
+     * Enables users to add new menu items into the menu item catalog
+     */
     private void addToNormalCatalog() {
         Scanner scan = new Scanner(System.in);
         System.out.println("What is the name of your new menu item?");
@@ -278,6 +320,10 @@ public class MenuApp {
         this.printNormalCatalog();
     }
 
+    /**
+     * Enables users to update the details of menu items within the menu item
+     * catalog
+     */
     private void updateNormalCatalog() {
         Scanner scan = new Scanner(System.in);
         this.printNormalCatalog();
@@ -331,6 +377,9 @@ public class MenuApp {
         }
     }
 
+    /**
+     * Allows users to remove menu items from the menu item catalog
+     */
     private void removeFromNormalCatalog() {
         if (normalCatalog.size() > 0) {
             Scanner scan = new Scanner(System.in);
@@ -347,6 +396,9 @@ public class MenuApp {
             System.out.println("Menu Item Catalog is empty.");
     }
 
+    /**
+     * Prints all promotions within the promotion catalog
+     */
     private void printPromoCatalog() {
         if (promoCatalog.size() == 0)
             System.out.println("Promo Item Catalog is empty.");
@@ -358,6 +410,9 @@ public class MenuApp {
         }
     }
 
+    /**
+     * Allows users to add new promotions into the promotion catalog
+     */
     private void addToPromoCatalog() {
         Scanner scan = new Scanner(System.in);
         System.out.println("What is the name of your new promo item?");
@@ -382,6 +437,9 @@ public class MenuApp {
         this.printPromoCatalog();
     }
 
+    /**
+     * Allows users to update the details of promotions in the promotion catalog
+     */
     private void updatePromoCatalog() {
         Scanner scan = new Scanner(System.in);
         this.printPromoCatalog();
@@ -471,6 +529,9 @@ public class MenuApp {
         }
     }
 
+    /**
+     * Allows users to remove promotions from the promotion catalog
+     */
     private void removeFromPromoCatalog() {
         if (promoCatalog.size() > 0) {
             Scanner scan = new Scanner(System.in);

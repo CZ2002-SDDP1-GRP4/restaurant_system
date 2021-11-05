@@ -3,22 +3,48 @@ package main.Menu;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a menu that contains a list of menu items and promotions
+ */
 public class Menu {
+    /** List of menu items or promotions within this menu */
     private ArrayList<MenuItem> menuItems = new ArrayList<>();
+    /** Name of this menu */
     private String menuName;
 
+    /**
+     * Public constructor for Menu class, takes in a String parameter to store as
+     * the name of this menu
+     * 
+     * @param menuName
+     */
     public Menu(String menuName) {
         this.menuName = menuName;
     }
 
+    /**
+     * Gets name of this menu
+     * 
+     * @return name
+     */
     public String getMenuName() {
         return this.menuName;
     }
 
+    /**
+     * Sets name of this menu using String parameter
+     * 
+     * @param menuName
+     */
     public void setMenuName(String menuName) {
         this.menuName = menuName;
     }
 
+    /**
+     * Gets number of menu items and promotions (in total) within this menu
+     * 
+     * @return size
+     */
     public int getMenuSize() {
         return this.menuItems.size();
     }
@@ -40,10 +66,19 @@ public class Menu {
         }
     }
 
+    /**
+     * Adds menu items to this menu
+     * 
+     * @param item
+     */
     public void addItem(MenuItem item) {
         menuItems.add(item);
     }
 
+    /**
+     * Updates fields like name, price, type, description, and (only for Promotions)
+     * included items of menu items within this menu
+     */
     public void updateItem() {
         Scanner scan = new Scanner(System.in);
         this.printItems();
@@ -170,6 +205,11 @@ public class Menu {
         }
     }
 
+    /**
+     * Removes a menu item from this menu using an integer index parameter
+     * 
+     * @param index
+     */
     public void removeItem(int index) {
         if (index >= 0 && index < menuItems.size())
             menuItems.remove(index);
