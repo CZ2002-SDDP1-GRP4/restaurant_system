@@ -19,33 +19,38 @@ public class Menu {
         this.menuName = menuName;
     }
 
-    private void printItems() {
+    public int getMenuSize() {
+        return this.menuItems.size();
+    }
+
+    public void printItems() {
         if (menuItems.size() == 0)
             System.out.println("Menu is empty.");
         else {
+            System.out.printf("%s Menu:\n", this.menuName);
             for (int i = 0; i < menuItems.size(); i++) {
                 System.out.printf("Item No. %d -> ", i + 1);
-                menuItems.get(i).printInfo();
-                System.out.println();
+                if (menuItems.get(i) instanceof Promotion) {
+                    Promotion castedPromo = (Promotion) menuItems.get(i);
+                    castedPromo.printInfo();
+                } else
+                    menuItems.get(i).printInfo();
             }
+            System.out.println();
         }
     }
 
     public void addItem(MenuItem item) {
-        MenuItem copy = new MenuItem(item.getName(), item.getPrice(), item.getType(), item.getDescription());
-        menuItems.add(copy);
-        System.out.println("Updated menu:");
-        this.printItems();
+        menuItems.add(item);
     }
 
     public void updateItem() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Which item in this menu would you like to update? Please enter its Item No.");
         this.printItems();
+        System.out.println("Which item in this menu would you like to update? Please enter its Item No.");
         int userInput = scan.nextInt() - 1;
         scan.nextLine();
         if (userInput < menuItems.size()) {
-            menuItems.get(userInput).printInfo();
             if (menuItems.get(userInput) instanceof Promotion) {
                 Promotion castedPromo = (Promotion) menuItems.get(userInput);
                 int promoChoice = 0;
@@ -88,8 +93,9 @@ public class Menu {
                         do {
                             System.out.println(
                                     "Would you like to add or remove items from this promo? Enter -1 to exit.");
-                            System.out.println("(1) Add\n" + "(2) Remove\n");
+                            System.out.println("(1) Add\n" + "(2) Remove");
                             itemChoice = scan.nextInt();
+                            scan.nextLine();
                             switch (itemChoice) {
                             case 1:
                                 System.out.println("What item would you like to add to this promo?");
@@ -101,7 +107,7 @@ public class Menu {
                             case 2:
                                 System.out.println("What item would you like to remove from this promo?");
                                 castedPromo.printItems();
-                                int removeChoice = scan.nextInt();
+                                int removeChoice = scan.nextInt() - 1;
                                 scan.nextLine();
                                 castedPromo.removeItem(removeChoice);
                                 System.out.println("Updated promo item list:");
@@ -162,21 +168,12 @@ public class Menu {
                 } while (normalChoice != -1);
             }
         }
-        scan.close();
     }
 
-    public void removeItem() {
-        this.printItems();
-        System.out.println("Which item in this menu would you like to remove? Please enter its Item No.");
-        Scanner scan = new Scanner(System.in);
-        int userInput = scan.nextInt() - 1;
-        if (userInput < menuItems.size()) {
-            menuItems.remove(userInput);
-            System.out.println("Updated menu:");
-            this.printItems();
-        } else {
+    public void removeItem(int index) {
+        if (index >= 0 && index < menuItems.size())
+            menuItems.remove(index);
+        else
             System.out.println("Invalid Item No.");
-        }
-        scan.close();
     }
 }

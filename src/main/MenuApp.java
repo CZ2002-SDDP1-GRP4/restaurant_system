@@ -67,6 +67,187 @@ public class MenuApp {
     }
 
     public void getMenuFunctions() {
+        int userChoice = 0;
+        Scanner scan = new Scanner(System.in);
+        do {
+            System.out.println("Would you like to print/add/update/remove menus?");
+            System.out.println("(1) Print Existing Menu\n" + "(2) Add New Menu\n" + "(3) Update Existing Menu\n"
+                    + "(4) Remove Existing Menu\n" + "Enter -1 to exit.");
+            userChoice = scan.nextInt();
+            scan.nextLine();
+            switch (userChoice) {
+            case 1:
+                this.printMenus();
+                if (menus.size() > 0) {
+                    System.out.println("Which menu would you like to view?");
+                    int menuChoice = scan.nextInt() - 1;
+                    scan.nextLine();
+                    if (menuChoice >= 0 && menuChoice < menus.size())
+                        menus.get(menuChoice).printItems();
+                    else
+                        System.out.println("Invalid input.");
+                }
+                break;
+            case 2:
+                this.addNewMenu();
+                break;
+            case 3:
+                this.updateMenu();
+                break;
+            case 4:
+                this.removeMenu();
+                break;
+            default:
+                break;
+            }
+        } while (userChoice != -1);
+    }
+
+    private void printMenus() {
+        if (menus.size() > 0) {
+            System.out.println("Current Menus:");
+            for (int i = 0; i < menus.size(); i++) {
+                System.out.printf("Menu No. %d: %s\n", i + 1, menus.get(i).getMenuName());
+            }
+        } else
+            System.out.println("There are no existing menus.");
+    }
+
+    private void addNewMenu() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("What is the name of your new menu?");
+        String name = scan.nextLine();
+        Menu newMenu = new Menu(name);
+        int choice = 0;
+        if (normalCatalog.size() > 0) {
+            do {
+                System.out.println("Menu Item Catalog:");
+                this.printNormalCatalog();
+                System.out.printf(
+                        "Which items from the menu item catalog would you like to add into your new menu, %s? Enter -1 to finish.\n",
+                        name);
+                choice = scan.nextInt() - 1;
+                scan.nextLine();
+                if (choice >= 0 && choice < normalCatalog.size()) {
+                    newMenu.addItem(normalCatalog.get(choice));
+                }
+                System.out.println("This is what your new menu currently looks like.");
+                newMenu.printItems();
+                System.out.println();
+            } while (choice >= 0);
+        } else
+            System.out.println("Menu Item Catalog is empty, please add items to catalog.");
+        choice = 0;
+        if (promoCatalog.size() > 0) {
+            do {
+                System.out.println("Promotion Catalog:");
+                this.printPromoCatalog();
+                System.out.printf(
+                        "Which items from the promotion catalog would you like to add into your new menu, %s? Enter -1 to finish.\n",
+                        name);
+                choice = scan.nextInt() - 1;
+                scan.nextLine();
+                if (choice >= 0 && choice < promoCatalog.size()) {
+                    newMenu.addItem((MenuItem) promoCatalog.get(choice));
+                }
+                System.out.println("This is what your new menu currently looks like.");
+                newMenu.printItems();
+            } while (choice >= 0);
+        } else
+            System.out.println("Promotion Catalog is empty, please add items to catalog.");
+        menus.add(newMenu);
+        this.printMenus();
+    }
+
+    private void updateMenu() {
+        if (menus.size() > 0) {
+            Scanner scan = new Scanner(System.in);
+            this.printMenus();
+            System.out.println("Which menu would you like to update? Enter Menu No.");
+            int menuChoice = scan.nextInt() - 1;
+            scan.nextLine();
+            if (menuChoice >= 0 && menuChoice < menus.size()) {
+                menus.get(menuChoice).printItems();
+                System.out.println("Would you like to add/update/remove menu items in this menu?");
+                System.out.println("(1) Add Menu Items\n" + "(2) Update Menu Items\n" + "(3) Remove Menu Items\n"
+                        + "Enter -1 to exit.");
+                int option = scan.nextInt();
+                scan.nextLine();
+                switch (option) {
+                case 1:
+                    // add menu items to menu
+                    int itemChoice = 0;
+                    if (normalCatalog.size() > 0) {
+                        do {
+                            System.out.println("Menu Item Catalog:");
+                            this.printNormalCatalog();
+                            System.out.println(
+                                    "Which items from the menu item catalog would you like to add into this menu? Enter -1 to finish.");
+                            itemChoice = scan.nextInt() - 1;
+                            scan.nextLine();
+                            if (itemChoice >= 0 && itemChoice < normalCatalog.size()) {
+                                menus.get(menuChoice).addItem(normalCatalog.get(itemChoice));
+                            }
+                            System.out.println("This is what your menu currently looks like.");
+                            menus.get(menuChoice).printItems();
+                            System.out.println();
+                        } while (itemChoice >= 0);
+                    } else
+                        System.out.println("Menu Item Catalog is empty, please add items to catalog.");
+                    itemChoice = 0;
+                    if (promoCatalog.size() > 0) {
+                        do {
+                            System.out.println("Promotion Catalog:");
+                            this.printPromoCatalog();
+                            System.out.println(
+                                    "Which items from the promotion catalog would you like to add into this menu? Enter -1 to finish.");
+                            itemChoice = scan.nextInt() - 1;
+                            scan.nextLine();
+                            if (itemChoice >= 0 && itemChoice < promoCatalog.size()) {
+                                menus.get(menuChoice).addItem((MenuItem) promoCatalog.get(itemChoice));
+                            }
+                            System.out.println("This is what your new menu currently looks like.");
+                            menus.get(menuChoice).printItems();
+                        } while (itemChoice >= 0);
+                    } else
+                        System.out.println("Promotion Catalog is empty, please add items to catalog.");
+                    break;
+                case 2:
+                    // update
+                    menus.get(menuChoice).updateItem();
+                    break;
+                case 3:
+                    // remove from menu
+                    menus.get(menuChoice).printItems();
+                    System.out.println("Which item do you want to remove from this menu?");
+                    int removeChoice = scan.nextInt() - 1;
+                    scan.nextLine();
+                    if (removeChoice >= 0 && removeChoice < menus.get(menuChoice).getMenuSize())
+                        menus.get(menuChoice).removeItem(removeChoice);
+                    System.out.println("This is what your menu looks like now.");
+                    menus.get(menuChoice).printItems();
+                    break;
+                default:
+                    break;
+                }
+            }
+            this.printMenus();
+        } else
+            System.out.println("There are no existing menus.");
+    }
+
+    private void removeMenu() {
+        if (menus.size() > 0) {
+            Scanner scan = new Scanner(System.in);
+            this.printMenus();
+            System.out.println("Which menu would you like to remove? Enter Menu No.");
+            int userChoice = scan.nextInt() - 1;
+            scan.nextLine();
+            if (userChoice >= 0 && userChoice < menus.size())
+                menus.remove(userChoice);
+            this.printMenus();
+        } else
+            System.out.println("There are no existing menus.");
 
     }
 
