@@ -123,7 +123,12 @@ public class ReservationApp {
     public Reservation checkReservation(String name, LocalDate date, LocalTime time){
         for (Table table : tables) {
             for (Reservation reservation : table.getReservations()) {
-                if (reservation.getName().equals(name) && reservation.getDate().isEqual(date) && reservation.getTime().equals(time)){
+                
+                String rName = reservation.getName();
+                LocalDate rDate = reservation.getDate();
+                LocalTime rTime = reservation.getTime();
+
+                if (rName.equals(name) && rDate.isEqual(date) && rTime.equals(time)){
                     return reservation;
                 }
             }
@@ -139,9 +144,13 @@ public class ReservationApp {
         for (Table table : tables) {
             List <Reservation> found = new ArrayList<Reservation>();
             for (Reservation reservation : table.getReservations()) {
-                if (reservation.getDate().isBefore(LocalDate.now())){
+                LocalDate rDate = reservation.getDate();
+                LocalTime rTime = reservation.getTime();
+                LocalDate today = LocalDate.now();
+                LocalTime now = LocalTime.now();
+                if (rDate.isBefore(today)){
                     found.add(reservation);
-                }else if (reservation.getDate().isEqual(LocalDate.now()) && reservation.getTime().isBefore(LocalTime.now().plusMinutes(expiryTime))){
+                }else if (rDate.isEqual(today) && rTime.isBefore(now.plusMinutes(expiryTime))){
                     found.add(reservation);
                 }
             }
@@ -182,6 +191,9 @@ public class ReservationApp {
         System.out.println("Reservation created!");
     }
 
+    /**
+     * Driver UI code to create reservations
+     */
     public void createReservation(){
 
         Scanner sc = new Scanner(System.in);
@@ -191,12 +203,6 @@ public class ReservationApp {
         if (ErrorApp.dateHandler(temp) == true){ 
             date = LocalDate.parse(temp);
         } else {
-            return;
-        }
-
-        //date must be after current date
-        if (date.isBefore(LocalDate.now())){
-            System.out.println("Invalid date");
             return;
         }
 
