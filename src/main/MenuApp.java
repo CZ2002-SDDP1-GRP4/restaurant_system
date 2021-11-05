@@ -75,6 +75,7 @@ public class MenuApp {
             System.out.println("Menu Item Catalog is empty.");
         else {
             for (int i = 0; i < normalCatalog.size(); i++) {
+                System.out.printf("Catalog Item No. %d -> ", i + 1);
                 normalCatalog.get(i).printInfo();
             }
         }
@@ -92,6 +93,8 @@ public class MenuApp {
         System.out.println("What is the description of your new menu item?");
         String description = scan.nextLine();
         normalCatalog.add(new MenuItem(name, price, type, description));
+        System.out.println("Updated Menu Item Catalog:");
+        this.printNormalCatalog();
     }
 
     private void updateNormalCatalog() {
@@ -142,18 +145,25 @@ public class MenuApp {
                     break;
                 }
             } while (normalChoice != -1);
+            System.out.println("Updated Menu Item Catalog:");
+            this.printNormalCatalog();
         }
     }
 
     private void removeFromNormalCatalog() {
-        Scanner scan = new Scanner(System.in);
-        this.printNormalCatalog();
-        System.out.println("Which menu item do you want to remove? Enter Item No to remove. Enter 0 to cancel.");
-        int choice = scan.nextInt() - 1;
-        scan.nextLine();
-        if (choice >= 0 && choice < normalCatalog.size()) {
-            normalCatalog.remove(choice);
-        }
+        if (normalCatalog.size() > 0) {
+            Scanner scan = new Scanner(System.in);
+            this.printNormalCatalog();
+            System.out.println("Which menu item do you want to remove? Enter Item No to remove. Enter 0 to cancel.");
+            int choice = scan.nextInt() - 1;
+            scan.nextLine();
+            if (choice >= 0 && choice < normalCatalog.size()) {
+                normalCatalog.remove(choice);
+            }
+            System.out.println("Updated Menu Item Catalog:");
+            this.printNormalCatalog();
+        } else
+            System.out.println("Menu Item Catalog is empty.");
     }
 
     private void printPromoCatalog() {
@@ -161,7 +171,7 @@ public class MenuApp {
             System.out.println("Promo Item Catalog is empty.");
         else {
             for (int i = 0; i < promoCatalog.size(); i++) {
-                System.out.printf("Catalog Item %d: ", i + 1);
+                System.out.printf("Catalog Item No. %d -> ", i + 1);
                 promoCatalog.get(i).printInfo();
             }
         }
@@ -187,12 +197,14 @@ public class MenuApp {
             promo.addItem(scan.nextLine());
         }
         promoCatalog.add(promo);
+        System.out.println("Updated Promo Catalog:");
+        this.printPromoCatalog();
     }
 
     private void updatePromoCatalog() {
         Scanner scan = new Scanner(System.in);
         this.printPromoCatalog();
-        System.out.println("Which promo item do you want to update? Enter Item No to select. Enter 0 to cancel.");
+        System.out.println("Which promo item do you want to update? Enter Item No to select. Enter -1 to cancel.");
         int choice = scan.nextInt() - 1;
         scan.nextLine();
         if (choice >= 0 && choice < promoCatalog.size()) {
@@ -238,8 +250,9 @@ public class MenuApp {
                     int itemChoice = 0;
                     do {
                         System.out.println("Would you like to add or remove items from this promo? Enter -1 to exit.");
-                        System.out.println("(1) Add\n" + "(2) Remove\n");
+                        System.out.println("(1) Add\n" + "(2) Remove");
                         itemChoice = scan.nextInt();
+                        scan.nextLine();
                         switch (itemChoice) {
                         case 1:
                             System.out.println("What item would you like to add to this promo?");
@@ -249,13 +262,18 @@ public class MenuApp {
                             promoCatalog.get(choice).printItems();
                             break;
                         case 2:
-                            System.out.println("What item would you like to remove from this promo?");
-                            promoCatalog.get(choice).printItems();
-                            int removeChoice = scan.nextInt();
-                            scan.nextLine();
-                            promoCatalog.get(choice).removeItem(removeChoice);
-                            System.out.println("Updated promo item list:");
-                            promoCatalog.get(choice).printItems();
+                            if (promoCatalog.get(choice).itemNum() > 0) {
+                                System.out.println("What item would you like to remove from this promo?");
+                                promoCatalog.get(choice).printItems();
+                                int removeChoice = scan.nextInt() - 1;
+                                scan.nextLine();
+                                if (removeChoice >= 0 && removeChoice < promoCatalog.get(choice).itemNum()) {
+                                    promoCatalog.get(choice).removeItem(removeChoice);
+                                }
+                                System.out.println("Updated promo item list:");
+                                promoCatalog.get(choice).printItems();
+                            } else
+                                System.out.println("There are no items in this promo.");
                             break;
                         default:
                             System.out.println("All changes to promo item list completed.");
@@ -267,17 +285,24 @@ public class MenuApp {
                     break;
                 }
             } while (normalChoice != -1);
+            System.out.println("Updated Promo Catalog:");
+            this.printPromoCatalog();
         }
     }
 
     private void removeFromPromoCatalog() {
-        Scanner scan = new Scanner(System.in);
-        this.printPromoCatalog();
-        System.out.println("Which promo item do you want to remove? Enter Item No to remove. Enter 0 to cancel.");
-        int choice = scan.nextInt() - 1;
-        scan.nextLine();
-        if (choice >= 0 && choice < promoCatalog.size()) {
-            promoCatalog.remove(choice);
-        }
+        if (promoCatalog.size() > 0) {
+            Scanner scan = new Scanner(System.in);
+            this.printPromoCatalog();
+            System.out.println("Which promo item do you want to remove? Enter Item No to remove. Enter -1 to cancel.");
+            int choice = scan.nextInt() - 1;
+            scan.nextLine();
+            if (choice >= 0 && choice < promoCatalog.size()) {
+                promoCatalog.remove(choice);
+            }
+            System.out.println("Updated Promo Catalog:");
+            this.printPromoCatalog();
+        } else
+            System.out.println("Promo Catalog is empty.");
     }
 }

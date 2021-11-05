@@ -28,6 +28,10 @@ public class Promotion extends MenuItem {
         }
     }
 
+    public int itemNum() {
+        return this.items.size();
+    }
+
     public void addItem(String name) {
         items.add(name);
     }
