@@ -40,6 +40,9 @@ public class ReservationApp {
         tables = new ArrayList<Table>();
     }
 
+    /**
+     * Driver UI code for check and remove reservations
+     */
     public void checkRemoveReservations(){
 
         //remove expired reservations
@@ -53,13 +56,20 @@ public class ReservationApp {
         int choice = sc.nextInt();
         sc.nextLine(); 
 
-        LocalDate date; LocalTime time; int counter; String name;
+        LocalDate date; LocalTime time; int counter; String name;String temp;
         switch(choice){
             case 1:
                 System.out.println("Enter name:");
                 name = sc.nextLine();
+                 
                 System.out.println("Input date (eg. 2021-07-30):");
-                date = LocalDate.parse(sc.nextLine());
+                temp = sc.nextLine();
+                if (ErrorApp.dateHandler(temp) == true){ 
+                    date = LocalDate.parse(temp);
+                } else {
+                    return;
+                }
+
                 System.out.println("Select timeslot:");
                 counter = 0;
                 for (String timeString : timeslots) {
@@ -68,12 +78,12 @@ public class ReservationApp {
                 }
                 time = LocalTime.parse(timeslots[sc.nextInt()-1]);
                 
-                Reservation temp = checkReservation(name, date, time);
-                if (temp != null){
+                Reservation reserved = checkReservation(name, date, time);
+                if (reserved != null){
                     System.out.println(
                         "Reservation found:\n"+
-                        "Name:"+temp.getName()+"\n"+
-                        "Table Number:" + temp.getTableNumber()
+                        "Name:"+reserved.getName()+"\n"+
+                        "Table Number:" + reserved.getTableNumber()
                     );
                 }else{
                     System.out.println("No reservation found for this date & time.");
@@ -84,7 +94,12 @@ public class ReservationApp {
                 System.out.println("Enter name:");
                 name = sc.nextLine();
                 System.out.println("Input date (eg. 2021-07-30):");
-                date = LocalDate.parse(sc.nextLine());
+                temp = sc.nextLine();
+                if (ErrorApp.dateHandler(temp) == true){ 
+                    date = LocalDate.parse(temp);
+                } else {
+                    return;
+                }
                 System.out.println("Select timeslot:");
                 counter = 0;
                 for (String timeString : timeslots) {
@@ -170,9 +185,15 @@ public class ReservationApp {
     public void createReservation(){
 
         Scanner sc = new Scanner(System.in);
-        LocalDate date; LocalTime time; int counter, pax, table; String name;
+        LocalDate date; LocalTime time; int counter, pax, table; String name;String temp; 
         System.out.println("Input date (eg. 2021-07-30):");
-        date = LocalDate.parse(sc.nextLine());
+        temp = sc.nextLine();
+        if (ErrorApp.dateHandler(temp) == true){ 
+            date = LocalDate.parse(temp);
+        } else {
+            return;
+        }
+
         //date must be after current date
         if (date.isBefore(LocalDate.now())){
             System.out.println("Invalid date");
@@ -206,12 +227,20 @@ public class ReservationApp {
         return;
     }
 
+    /**
+     * Driver UI code for check table availability
+     */
     public void checkTableAvailability(){
 
         Scanner sc = new Scanner(System.in);
-        LocalDate date; LocalTime time; int counter, pax, table; 
+        LocalDate date; LocalTime time; int counter, pax, table; String temp; 
         System.out.println("Input date (eg. 2021-07-30):");
-        date = LocalDate.parse(sc.nextLine());
+        temp = sc.nextLine();
+        if (ErrorApp.dateHandler(temp) == true){ 
+            date = LocalDate.parse(temp);
+        } else {
+            return;
+        }
         System.out.println("Select timeslot:");
         counter = 0;
         for (String timeString : timeslots) {
