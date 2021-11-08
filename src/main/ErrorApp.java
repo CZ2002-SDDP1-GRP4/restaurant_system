@@ -10,7 +10,10 @@ public class ErrorApp {
         LocalDate temp;
         try{
             temp = LocalDate.parse(date, DateTimeFormatter.ofPattern("uuuu-M-d"));
-            if (temp.isBefore(LocalDate.now())) return false;
+            if (temp.isBefore(LocalDate.now())) {
+                System.out.println("Date cannot be before current date");
+                return false;
+            }
             return true;
         }catch(DateTimeParseException e){
             System.out.println("Invalid date format");
