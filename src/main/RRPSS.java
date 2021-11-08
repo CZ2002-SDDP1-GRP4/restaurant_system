@@ -39,6 +39,8 @@ public class RRPSS {
 			case 3:
 				menu.getMenuFunctions();
 				break;
+			case 4:
+				order.createOrder();
 			case 7:
 				reservation.createReservation();
 				break;
