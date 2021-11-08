@@ -6,6 +6,7 @@ public class RRPSS {
 	public static void main(String[] args) {
 		MenuApp menu = new MenuApp();
 		ReservationApp reservation = new ReservationApp();
+		OrderApp order = new OrderApp();
 		StaffApp staff = new StaffApp();
 		Scanner sc = new Scanner(System.in);
 		int choice = -1;
