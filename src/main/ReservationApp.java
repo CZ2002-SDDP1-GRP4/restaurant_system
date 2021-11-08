@@ -273,7 +273,15 @@ public class ReservationApp {
                 int check = 0;
                 if (table.getCapacity() >= pax && table.getAvailability() == true){
                     for (Reservation reservation : table.getReservations()) {
-                        if (reservation.getDate().isEqual(date) && reservation.getTime().equals(time)){
+                        //table is available if there is no reservation for the current timeslot 
+                        //and the next timeslot
+                        String temp = String.valueOf(time.getHour()) + ":00:00";
+                        LocalTime thisSlot = LocalTime.parse(temp);
+                        temp = String.valueOf(time.getHour()+1) + ":00:00";
+                        LocalTime nextSlot = LocalTime.parse(temp);
+
+                        if (reservation.getDate().isEqual(date) && 
+                            (reservation.getTime().equals(thisSlot)) || reservation.getTime().equals(nextSlot)){
                             check = -1;
                             break;
                         }
