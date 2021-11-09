@@ -18,7 +18,7 @@ public class ReservationApp {
     /**The list of tables which the restaurant has.*/
     private static ArrayList<Table> tables;
     /**Expiry time constant in minutes */
-    private static final int expiryTime = 10;
+    private static final int expiryTime = 55; //TODO: CHANGE BACK TO 10
     /**Start time of available reservation timeslots.*/
     private String [] timeslots = {
         "08:00",

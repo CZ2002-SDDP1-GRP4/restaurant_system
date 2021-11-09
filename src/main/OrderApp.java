@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import main.Order.Order;
 import main.Reservation.Reservation;
-import main.Reservation.Table;
 import main.Staff.Staff;
 
 public class OrderApp {
@@ -93,8 +92,47 @@ public class OrderApp {
 	}
 	
 	public void modifyOrder() {
-		
+		//REFACTOR ifnull?
+		if (orders == null) {
+			System.out.println("No orders active. Returning...");
+			return;
+		}
+		System.out.println("Select order to modify (-1 to go back): ");
+		int i = 1;
+		for (Order order : orders) {
+			System.out.printf(i++ + ". ");
+			order.printOrderShort();
+		}
+		Order activeOrder = null;
+		Scanner sc = new Scanner(System.in);
+		int choice = -1;
+		do {
+			choice = sc.nextInt();
+			sc.nextLine(); //throw away the \n not consumed by nextInt()
+	        if (choice <= i-1) {
+	        	activeOrder = orders.get(choice-1);
+	        } else if (choice == -1) return;
+	        else {
+	        	System.out.println("Invalid selection. Try again?");
+	        }
+		} while (choice != -1 && choice >= i);
+		System.out.println(	"(1) Add order items to order\n" +
+							"(2) Remove order items from order");
+		int choice1 = -1;
+		do
+		{
+			choice1 = sc.nextInt();
+			sc.nextLine(); //throw away the \n not consumed by nextInt()
+			if (choice1 == 1)
+			{
+				activeOrder.addItem();
+			}
+			else if (choice1 == 2)
+			{
+				activeOrder.removeItem();
+			}	
+			else if (choice1 == -1) return;
+		} while (choice1 != 1 && choice1 != 2 && choice1 != -1);
 	}
-	
 	
 }

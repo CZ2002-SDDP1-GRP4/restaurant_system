@@ -12,7 +12,7 @@ public class MenuApp {
      * List of menus containing menu items and promotions that will be displayed to
      * customers
      */
-    private ArrayList<Menu> menus = new ArrayList<>();
+    private static ArrayList<Menu> menus = new ArrayList<>();
     /**
      * List of normal menu items that may not currently be on sale, but serves as a
      * "storage" for menu items and their details
@@ -101,7 +101,7 @@ public class MenuApp {
             scan.nextLine();
             switch (userChoice) {
             case 1:
-                this.printMenus();
+                MenuApp.printMenus();
                 if (menus.size() > 0) {
                     System.out.println("Which menu would you like to view?");
                     int menuChoice = scan.nextInt() - 1;
@@ -130,7 +130,7 @@ public class MenuApp {
     /**
      * Prints the names of all menus
      */
-    private void printMenus() {
+    public static void printMenus() {
         if (menus.size() > 0) {
             System.out.println("Current Menus:");
             for (int i = 0; i < menus.size(); i++) {
@@ -186,7 +186,7 @@ public class MenuApp {
         } else
             System.out.println("Promotion Catalog is empty, please add items to catalog.");
         menus.add(newMenu);
-        this.printMenus();
+        MenuApp.printMenus();
     }
 
     /**
@@ -195,7 +195,7 @@ public class MenuApp {
     private void updateMenu() {
         if (menus.size() > 0) {
             Scanner scan = new Scanner(System.in);
-            this.printMenus();
+            MenuApp.printMenus();
             System.out.println("Which menu would you like to update? Enter Menu No.");
             int menuChoice = scan.nextInt() - 1;
             scan.nextLine();
@@ -264,7 +264,7 @@ public class MenuApp {
                     break;
                 }
             }
-            this.printMenus();
+            MenuApp.printMenus();
         } else
             System.out.println("There are no existing menus.");
     }
@@ -275,13 +275,13 @@ public class MenuApp {
     private void removeMenu() {
         if (menus.size() > 0) {
             Scanner scan = new Scanner(System.in);
-            this.printMenus();
+            MenuApp.printMenus();
             System.out.println("Which menu would you like to remove? Enter Menu No.");
             int userChoice = scan.nextInt() - 1;
             scan.nextLine();
             if (userChoice >= 0 && userChoice < menus.size())
                 menus.remove(userChoice);
-            this.printMenus();
+            MenuApp.printMenus();
         } else
             System.out.println("There are no existing menus.");
 
@@ -290,7 +290,7 @@ public class MenuApp {
     /**
      * Prints all menu items within the menu item catalog
      */
-    private void printNormalCatalog() {
+    public void printNormalCatalog() {
         if (normalCatalog.size() == 0)
             System.out.println("Menu Item Catalog is empty.");
         else {
@@ -399,7 +399,7 @@ public class MenuApp {
     /**
      * Prints all promotions within the promotion catalog
      */
-    private void printPromoCatalog() {
+    public void printPromoCatalog() {
         if (promoCatalog.size() == 0)
             System.out.println("Promo Item Catalog is empty.");
         else {
@@ -546,5 +546,25 @@ public class MenuApp {
             this.printPromoCatalog();
         } else
             System.out.println("Promo Catalog is empty.");
+    }
+    
+    //COMMENT bleow i added this for order.java, its a copy paste from line 104
+    public static int chooseMenu() {
+    	Scanner sc = new Scanner(System.in);
+    	MenuApp.printMenus();
+        if (menus.size() > 0) {
+            System.out.println("Which menu would you like to view? (-1 to go back)");
+            int menuChoice = sc.nextInt() - 1;
+            sc.nextLine(); //throw away the \n not consumed by nextInt()
+            if (menuChoice >= 0 && menuChoice < menus.size()) {
+            	menus.get(menuChoice).printItems();
+            	return menuChoice;
+            }
+            else {
+            	System.out.println("Invalid input.");
+            	return -1;
+            }
+        }
+		return -1;
     }
 }

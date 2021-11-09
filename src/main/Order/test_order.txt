@@ -1,0 +1,57 @@
+4 1 
+--> no staff found.
+
+12 1 case4 1 1 tester -1
+--> staff created, 
+
+	4 4 
+	--> no staff found.
+
+	4 1
+	--> staff found, 
+
+		3
+		--> invalid selection, try again
+
+		1 bobo
+		--> no reservation.
+
+		--> has reservation: will not work because need to make a reservation first.**REFACTOR ifnull?
+		--> walk-in: will not work because need to make a table first.**REFACTOR ifnull?
+	
+	
+	13 1 4
+	--> table created,
+	
+		4 1 2 5
+		--> no table available.
+		
+		(set time to 9:00am on computer)
+		7 (cur date) 2 4 reserv4 62353535
+		--> reservation made,
+			
+			4 1 1 reserv4wrong
+			--> but wrong customer name.
+
+			4 1 1 reserv4
+			--> reservation found,
+			
+				See: ORDERCREATED; ORDERING
+				
+		4 1 2 4
+		--> table available,
+			4 1 2 4
+			--> no table available.
+
+			ORDERCREATED; ORDERING
+			1 2 m1 1 t1 d1 2 m2 2 t2 d2 -1 2 2 p1 2.50 t12 d12 2 m1 m2 -1 3 2 menu1 1 -1 1 -1 2 menu2 2 -1 -1 -1
+			--> menus created,
+			
+				6 2
+				--> invalid selection, try again
+				
+				6 1
+				--> table selected,
+					
+					1
+					
