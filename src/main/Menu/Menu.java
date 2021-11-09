@@ -62,7 +62,6 @@ public class Menu {
                 } else
                     menuItems.get(i).printInfo();
             }
-            System.out.println();
         }
     }
 

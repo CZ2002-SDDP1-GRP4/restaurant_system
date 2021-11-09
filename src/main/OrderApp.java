@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import main.Order.Order;
+import main.Order.OrderInvoice;
 import main.Reservation.Reservation;
 import main.Staff.Staff;
 
 public class OrderApp {
-	private ArrayList<Order> orders;
+	private static ArrayList<Order> orders;
 	
 	public OrderApp() {
 		orders = new ArrayList<Order>();
@@ -85,13 +86,19 @@ public class OrderApp {
         ReservationApp.setOccupied(table_number);
 	}
 	
-	public void viewOrder() {
+	public void printDetailedOrders() {
 		for (Order order : orders) { 
-			order.printOrder();
+			order.printDetailedOrder();
 		}
 	}
 	
-	public void modifyOrder() {
+	public static void printShortOrders() {
+		for (Order order : orders) { 
+			order.printShortOrder();
+		}
+	}
+	
+	public void modifyOrders() {
 		//REFACTOR ifnull?
 		if (orders == null) {
 			System.out.println("No orders active. Returning...");
@@ -101,7 +108,7 @@ public class OrderApp {
 		int i = 1;
 		for (Order order : orders) {
 			System.out.printf(i++ + ". ");
-			order.printOrderShort();
+			order.printShortOrder();
 		}
 		Order activeOrder = null;
 		Scanner sc = new Scanner(System.in);
@@ -135,4 +142,16 @@ public class OrderApp {
 		} while (choice1 != 1 && choice1 != 2 && choice1 != -1);
 	}
 	
+	public static int getOrdersSize() {
+		return orders.size();
+	}
+
+	public static Order get(int choice) {
+		return orders.get(choice);
+	}
+	
+	public static void remove(int choice) {
+		ReservationApp.setUnoccupied(orders.get(choice).getOrderTable());
+		orders.remove(choice);
+	}
 }

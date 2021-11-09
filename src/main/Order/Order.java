@@ -15,22 +15,22 @@ public class Order {
     public Order(int table_number, Staff staff) {
         this.table_number = table_number;
         this.staff = staff;
-        orderItems = new ArrayList<MenuItem>();
+        setOrderItems(new ArrayList<MenuItem>());
     }
     
-    public void printOrderShort() {
+    public void printShortOrder() {
     	System.out.printf("Table " + table_number + ": ");
-    	if (orderItems.size() == 0) {
+    	if (getOrderItems().size() == 0) {
     		System.out.println("no items ordered");
     	} else {
-    		for (MenuItem item : orderItems) {
+    		for (MenuItem item : getOrderItems()) {
     			System.out.printf(item.getName() + ", ");
     		}
     		System.out.printf("\n");
     	}
     }
     
-    public void printOrder() {
+    public void printDetailedOrder() {
     	System.out.println
     	(
     		"Order for TABLE: " + table_number + "\n" +
@@ -38,10 +38,10 @@ public class Order {
     		"Ordered ITEMS: "
     	);
     	int i = 1;
-    	if (orderItems == null) {
+    	if (getOrderItems() == null) {
     		System.out.println("	" + "Nothing yet");
     	} else {
-        	for (MenuItem item : orderItems) {
+        	for (MenuItem item : getOrderItems()) {
         		System.out.printf("	" + i++ + ": ");
         		item.printInfo();
         	}
@@ -63,22 +63,22 @@ public class Order {
 		if (itemToAdd == null) return;
 		else {
 			System.out.println("Added to order: item " + itemToAdd.getName());
-			orderItems.add(itemToAdd);
+			getOrderItems().add(itemToAdd);
 		}
 		
 	}
 
 	public void removeItem() {
-		this.printOrder();
+		this.printDetailedOrder();
 		int choice = -1;
 		System.out.println("Which item do you want to remove?");
 		Scanner sc = new Scanner(System.in);
 		choice = sc.nextInt();
 		sc.nextLine(); //throw away the \n not consumed by nextInt()
-		if (1 <= choice && choice <= orderItems.size())
+		if (1 <= choice && choice <= getOrderItems().size())
 		{
 			choice--;
-			orderItems.remove(choice);
+			getOrderItems().remove(choice);
 			System.out.println("Item removed.");
 		} else if (choice == -1)
 		{
@@ -88,5 +88,21 @@ public class Order {
 		{
 			System.out.println("Invalid selection");
 		}
+	}
+
+	public ArrayList<MenuItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(ArrayList<MenuItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+	
+	public int getOrderTable() {
+		return table_number;
+	}
+
+	public Staff getOrderStaff() {
+		return staff;
 	}
 }

@@ -62,4 +62,10 @@
 					
 						6 1 1 2 1 
 						--> added another item to order
+						
+							10 1 1
+							--> apply discount, print invoice
+								
+								4 1 2 4
+								--> a new customer can be seated
 					

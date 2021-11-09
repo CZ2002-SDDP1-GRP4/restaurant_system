@@ -7,6 +7,7 @@ public class RRPSS {
 		MenuApp menuApp               = new MenuApp();
 		ReservationApp reservationApp = new ReservationApp();
 		OrderApp orderApp             = new OrderApp();
+		OrderInvoiceApp invoiceApp	  = new OrderInvoiceApp();
 		StaffApp staffApp             = new StaffApp();
 		Scanner sc                    = new Scanner(System.in);
 		int choice = -1;
@@ -44,10 +45,10 @@ public class RRPSS {
 				orderApp.createOrder();
 				break;
 			case 5:
-				orderApp.viewOrder();
+				orderApp.printDetailedOrders();
 				break;
 			case 6:
-				orderApp.modifyOrder();
+				orderApp.modifyOrders();
 				break;
 			case 7:
 				reservationApp.createReservation();
@@ -57,6 +58,9 @@ public class RRPSS {
 				break;
 			case 9:
 				reservationApp.checkTableAvailability();
+				break;
+			case 10:
+				invoiceApp.printInvoice();
 				break;
 			case 12:
 				staffApp.createStaff();

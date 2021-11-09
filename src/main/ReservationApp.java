@@ -345,4 +345,14 @@ public class ReservationApp {
         }
     }
     
+    //COMMENT psps here is more code spaghetti for orderapp-->remove
+    public static void setUnoccupied(int table_number) {
+        for (Table table : tables) {
+            int cur_table_number = table.getTableNumber();
+            if (cur_table_number == table_number){
+                    table.setAvailable(true);
+            }
+        }
+    }
+    
 }
