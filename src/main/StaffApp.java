@@ -9,11 +9,12 @@ import main.Staff.Staff;
 
 public class StaffApp {
 	
-	private ArrayList<Staff> staff;
+	// COMMENT bleow i changed this to static btw
+	private static ArrayList<Staff> staffs;
 	
 	public StaffApp() {
 		
-		staff = new ArrayList<Staff>();
+		staffs = new ArrayList<Staff>();
 	}
 
 	public void createStaff() {
@@ -30,6 +31,7 @@ public class StaffApp {
             "Enter choice:"
         );
         choice = sc.nextInt();
+        sc.nextLine(); //throw away the \n not consumed by nextInt()
         
         
         switch(choice) {
@@ -37,38 +39,68 @@ public class StaffApp {
         	String name,title;
         	int sex,id;
         	System.out.print("Please enter the name of staff:\n");
-        	sc.nextLine();
         	name = sc.nextLine();
 
         	System.out.print("Please enter the gender of staff: 1.Male 2.Female 3.Others\n");
+        	
+        	// REFACTOR ErrorApp?
         	sex = sc.nextInt();
+        	sc.nextLine(); //throw away the \n not consumed by nextInt()
         	
         	if(sex > 3 || sex <0) {
         		System.out.print("Please enter a valid option of 1/2/3 : 1.Male 2.Female 3.Others\n");
         	    sex = sc.nextInt();
+        	    sc.nextLine(); //throw away the \n not consumed by nextInt()
         	}
         	
         	System.out.print("Please enter the ID number of staff:\n");
         	id = sc.nextInt();
+        	sc.nextLine(); //throw away the \n not consumed by nextInt()
         	
         	System.out.print("Please enter the title of the staff:\n");
-        	sc.nextLine();
         	title = sc.nextLine();    
     
-        	staff.add(new Staff(name,id,title,sex));
+        	staffs.add(new Staff(name,id,title,sex));
         	System.out.println("Staff has been added!");
         	break;
         case 2:
-        	for(Staff Staff: staff) {
+        	for(Staff Staff: staffs) {
         		Staff.printDetails();
         	}
         }
         
         
-    }while(choice != -1);
-    
-   
+    } while(choice != -1);
 	}
-    
+
+	
+	//// COMMENT bleow 8/11 
+	// i use this for OrderApp --> CreateOrder
+	public static int getStaffbyId() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter your staff ID (-1 to go back): ");
+		int staffId = sc.nextInt();
+		sc.nextLine(); //throw away the \n not consumed by nextInt()
+		for (Staff staff : staffs) {
+			if (staffId == staff.getStaffId())
+			{
+				return staffId;
+			}
+		}	
+		System.out.println("No such staff found. Did you enter your staff ID correctly?");
+		return -1;
+	}
+	
+	public static Staff getStaffbyId(int staffId) {
+		for (Staff staff : staffs) {
+			if (staffId == staff.getStaffId())
+			{
+				return staff;
+			}
+		}
+		return null;
+	}
+
+	
     
 }

@@ -16,7 +16,8 @@ import main.Reservation.Table;
  */
 public class ReservationApp {
     /**The list of tables which the restaurant has.*/
-    private ArrayList<Table> tables;
+	// COMMENT bleow changed to static because checkReservations changed to static because OrderApp-->CreateOrder needs it
+    private static ArrayList<Table> tables;
     /**Expiry time constant in minutes */
     private static final int expiryTime = 10;
     /**Start time of available reservation timeslots.*/
@@ -54,7 +55,7 @@ public class ReservationApp {
             "Enter selection:"
         );
         int choice = sc.nextInt();
-        sc.nextLine(); 
+        sc.nextLine(); //throw away the \n not consumed by nextInt()
 
         LocalDate date; LocalTime time; int counter; String name;String temp;
         switch(choice){
@@ -120,7 +121,7 @@ public class ReservationApp {
      * @param time Time of reservation. 
      * @return Reservation object or null.
      * */
-    public Reservation checkReservation(String name, LocalDate date, LocalTime time){
+    public static Reservation checkReservation(String name, LocalDate date, LocalTime time){
         for (Table table : tables) {
             for (Reservation reservation : table.getReservations()) {
                 
@@ -267,7 +268,8 @@ public class ReservationApp {
      * @param time Time of reservation. 
      * @param pax Number of people.
     */
-    public int checkTableAvailability(LocalDate date, LocalTime time, int pax){
+    // COMMENT changed to static
+    public static int checkTableAvailability(LocalDate date, LocalTime time, int pax){
         try{
             for (Table table : tables) {
                 int check = 0;
@@ -316,10 +318,10 @@ public class ReservationApp {
         System.out.println("Enter table number:");
         Scanner sc = new Scanner(System.in);
         int table_number = sc.nextInt();
-        sc.nextLine();
+        sc.nextLine(); //throw away the \n not consumed by nextInt()
         System.out.println("Enter table capacity:");
         int capacity = sc.nextInt();
-        sc.nextLine();
+        sc.nextLine(); //throw away the \n not consumed by nextInt()
         System.out.println("Table has been added.");
         tables.add(new Table(table_number, capacity));
         System.out.println("Table added!");
@@ -335,4 +337,15 @@ public class ReservationApp {
             }
         }
     }
+    
+    // COMMENT bleow8/11 for OrderApp --> CreateOrder
+    public static void setOccupied(int table_number) {
+        for (Table table : tables) {
+            int cur_table_number = table.getTableNumber();
+            if (cur_table_number == table_number){
+                    table.setOccupied();
+            }
+        }
+    }
+    
 }

@@ -42,4 +42,9 @@ public class Staff {
 		return "Name: " + this.name + ", " + "ID: " + this.id + ", "+
 	"Gender: " + this.gender + ", " +"Title: " + this.title;
 	}
+	
+	// COMMENT bleow i added this for StaffApp --> getStaffId
+	public int getStaffId() {
+		return id;
+	}
 }

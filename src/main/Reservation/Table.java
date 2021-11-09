@@ -54,5 +54,13 @@ public class Table {
     public ArrayList<Reservation> getReservations(){
         return reservations;
     }
+    
+    // COMMENT bleow8/11 added for OrderApp --> Create Order
+	public void setOccupied() {
+		available = false;
+	}
+	public void setVacated() {
+		available = true;
+	}
 
 }

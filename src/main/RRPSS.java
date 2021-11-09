@@ -4,11 +4,11 @@ import java.util.Scanner;
 
 public class RRPSS {
 	public static void main(String[] args) {
-		MenuApp menu = new MenuApp();
-		ReservationApp reservation = new ReservationApp();
-		OrderApp order = new OrderApp();
-		StaffApp staff = new StaffApp();
-		Scanner sc = new Scanner(System.in);
+		MenuApp menuApp               = new MenuApp();
+		ReservationApp reservationApp = new ReservationApp();
+		OrderApp orderApp             = new OrderApp();
+		StaffApp staffApp             = new StaffApp();
+		Scanner sc                    = new Scanner(System.in);
 		int choice = -1;
 		do {
 			System.out.println(
@@ -29,33 +29,34 @@ public class RRPSS {
 			);
 			System.out.println("Enter your Selection: ");
 			choice = sc.nextInt();
-			sc.nextLine();
+			sc.nextLine(); //throw away the \n not consumed by nextInt()
 			switch (choice) {
 			case 1:
-				menu.getNormalCatalogFunctions();
+				menuApp.getNormalCatalogFunctions();
 				break;
 			case 2:
-				menu.getPromoCatalogFunctions();
+				menuApp.getPromoCatalogFunctions();
 				break;
 			case 3:
-				menu.getMenuFunctions();
+				menuApp.getMenuFunctions();
 				break;
 			case 4:
-				order.createOrder();
+				orderApp.createOrder();
+				break;
 			case 7:
-				reservation.createReservation();
+				reservationApp.createReservation();
 				break;
 			case 8:
-				reservation.checkRemoveReservations();
+				reservationApp.checkRemoveReservations();
 				break;
 			case 9:
-				reservation.checkTableAvailability();
+				reservationApp.checkTableAvailability();
 				break;
 			case 12:
-				staff.createStaff();
+				staffApp.createStaff();
 				break;
 			case 13:
-				reservation.addTable();
+				reservationApp.addTable();
 				break;
 			default:
 				break;
