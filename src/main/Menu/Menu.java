@@ -216,4 +216,21 @@ public class Menu {
         else
             System.out.println("Invalid Item No.");
     }
+
+    
+    // COMMENT added this for menuapp for adding items to order
+	public MenuItem findItem(int itemChoice) {
+		MenuItem itemToFind = null;
+		
+		
+		if (itemChoice >= 0 && itemChoice < menuItems.size()) {
+        	itemToFind = menuItems.get(itemChoice);
+        	return itemToFind;
+        }
+        else if (itemChoice >= menuItems.size()){
+        	System.out.println("Invalid input.");
+        	return null;
+        }
+		return null;
+	}
 }

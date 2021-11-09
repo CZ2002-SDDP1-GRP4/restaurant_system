@@ -548,7 +548,7 @@ public class MenuApp {
             System.out.println("Promo Catalog is empty.");
     }
     
-    //COMMENT bleow i added this for order.java, its a copy paste from line 104
+    //COMMENT bleow i added this for order.java, its a copy paste from line 104, can combine later
     public static int chooseMenu() {
     	Scanner sc = new Scanner(System.in);
     	MenuApp.printMenus();
@@ -560,11 +560,19 @@ public class MenuApp {
             	menus.get(menuChoice).printItems();
             	return menuChoice;
             }
-            else {
+            else if (menuChoice >= menus.size()){
             	System.out.println("Invalid input.");
             	return -1;
             }
         }
 		return -1;
     }
+
+    //COMMENT i think this function is new
+	public static MenuItem findItem(int menuChoice, int itemChoice) {
+		MenuItem itemToFind = null;
+		Menu inThisMenu = menus.get(menuChoice);
+		itemToFind = inThisMenu.findItem(itemChoice);
+		return itemToFind;
+	}
 }

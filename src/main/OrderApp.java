@@ -109,7 +109,7 @@ public class OrderApp {
 		do {
 			choice = sc.nextInt();
 			sc.nextLine(); //throw away the \n not consumed by nextInt()
-	        if (choice <= i-1) {
+	        if (0 <= choice && choice <= i-1) {
 	        	activeOrder = orders.get(choice-1);
 	        } else if (choice == -1) return;
 	        else {
