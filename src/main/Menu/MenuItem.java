@@ -1,5 +1,7 @@
 package main.Menu;
 
+import java.lang.Math;
+
 /**
  * Represents a menu item that can be stored in the catalog or in menus.
  */
@@ -23,7 +25,7 @@ public class MenuItem {
      */
     public MenuItem(String name, double price, String type, String description) {
         this.name = name;
-        this.price = price;
+        this.price = Math.round(price * 100.0) / 100.0;
         this.type = type;
         this.description = description;
     }
@@ -68,7 +70,7 @@ public class MenuItem {
      * Prints a summary of the menu item's name, price, type, and description
      */
     public void printInfo() {
-        System.out.printf("Name: %s, Price: %f, Type: %s, Description: %s\n", this.name, this.price, this.type,
+        System.out.printf("Name: %s, Price: %.2f, Type: %s, Description: %s\n", this.name, this.price, this.type,
                 this.description);
     }
 
@@ -96,7 +98,7 @@ public class MenuItem {
      * @param price
      */
     public void setPrice(double price) {
-        this.price = price;
+        this.price = Math.round(price * 100.0) / 100.0;
     }
 
     /**
