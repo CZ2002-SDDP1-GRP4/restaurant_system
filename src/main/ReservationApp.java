@@ -122,6 +122,7 @@ public class ReservationApp {
      * @return Reservation object or null.
      * */
     public static Reservation checkReservation(String name, LocalDate date, LocalTime time){
+    	System.out.println(time);
         for (Table table : tables) {
             for (Reservation reservation : table.getReservations()) {
                 
@@ -151,7 +152,7 @@ public class ReservationApp {
                 LocalTime now = LocalTime.now();
                 if (rDate.isBefore(today)){
                     found.add(reservation);
-                }else if (rDate.isEqual(today) && rTime.isBefore(now.plusMinutes(expiryTime))){
+                }else if (rDate.isEqual(today) && now.isAfter(rTime.plusMinutes(expiryTime))){
                     found.add(reservation);
                 }
             }
