@@ -21,8 +21,11 @@ public class OrderApp {
 		int staffId = StaffApp.getStaffbyId();
 		if (staffId == -1) return;
 		Staff staff = StaffApp.getStaffbyId(staffId);
-		
+
 		int table_number = -1;
+		
+		String name = null;
+		
 		// REFACTOR ErrorApp?
 		Scanner sc = new Scanner(System.in);
 		int choice = 0;
@@ -39,7 +42,7 @@ public class OrderApp {
 			if (choice == 1)
 			{
 				System.out.println("What's the customer's name used in the reservation?");
-				String name = sc.nextLine();
+				name = sc.nextLine();
 				LocalDate today = LocalDate.now();
                 LocalTime now = LocalTime.now();
 				Reservation reservation = ReservationApp.checkReservation(name, today, now);
@@ -73,7 +76,7 @@ public class OrderApp {
         	System.out.println("No table available.");
         	return;
         }
-        else System.out.println("Table " + table_number + " is available.");
+        else System.out.println("Yes, " + name + " has a reservation for table " + table_number);
         
         //REFACTOR compare ReservationApp 189 and StaffApp 61
         orders.add(new Order(table_number, staff));

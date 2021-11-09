@@ -122,7 +122,10 @@ public class ReservationApp {
      * @return Reservation object or null.
      * */
     public static Reservation checkReservation(String name, LocalDate date, LocalTime time){
-    	System.out.println(time);
+    	String temp = String.valueOf(time.getHour()) + ":00:00";
+        if (time.getHour() <= 9) temp = "0" + String.valueOf(temp); //for 8am and 9am that dont have the zero in front, this is dumb but will work for now 
+        LocalTime thisSlot = LocalTime.parse(temp);
+        
         for (Table table : tables) {
             for (Reservation reservation : table.getReservations()) {
                 
@@ -130,7 +133,7 @@ public class ReservationApp {
                 LocalDate rDate = reservation.getDate();
                 LocalTime rTime = reservation.getTime();
 
-                if (rName.equals(name) && rDate.isEqual(date) && rTime.equals(time)){
+                if (rName.equals(name) && rDate.isEqual(date) && rTime.equals(thisSlot)){
                     return reservation;
                 }
             }
@@ -277,10 +280,13 @@ public class ReservationApp {
                 if (table.getCapacity() >= pax && table.getAvailability() == true){
                     for (Reservation reservation : table.getReservations()) {
                         //table is available if there is no reservation for the current timeslot 
-                        //and the next timeslot
+                        //and the next timeslot                   	
                         String temp = String.valueOf(time.getHour()) + ":00:00";
+                        if (time.getHour() <= 9) temp = "0" + String.valueOf(temp); //for 8am and 9am that dont have the zero in front, this is dumb but will work for now 
                         LocalTime thisSlot = LocalTime.parse(temp);
+                        
                         temp = String.valueOf(time.getHour()+1) + ":00:00";
+                        if (time.getHour() <= 9) temp = "0" + String.valueOf(temp);
                         LocalTime nextSlot = LocalTime.parse(temp);
 
                         if (reservation.getDate().isEqual(date) && 
