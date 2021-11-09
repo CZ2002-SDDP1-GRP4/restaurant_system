@@ -33,7 +33,7 @@ public class OrderApp {
 		{
 			System.out.println(	"Does this customer have a reservation? (-1 to go back)\n" +
 								"(1) Yes\n" +
-								"(2) No (a walk-in customer)\n"
+								"(2) No (a walk-in customer)"
 			);
 			choice = sc.nextInt();
 			sc.nextLine(); //throw away the \n not consumed by nextInt()
@@ -61,6 +61,13 @@ public class OrderApp {
 				LocalDate today = LocalDate.now();
                 LocalTime now = LocalTime.now();
                 table_number = ReservationApp.checkTableAvailability(today, now, pax);
+                if (table_number == -1) {
+                	System.out.println("No table available.");
+                	return;
+                }
+                else {
+                	System.out.println("Table available.");
+                }
 			}
 			else if (choice == -1)
 			{
@@ -72,17 +79,22 @@ public class OrderApp {
 			}
 		} while (choice != 1 && choice != 2 && choice != -1);
 		
-        if (table_number == -1) {
-        	System.out.println("No table available.");
-        	return;
-        }
-        else System.out.println("Yes, " + name + " has a reservation for table " + table_number);
+        System.out.println("Customer has been assigned table " + table_number);
         
         //REFACTOR compare ReservationApp 189 and StaffApp 61
         orders.add(new Order(table_number, staff));
         ReservationApp.setOccupied(table_number);
 	}
 	
+	public void viewOrder() {
+		for (Order order : orders) { 
+			order.printOrder();
+		}
+	}
+	
+	public void modifyOrder() {
+		
+	}
 	
 	
 }

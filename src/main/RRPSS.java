@@ -43,6 +43,12 @@ public class RRPSS {
 			case 4:
 				orderApp.createOrder();
 				break;
+			case 5:
+				orderApp.viewOrder();
+				break;
+			case 6:
+				orderApp.modifyOrder();
+				break;
 			case 7:
 				reservationApp.createReservation();
 				break;
