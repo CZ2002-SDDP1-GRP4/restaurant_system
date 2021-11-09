@@ -16,7 +16,6 @@ import main.Reservation.Table;
  */
 public class ReservationApp {
     /**The list of tables which the restaurant has.*/
-	// COMMENT bleow changed to static because checkReservations changed to static because OrderApp-->CreateOrder needs it
     private static ArrayList<Table> tables;
     /**Expiry time constant in minutes */
     private static final int expiryTime = 10;
@@ -272,7 +271,6 @@ public class ReservationApp {
      * @param time Time of reservation. 
      * @param pax Number of people.
     */
-    // COMMENT changed to static
     public static int checkTableAvailability(LocalDate date, LocalTime time, int pax){
         try{
             for (Table table : tables) {
@@ -334,23 +332,15 @@ public class ReservationApp {
         System.out.println("Table added!");
     }
     
-    //test function to view reservations
-    public void viewReservation(int table_number){
-        for (Table table : tables) {
-            if (table.getTableNumber() == table_number){
-                for (Reservation reservation : table.getReservations()) {
-                    System.out.println(reservation.getName());
-                }
-            }
-        }
-    }
-    
-    // COMMENT bleow8/11 for OrderApp --> CreateOrder
+    /**
+     * Find Table and set available to false
+     * @param table_number
+     */
     public static void setOccupied(int table_number) {
         for (Table table : tables) {
             int cur_table_number = table.getTableNumber();
             if (cur_table_number == table_number){
-                    table.setOccupied();
+                    table.setAvailable(false);
             }
         }
     }

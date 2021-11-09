@@ -55,12 +55,12 @@ public class Table {
         return reservations;
     }
     
-    // COMMENT bleow8/11 added for OrderApp --> Create Order
-	public void setOccupied() {
-		available = false;
-	}
-	public void setVacated() {
-		available = true;
+    /**
+     * Set available attribute
+     * @param available Status to update table availability
+     */
+	public void setAvailable(boolean available) {
+		this.available = available;
 	}
 
 }
