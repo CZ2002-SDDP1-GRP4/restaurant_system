@@ -1,0 +1,24 @@
+Reservation Test Cases
+
+1. If there is no table, full reservation:
+    7 2022-01-30 5 2
+    -->Full reservation. No table available.
+
+2. Create a table, then create a reservation:
+    13 1 4 7 2022-01-30 5 2 Customer 999
+    --->Reservation created!
+
+3. Show auto-expiry:
+Create reservation that is at your current date but before your current time
+    7 <<your date>> <<before your time>> 2 Customer 999
+    ---> Reservation created!
+    8 1 Customer <<the date u used>> <<the time u used>> 
+    --->Reservation found: Name: Customer Table Number: 1
+
+4. Remove reservations:
+    8 2 Customer 2022-01-30 5
+    --->Reservation removed!
+
+5. Check table available
+    9 <<your date>> <<the time u used in 3>> 2
+    --->Table 1 is available.
