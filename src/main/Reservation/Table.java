@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 /**Represents the Table object in the restaurant */
 public class Table {
+    /**Table number */
     private int table_number;
+    /**Seating capacity */
     private int capacity;
+    /**Availability status */
     private boolean available;
+    /**List of reservations */
     private ArrayList <Reservation> reservations;
-    //private Order order;
 
     /**
      * Create new table object
@@ -20,7 +23,6 @@ public class Table {
         this.capacity = capacity;
         this.available = true;
         reservations = new ArrayList<Reservation>();
-        // order = new Order();
     }
 
     /**
