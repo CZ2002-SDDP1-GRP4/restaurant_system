@@ -82,8 +82,7 @@ public class Menu {
         Scanner scan = new Scanner(System.in);
         this.printItems();
         System.out.println("Which item in this menu would you like to update? Please enter its Item No.");
-        int userInput = scan.nextInt() - 1;
-        scan.nextLine();
+        int userInput = main.ErrorApp.safeInteger() - 1;
         if (userInput < menuItems.size()) {
             if (menuItems.get(userInput) instanceof Promotion) {
                 Promotion castedPromo = (Promotion) menuItems.get(userInput);
@@ -93,8 +92,7 @@ public class Menu {
                     System.out.println("Which part of this promotion would you like to update?");
                     System.out.println("(1) Name\n" + "(2) Price\n" + "(3) Type\n" + "(4) Description\n"
                             + "(5) Included Items\n" + "Enter -1 to stop updating");
-                    promoChoice = scan.nextInt();
-                    scan.nextLine();
+                    promoChoice = main.ErrorApp.safeInteger();
                     switch (promoChoice) {
                     case 1:
                         System.out.println("What would you want to change this promo's name to?");
@@ -104,8 +102,7 @@ public class Menu {
                         break;
                     case 2:
                         System.out.println("What would you want to change this promo's price to?");
-                        double inputPrice = scan.nextDouble();
-                        scan.nextLine();
+                        double inputPrice = main.ErrorApp.safeDouble();
                         castedPromo.setPrice(inputPrice);
                         System.out.printf("Successfully changed, promo's new price is: %f\n", castedPromo.getPrice());
                         break;
@@ -128,8 +125,7 @@ public class Menu {
                             System.out.println(
                                     "Would you like to add or remove items from this promo? Enter -1 to exit.");
                             System.out.println("(1) Add\n" + "(2) Remove");
-                            itemChoice = scan.nextInt();
-                            scan.nextLine();
+                            itemChoice = main.ErrorApp.safeInteger();
                             switch (itemChoice) {
                             case 1:
                                 System.out.println("What item would you like to add to this promo?");
@@ -141,8 +137,7 @@ public class Menu {
                             case 2:
                                 System.out.println("What item would you like to remove from this promo?");
                                 castedPromo.printItems();
-                                int removeChoice = scan.nextInt() - 1;
-                                scan.nextLine();
+                                int removeChoice = main.ErrorApp.safeInteger() - 1;
                                 castedPromo.removeItem(removeChoice);
                                 System.out.println("Updated promo item list:");
                                 castedPromo.printItems();
@@ -164,8 +159,7 @@ public class Menu {
                     System.out.println("Which part of this menu item would you like to update?");
                     System.out.println("(1) Name\n" + "(2) Price\n" + "(3) Type\n" + "(4) Description\n"
                             + "Enter -1 to stop updating");
-                    normalChoice = scan.nextInt();
-                    scan.nextLine();
+                    normalChoice = main.ErrorApp.safeInteger();
                     switch (normalChoice) {
                     case 1:
                         System.out.println("What would you want to change this item's name to?");
@@ -176,8 +170,7 @@ public class Menu {
                         break;
                     case 2:
                         System.out.println("What would you want to change this item's price to?");
-                        double inputPrice = scan.nextDouble();
-                        scan.nextLine();
+                        double inputPrice = main.ErrorApp.safeDouble();
                         menuItems.get(userInput).setPrice(inputPrice);
                         System.out.printf("Successfully changed, item's new price is: %f\n",
                                 menuItems.get(userInput).getPrice());
@@ -216,20 +209,17 @@ public class Menu {
             System.out.println("Invalid Item No.");
     }
 
-    
     // COMMENT added this for menuapp for adding items to order
-	public MenuItem findItem(int itemChoice) {
-		MenuItem itemToFind = null;
-		
-		
-		if (itemChoice >= 0 && itemChoice < menuItems.size()) {
-        	itemToFind = menuItems.get(itemChoice);
-        	return itemToFind;
+    public MenuItem findItem(int itemChoice) {
+        MenuItem itemToFind = null;
+
+        if (itemChoice >= 0 && itemChoice < menuItems.size()) {
+            itemToFind = menuItems.get(itemChoice);
+            return itemToFind;
+        } else if (itemChoice >= menuItems.size()) {
+            System.out.println("Invalid input.");
+            return null;
         }
-        else if (itemChoice >= menuItems.size()){
-        	System.out.println("Invalid input.");
-        	return null;
-        }
-		return null;
-	}
+        return null;
+    }
 }

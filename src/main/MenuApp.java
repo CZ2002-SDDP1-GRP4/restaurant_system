@@ -34,8 +34,7 @@ public class MenuApp {
         do {
             System.out.println("Would you like to print/add/update/remove menu items in the catalog?");
             System.out.println("(1) Print\n" + "(2) Add\n" + "(3) Update\n" + "(4) Remove\n" + "Enter -1 to exit.");
-            userChoice = scan.nextInt();
-            scan.nextLine();
+            userChoice = ErrorApp.safeInteger();
             switch (userChoice) {
             case 1:
                 this.printNormalCatalog();
@@ -65,8 +64,7 @@ public class MenuApp {
         do {
             System.out.println("Would you like to print/add/update/remove promotions in the catalog?");
             System.out.println("(1) Print\n" + "(2) Add\n" + "(3) Update\n" + "(4) Remove\n" + "Enter -1 to exit.");
-            userChoice = scan.nextInt();
-            scan.nextLine();
+            userChoice = ErrorApp.safeInteger();
             switch (userChoice) {
             case 1:
                 this.printPromoCatalog();
@@ -97,15 +95,13 @@ public class MenuApp {
             System.out.println("Would you like to print/add/update/remove menus?");
             System.out.println("(1) Print Existing Menu\n" + "(2) Add New Menu\n" + "(3) Update Existing Menu\n"
                     + "(4) Remove Existing Menu\n" + "Enter -1 to exit.");
-            userChoice = scan.nextInt();
-            scan.nextLine();
+            userChoice = ErrorApp.safeInteger();
             switch (userChoice) {
             case 1:
                 MenuApp.printMenus();
                 if (menus.size() > 0) {
                     System.out.println("Which menu would you like to view?");
                     int menuChoice = scan.nextInt() - 1;
-                    scan.nextLine();
                     if (menuChoice >= 0 && menuChoice < menus.size())
                         menus.get(menuChoice).printItems();
                     else
@@ -156,8 +152,7 @@ public class MenuApp {
                 System.out.printf(
                         "Which items from the menu item catalog would you like to add into your new menu, %s? Enter -1 to finish.\n",
                         name);
-                choice = scan.nextInt() - 1;
-                scan.nextLine();
+                choice = ErrorApp.safeInteger() - 1;
                 if (choice >= 0 && choice < normalCatalog.size()) {
                     newMenu.addItem(normalCatalog.get(choice));
                 }
@@ -175,8 +170,7 @@ public class MenuApp {
                 System.out.printf(
                         "Which items from the promotion catalog would you like to add into your new menu, %s? Enter -1 to finish.\n",
                         name);
-                choice = scan.nextInt() - 1;
-                scan.nextLine();
+                choice = ErrorApp.safeInteger() - 1;
                 if (choice >= 0 && choice < promoCatalog.size()) {
                     newMenu.addItem((MenuItem) promoCatalog.get(choice));
                 }
@@ -197,15 +191,13 @@ public class MenuApp {
             Scanner scan = new Scanner(System.in);
             MenuApp.printMenus();
             System.out.println("Which menu would you like to update? Enter Menu No.");
-            int menuChoice = scan.nextInt() - 1;
-            scan.nextLine();
+            int menuChoice = ErrorApp.safeInteger() - 1;
             if (menuChoice >= 0 && menuChoice < menus.size()) {
                 menus.get(menuChoice).printItems();
                 System.out.println("Would you like to add/update/remove menu items in this menu?");
                 System.out.println("(1) Add Menu Items\n" + "(2) Update Menu Items\n" + "(3) Remove Menu Items\n"
                         + "Enter -1 to exit.");
-                int option = scan.nextInt();
-                scan.nextLine();
+                int option = ErrorApp.safeInteger();
                 switch (option) {
                 case 1:
                     // add menu items to menu
@@ -216,8 +208,7 @@ public class MenuApp {
                             this.printNormalCatalog();
                             System.out.println(
                                     "Which items from the menu item catalog would you like to add into this menu? Enter -1 to finish.");
-                            itemChoice = scan.nextInt() - 1;
-                            scan.nextLine();
+                            itemChoice = ErrorApp.safeInteger() - 1;
                             if (itemChoice >= 0 && itemChoice < normalCatalog.size()) {
                                 menus.get(menuChoice).addItem(normalCatalog.get(itemChoice));
                             }
@@ -234,8 +225,7 @@ public class MenuApp {
                             this.printPromoCatalog();
                             System.out.println(
                                     "Which items from the promotion catalog would you like to add into this menu? Enter -1 to finish.");
-                            itemChoice = scan.nextInt() - 1;
-                            scan.nextLine();
+                            itemChoice = ErrorApp.safeInteger() - 1;
                             if (itemChoice >= 0 && itemChoice < promoCatalog.size()) {
                                 menus.get(menuChoice).addItem((MenuItem) promoCatalog.get(itemChoice));
                             }
@@ -253,8 +243,7 @@ public class MenuApp {
                     // remove from menu
                     menus.get(menuChoice).printItems();
                     System.out.println("Which item do you want to remove from this menu?");
-                    int removeChoice = scan.nextInt() - 1;
-                    scan.nextLine();
+                    int removeChoice = ErrorApp.safeInteger() - 1;
                     if (removeChoice >= 0 && removeChoice < menus.get(menuChoice).getMenuSize())
                         menus.get(menuChoice).removeItem(removeChoice);
                     System.out.println("This is what your menu looks like now.");
@@ -277,8 +266,7 @@ public class MenuApp {
             Scanner scan = new Scanner(System.in);
             MenuApp.printMenus();
             System.out.println("Which menu would you like to remove? Enter Menu No.");
-            int userChoice = scan.nextInt() - 1;
-            scan.nextLine();
+            int userChoice = ErrorApp.safeInteger() - 1;
             if (userChoice >= 0 && userChoice < menus.size())
                 menus.remove(userChoice);
             MenuApp.printMenus();
@@ -309,8 +297,7 @@ public class MenuApp {
         System.out.println("What is the name of your new menu item?");
         String name = scan.nextLine();
         System.out.println("What is the price of your new menu item?");
-        double price = scan.nextDouble();
-        scan.nextLine();
+        double price = ErrorApp.safeDouble();
         System.out.println("What is the type of your new menu item?");
         String type = scan.nextLine();
         System.out.println("What is the description of your new menu item?");
@@ -328,8 +315,7 @@ public class MenuApp {
         Scanner scan = new Scanner(System.in);
         this.printNormalCatalog();
         System.out.println("Which menu item do you want to update? Enter Item No to select. Enter 0 to cancel.");
-        int choice = scan.nextInt() - 1;
-        scan.nextLine();
+        int choice = ErrorApp.safeInteger() - 1;
         if (choice >= 0 && choice < normalCatalog.size()) {
             int normalChoice = 0;
             do {
@@ -337,8 +323,7 @@ public class MenuApp {
                 System.out.println("Which part of this menu item would you like to update?");
                 System.out.println("(1) Name\n" + "(2) Price\n" + "(3) Type\n" + "(4) Description\n"
                         + "Enter -1 to stop updating");
-                normalChoice = scan.nextInt();
-                scan.nextLine();
+                normalChoice = ErrorApp.safeInteger();
                 switch (normalChoice) {
                 case 1:
                     System.out.println("What would you want to change this item's name to?");
@@ -349,7 +334,7 @@ public class MenuApp {
                     break;
                 case 2:
                     System.out.println("What would you want to change this item's price to?");
-                    double inputPrice = scan.nextDouble();
+                    double inputPrice = ErrorApp.safeDouble();
                     normalCatalog.get(choice).setPrice(inputPrice);
                     System.out.printf("Successfully changed, item's new price is: %f\n",
                             normalCatalog.get(choice).getPrice());
@@ -385,8 +370,7 @@ public class MenuApp {
             Scanner scan = new Scanner(System.in);
             this.printNormalCatalog();
             System.out.println("Which menu item do you want to remove? Enter Item No to remove. Enter 0 to cancel.");
-            int choice = scan.nextInt() - 1;
-            scan.nextLine();
+            int choice = ErrorApp.safeInteger() - 1;
             if (choice >= 0 && choice < normalCatalog.size()) {
                 normalCatalog.remove(choice);
             }
@@ -418,16 +402,14 @@ public class MenuApp {
         System.out.println("What is the name of your new promo item?");
         String name = scan.nextLine();
         System.out.println("What is the price of your new promo item?");
-        double price = scan.nextDouble();
-        scan.nextLine();
+        double price = ErrorApp.safeDouble();
         System.out.println("What is the type of your new promo item?");
         String type = scan.nextLine();
         System.out.println("What is the description of your new promo item?");
         String description = scan.nextLine();
         System.out.println("How many items are included in your promo item?");
-        int numItems = scan.nextInt();
+        int numItems = ErrorApp.safeInteger();
         Promotion promo = new Promotion(name, price, type, description);
-        scan.nextLine();
         for (int i = 0; i < numItems; i++) {
             System.out.printf("What is the name of item number %d in this promo?\n", i + 1);
             promo.addItem(scan.nextLine());
@@ -444,8 +426,7 @@ public class MenuApp {
         Scanner scan = new Scanner(System.in);
         this.printPromoCatalog();
         System.out.println("Which promo item do you want to update? Enter Item No to select. Enter -1 to cancel.");
-        int choice = scan.nextInt() - 1;
-        scan.nextLine();
+        int choice = ErrorApp.safeInteger() - 1;
         if (choice >= 0 && choice < promoCatalog.size()) {
             int normalChoice = 0;
             do {
@@ -453,8 +434,7 @@ public class MenuApp {
                 System.out.println("Which part of this promotion would you like to update?");
                 System.out.println("(1) Name\n" + "(2) Price\n" + "(3) Type\n" + "(4) Description\n"
                         + "(5) Included Items\n" + "Enter -1 to stop updating");
-                normalChoice = scan.nextInt();
-                scan.nextLine();
+                normalChoice = ErrorApp.safeInteger();
                 switch (normalChoice) {
                 case 1:
                     System.out.println("What would you want to change this promo's name to?");
@@ -465,8 +445,7 @@ public class MenuApp {
                     break;
                 case 2:
                     System.out.println("What would you want to change this promo's price to?");
-                    double inputPrice = scan.nextDouble();
-                    scan.nextLine();
+                    double inputPrice = ErrorApp.safeDouble();
                     promoCatalog.get(choice).setPrice(inputPrice);
                     System.out.printf("Successfully changed, promo's new price is: %f\n",
                             promoCatalog.get(choice).getPrice());
@@ -490,8 +469,7 @@ public class MenuApp {
                     do {
                         System.out.println("Would you like to add or remove items from this promo? Enter -1 to exit.");
                         System.out.println("(1) Add\n" + "(2) Remove");
-                        itemChoice = scan.nextInt();
-                        scan.nextLine();
+                        itemChoice = ErrorApp.safeInteger();
                         switch (itemChoice) {
                         case 1:
                             System.out.println("What item would you like to add to this promo?");
@@ -504,8 +482,7 @@ public class MenuApp {
                             if (promoCatalog.get(choice).itemNum() > 0) {
                                 System.out.println("What item would you like to remove from this promo?");
                                 promoCatalog.get(choice).printItems();
-                                int removeChoice = scan.nextInt() - 1;
-                                scan.nextLine();
+                                int removeChoice = ErrorApp.safeInteger() - 1;
                                 if (removeChoice >= 0 && removeChoice < promoCatalog.get(choice).itemNum()) {
                                     promoCatalog.get(choice).removeItem(removeChoice);
                                 }
@@ -537,8 +514,7 @@ public class MenuApp {
             Scanner scan = new Scanner(System.in);
             this.printPromoCatalog();
             System.out.println("Which promo item do you want to remove? Enter Item No to remove. Enter -1 to cancel.");
-            int choice = scan.nextInt() - 1;
-            scan.nextLine();
+            int choice = ErrorApp.safeInteger() - 1;
             if (choice >= 0 && choice < promoCatalog.size()) {
                 promoCatalog.remove(choice);
             }
@@ -547,32 +523,31 @@ public class MenuApp {
         } else
             System.out.println("Promo Catalog is empty.");
     }
-    
-    //COMMENT bleow i added this for order.java, its a copy paste from line 104, can combine later
+
+    // COMMENT bleow i added this for order.java, its a copy paste from line 104,
+    // can combine later
     public static int chooseMenu() {
-    	Scanner sc = new Scanner(System.in);
-    	MenuApp.printMenus();
+        Scanner sc = new Scanner(System.in);
+        MenuApp.printMenus();
         if (menus.size() > 0) {
             System.out.println("Which menu would you like to view? (-1 to go back)");
-            int menuChoice = sc.nextInt() - 1;
-            sc.nextLine(); //throw away the \n not consumed by nextInt()
+            int menuChoice = ErrorApp.safeInteger() - 1;
             if (menuChoice >= 0 && menuChoice < menus.size()) {
-            	menus.get(menuChoice).printItems();
-            	return menuChoice;
-            }
-            else if (menuChoice >= menus.size()){
-            	System.out.println("Invalid input.");
-            	return -1;
+                menus.get(menuChoice).printItems();
+                return menuChoice;
+            } else if (menuChoice >= menus.size()) {
+                System.out.println("Invalid input.");
+                return -1;
             }
         }
-		return -1;
+        return -1;
     }
 
-    //COMMENT i think this function is new
-	public static MenuItem findItem(int menuChoice, int itemChoice) {
-		MenuItem itemToFind = null;
-		Menu inThisMenu = menus.get(menuChoice);
-		itemToFind = inThisMenu.findItem(itemChoice);
-		return itemToFind;
-	}
+    // COMMENT i think this function is new
+    public static MenuItem findItem(int menuChoice, int itemChoice) {
+        MenuItem itemToFind = null;
+        Menu inThisMenu = menus.get(menuChoice);
+        itemToFind = inThisMenu.findItem(itemChoice);
+        return itemToFind;
+    }
 }
