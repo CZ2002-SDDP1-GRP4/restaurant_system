@@ -5,7 +5,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import main.Reservation.Reservation;
 import main.Reservation.Table;
@@ -282,12 +281,9 @@ public class ReservationApp {
      */
     public void addTable(){
         System.out.println("Enter table number:");
-        Scanner sc = new Scanner(System.in);
-        int table_number = sc.nextInt();
-        sc.nextLine(); //throw away the \n not consumed by nextInt()
+        int table_number = ErrorApp.safeInteger();
         System.out.println("Enter table capacity:");
-        int capacity = sc.nextInt();
-        sc.nextLine(); //throw away the \n not consumed by nextInt()
+        int capacity = ErrorApp.safeInteger();
         System.out.println("Table has been added.");
         tables.add(new Table(table_number, capacity));
         System.out.println("Table added!");
