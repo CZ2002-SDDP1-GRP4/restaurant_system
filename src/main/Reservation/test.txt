@@ -8,17 +8,22 @@ Reservation Test Cases
     13 1 4 7 2022-01-30 5 2 Customer 999
     --->Reservation created!
 
-3. Show auto-expiry:
-Create reservation that is at your current date but before your current time
-    7 <<your date>> <<before your time>> 2 Customer 999
-    ---> Reservation created!
-    8 1 Customer <<the date u used>> <<the time u used>> 
+3. Check the reservation:
+    8 1 Customer 2022-01-30 5
     --->Reservation found: Name: Customer Table Number: 1
 
-4. Remove reservations:
+4. Add another table, then create an simulated "Expired reservation":
+    13 2 4 7 <<your date>> <<before your current time>> 2 Expired 123
+    --->Reservation created!
+
+5. Show auto expiry: Check the reservation to see that it has been deleted.
+    8 1 Expired <<the date u used>> <<the time u used>>
+    --->No reservation found.
+
+6. Remove reservations:
     8 2 Customer 2022-01-30 5
     --->Reservation removed!
 
-5. Check table available
-    9 <<your date>> <<the time u used in 3>> 2
+7. Check table available
+    9 2022-01-30 5 2
     --->Table 1 is available.

@@ -47,37 +47,29 @@ public class ReservationApp {
 
         //remove expired reservations
         removeExpiredReservations();
-        Scanner sc = new Scanner(System.in);
         System.out.println(
             "1. Check Reservation \n"+
             "2. Remove Reservation\n"+
             "Enter selection:"
         );
-        int choice = sc.nextInt();
-        sc.nextLine(); //throw away the \n not consumed by nextInt()
+        int choice = ErrorApp.safeInteger();
 
-        LocalDate date; LocalTime time; int counter; String name;String temp;
+        LocalDate date; LocalTime time; int counter; String name;
+        System.out.println("Enter name:");
+        name = ErrorApp.alphaString();
+            
+        System.out.println("Input date (eg. 2021-07-30):");
+        date = ErrorApp.dateHandler();
+        System.out.println("Select timeslot:");
+        counter = 0;
+        for (String timeString : timeslots) {
+            counter++;
+            System.out.println(counter + ". " + timeString);
+        }
+
+        time = LocalTime.parse(timeslots[ErrorApp.safeTimeSlot()-1]);
         switch(choice){
             case 1:
-                System.out.println("Enter name:");
-                name = sc.nextLine();
-                 
-                System.out.println("Input date (eg. 2021-07-30):");
-                temp = sc.nextLine();
-                if (ErrorApp.dateHandler(temp) == true){ 
-                    date = LocalDate.parse(temp);
-                } else {
-                    return;
-                }
-
-                System.out.println("Select timeslot:");
-                counter = 0;
-                for (String timeString : timeslots) {
-                    counter++;
-                    System.out.println(counter + ". " + timeString);
-                }
-                time = LocalTime.parse(timeslots[sc.nextInt()-1]);
-                
                 Reservation reserved = checkReservation(name, date, time);
                 if (reserved != null){
                     System.out.println(
@@ -91,22 +83,6 @@ public class ReservationApp {
                 break;
             
             case 2:
-                System.out.println("Enter name:");
-                name = sc.nextLine();
-                System.out.println("Input date (eg. 2021-07-30):");
-                temp = sc.nextLine();
-                if (ErrorApp.dateHandler(temp) == true){ 
-                    date = LocalDate.parse(temp);
-                } else {
-                    return;
-                }
-                System.out.println("Select timeslot:");
-                counter = 0;
-                for (String timeString : timeslots) {
-                    counter++;
-                    System.out.println(counter + ". " + timeString);
-                }
-                time = LocalTime.parse(timeslots[sc.nextInt()-1]);
                 removeReservation(checkReservation(name, date, time));
                 break;
             default:
@@ -200,15 +176,9 @@ public class ReservationApp {
      */
     public void createReservation(){
 
-        Scanner sc = new Scanner(System.in);
-        LocalDate date; LocalTime time; int counter, pax, table; String name;String temp; 
+        LocalDate date; LocalTime time; int counter, pax, table; String name; 
         System.out.println("Input date (eg. 2021-07-30):");
-        temp = sc.nextLine();
-        if (ErrorApp.dateHandler(temp) == true){ 
-            date = LocalDate.parse(temp);
-        } else {
-            return;
-        }
+        date = ErrorApp.dateHandler();
 
         System.out.println("Select timeslot:");
         counter = 0;
@@ -216,20 +186,17 @@ public class ReservationApp {
             counter++;
             System.out.println(counter + ". " + timeString);
         }
-        time = LocalTime.parse(timeslots[sc.nextInt()-1]);
-        sc.nextLine(); //throw away the \n not consumed by nextInt()
+        time = LocalTime.parse(timeslots[ErrorApp.safeTimeSlot()-1]);
         System.out.println("Enter pax:");
-        pax = sc.nextInt();
-        sc.nextLine(); //throw away the \n not consumed by nextInt()
+        pax = ErrorApp.safeInteger();
 
         //if there is table not reserved for this time
         table = checkTableAvailability(date, time, pax);
         if (table != -1){
             System.out.println("Enter name:");
-            name = sc.nextLine();
+            name = ErrorApp.alphaString();
             System.out.println("Enter contact:");
-            int contact = sc.nextInt();
-            sc.nextLine(); //throw away the \n not consumed by nextInt()
+            int contact = ErrorApp.safeInteger();
             createReservation(table, date, time, pax, name, contact);;
         }else{
             System.out.println("Full reservation. No table available.");
@@ -242,24 +209,18 @@ public class ReservationApp {
      */
     public void checkTableAvailability(){
 
-        Scanner sc = new Scanner(System.in);
-        LocalDate date; LocalTime time; int counter, pax, table; String temp; 
+        LocalDate date; LocalTime time; int counter, pax, table;  
         System.out.println("Input date (eg. 2021-07-30):");
-        temp = sc.nextLine();
-        if (ErrorApp.dateHandler(temp) == true){ 
-            date = LocalDate.parse(temp);
-        } else {
-            return;
-        }
+        date = ErrorApp.dateHandler();
         System.out.println("Select timeslot:");
         counter = 0;
         for (String timeString : timeslots) {
             counter++;
             System.out.println(counter + ". " + timeString);
         }
-        time = LocalTime.parse(timeslots[sc.nextInt()-1]);
+        time = LocalTime.parse(timeslots[ErrorApp.safeTimeSlot()-1]);
         System.out.println("Enter pax:");
-        pax = sc.nextInt();
+        pax = ErrorApp.safeInteger();
         table = checkTableAvailability(date, time, pax);
         if (table == -1) System.out.println("No table available.");
         else System.out.println("Table " + table + " is available.");

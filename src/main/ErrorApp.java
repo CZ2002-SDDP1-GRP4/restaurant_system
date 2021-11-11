@@ -6,24 +6,28 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class ErrorApp {
+    
+    public static Scanner sc = new Scanner(System.in);
 
-    public static boolean dateHandler(String date) {
+    public static LocalDate dateHandler() {
         LocalDate temp;
-        try {
-            temp = LocalDate.parse(date, DateTimeFormatter.ofPattern("uuuu-M-d"));
-            if (temp.isBefore(LocalDate.now())) {
-                System.out.println("Date cannot be before current date");
-                return false;
+        while (true){
+            try {
+                temp = LocalDate.parse(sc.nextLine(), DateTimeFormatter.ofPattern("uuuu-M-d"));
+                if (temp.isBefore(LocalDate.now())) {
+                    System.out.println("Date cannot be before current date");
+                    continue;
+                }
+                return temp;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format");
+                continue;
             }
-            return true;
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format");
-            return false;
+
         }
     }
 
     public static int safeInteger() {
-        Scanner sc = new Scanner(System.in);
         while (!sc.hasNextInt()) {
             System.out.println("Please enter a valid number.");
             sc.next();
@@ -33,8 +37,23 @@ public class ErrorApp {
         return input;
     }
 
+    public static int safeTimeSlot(){
+        while (true){
+            while (!sc.hasNextInt()) {
+                System.out.println("Please enter a valid number.");
+                sc.next();
+            }
+            int input = sc.nextInt(); 
+            sc.nextLine();
+            if (!(input <= 12 && input >= 1)) {
+                System.out.println("Please enter valid timeslot choice:");
+                continue;
+            }
+            return input;
+        }
+    }
+
     public static double safeDouble() {
-        Scanner sc = new Scanner(System.in);
         while (!sc.hasNextDouble()) {
             System.out.println("Please enter a valid number.");
             sc.next();
@@ -42,5 +61,14 @@ public class ErrorApp {
         double input = sc.nextDouble();
         sc.nextLine();
         return input;
+    }
+
+    public static String alphaString(){
+       while(!sc.hasNext("[A-Za-z]+$")){
+           System.out.println("Please enter only alphabets.");
+           sc.nextLine();
+       } 
+       String string = sc.nextLine();
+       return string;
     }
 }
