@@ -5,10 +5,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Class used to handle System input from users while handling exceptions.
+ */
 public class ErrorApp {
     
     public static Scanner sc = new Scanner(System.in);
 
+    /**
+     * Takes in user input and checks if it is correct Date format
+     * @return a LocalDate object
+     */
     public static LocalDate dateHandler() {
         LocalDate temp;
         while (true){
@@ -27,6 +34,10 @@ public class ErrorApp {
         }
     }
 
+    /**
+     * Takes in user input and ensures its a valid integer.
+     * @return integer
+     */
     public static int safeInteger() {
         while (!sc.hasNextInt()) {
             System.out.println("Please enter a valid number.");
@@ -37,6 +48,10 @@ public class ErrorApp {
         return input;
     }
 
+    /**
+     * Takes in user input and ensures its a valid index for timeslots in ReservationApp.
+     * @return integer
+     */
     public static int safeTimeSlot(){
         while (true){
             while (!sc.hasNextInt()) {
@@ -53,6 +68,10 @@ public class ErrorApp {
         }
     }
 
+    /**
+     * Takes in user input and ensures its a valid double.
+     * @return double
+     */
     public static double safeDouble() {
         while (!sc.hasNextDouble()) {
             System.out.println("Please enter a valid number.");
@@ -63,6 +82,10 @@ public class ErrorApp {
         return input;
     }
 
+    /**
+     * Takes in user input and ensures its contains only alphabets.
+     * @return String
+     */
     public static String alphaString(){
        while(!sc.hasNext("[A-Za-z]+$")){
            System.out.println("Please enter only alphabets.");
