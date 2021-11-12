@@ -80,4 +80,14 @@ public class Promotion extends MenuItem {
             System.out.println("Invalid Item No.");
         }
     }
+
+    /**
+     * Returns the ArrayList of String objects that represent items within this set
+     * package
+     * 
+     * @return items
+     */
+    public ArrayList<String> getPromoItems() {
+        return this.items;
+    }
 }

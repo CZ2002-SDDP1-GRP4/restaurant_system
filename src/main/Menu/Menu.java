@@ -49,6 +49,18 @@ public class Menu {
         return this.menuItems.size();
     }
 
+    /**
+     * Returns an ArrayList of MenuItems which are the menu items within this menu
+     * 
+     * @return menuItems
+     */
+    public ArrayList<MenuItem> getMenuItems() {
+        return this.menuItems;
+    }
+
+    /**
+     * Prints all menu items within a menu
+     */
     public void printItems() {
         if (menuItems.size() == 0)
             System.out.println("Menu is empty.");

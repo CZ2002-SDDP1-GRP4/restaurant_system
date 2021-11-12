@@ -9,35 +9,7 @@ import main.Menu.Promotion;
 
 import main.IO.*;
 
-public class MenuApp implements RW{
-	String test = "hello Malthus";
-	String name = "malthus.txt";
-
-	@Override
-	public void write() {
-		// TODO Auto-generated method stub
-		IO io = new IO();
-		io.setFileName(this.name);
-		io.setWriter();
-		//write logic goes here
-		try {
-			io.bw.write(""+"\n");
-			io.bw.write(this.test+"\n");
-		}
-		catch(Exception ex){
-			System.out.println("Write failed");
-		}
-		io.closeWriter();
-		
-	}
-
-	@Override
-	public RW read() {
-		// TODO Auto-generated method stub
-		
-		return null;
-	}
-	
+public class MenuApp implements RW {
     /**
      * List of menus containing menu items and promotions that will be displayed to
      * customers
@@ -59,9 +31,7 @@ public class MenuApp implements RW{
      * menu items from the normal menu item catalog
      */
     public void getNormalCatalogFunctions() {
-    	this.write();
         int userChoice = 0;
-        Scanner scan = new Scanner(System.in);
         do {
             System.out.println("Would you like to print/add/update/remove menu items in the catalog?");
             System.out.println("(1) Print\n" + "(2) Add\n" + "(3) Update\n" + "(4) Remove\n" + "Enter -1 to exit.");
@@ -91,7 +61,6 @@ public class MenuApp implements RW{
      */
     public void getPromoCatalogFunctions() {
         int userChoice = 0;
-        Scanner scan = new Scanner(System.in);
         do {
             System.out.println("Would you like to print/add/update/remove promotions in the catalog?");
             System.out.println("(1) Print\n" + "(2) Add\n" + "(3) Update\n" + "(4) Remove\n" + "Enter -1 to exit.");
@@ -120,19 +89,19 @@ public class MenuApp implements RW{
      * menus
      */
     public void getMenuFunctions() {
+        this.write();
         int userChoice = 0;
-        Scanner scan = new Scanner(System.in);
         do {
             System.out.println("Would you like to print/add/update/remove menus?");
             System.out.println("(1) Print Existing Menu\n" + "(2) Add New Menu\n" + "(3) Update Existing Menu\n"
-                    + "(4) Remove Existing Menu\n" + "Enter -1 to exit.");
+                    + "(4) Remove Existing Menu\n" + "(5) Save Menus\n" + "Enter -1 to exit.");
             userChoice = ErrorApp.safeInteger();
             switch (userChoice) {
             case 1:
                 MenuApp.printMenus();
                 if (menus.size() > 0) {
                     System.out.println("Which menu would you like to view?");
-                    int menuChoice = scan.nextInt() - 1;
+                    int menuChoice = ErrorApp.safeInteger() - 1;
                     if (menuChoice >= 0 && menuChoice < menus.size())
                         menus.get(menuChoice).printItems();
                     else
@@ -147,6 +116,9 @@ public class MenuApp implements RW{
                 break;
             case 4:
                 this.removeMenu();
+                break;
+            case 5:
+                this.write();
                 break;
             default:
                 break;
@@ -580,5 +552,45 @@ public class MenuApp implements RW{
         Menu inThisMenu = menus.get(menuChoice);
         itemToFind = inThisMenu.findItem(itemChoice);
         return itemToFind;
+    }
+
+    @Override
+    public void write() {
+        IO io = new IO();
+        // for every menu in array
+        for (int i = 0; i < menus.size(); i++) {
+            io.setFileName(menus.get(i).getMenuName());
+            io.setWriter();
+            ArrayList<MenuItem> menuItemsIO = menus.get(i).getMenuItems();
+            for (int j = 0; j < menuItemsIO.size(); j++) {
+                if (menuItemsIO.get(j) instanceof Promotion) {
+                    Promotion castedPromoItem = (Promotion) menuItemsIO.get(j);
+                    io.write("[P]\n");
+                    io.write(castedPromoItem.getName() + "\n");
+                    io.write(castedPromoItem.getPrice() + "\n");
+                    io.write(castedPromoItem.getType() + "\n");
+                    io.write(castedPromoItem.getDescription() + "\n");
+                    ArrayList<String> promoItems = castedPromoItem.getPromoItems();
+                    for (int k = 0; k < promoItems.size(); k++) {
+                        io.write(promoItems.get(k) + "\n");
+                    }
+                    io.write("-----\n");
+                } else {
+                    io.write("[M]\n");
+                    io.write(menuItemsIO.get(j).getName() + "\n");
+                    io.write(menuItemsIO.get(j).getPrice() + "\n");
+                    io.write(menuItemsIO.get(j).getType() + "\n");
+                    io.write(menuItemsIO.get(j).getDescription() + "\n");
+                    io.write("-----\n");
+                }
+            }
+            io.closeWriter();
+        }
+    }
+
+    @Override
+    public RW read() {
+
+        return null;
     }
 }
