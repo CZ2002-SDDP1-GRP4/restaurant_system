@@ -14,10 +14,10 @@ public class ErrorApp {
     public static Scanner sc = new Scanner(System.in);
 
     /**
-     * Takes in user input and checks if it is correct Date format
+     * Takes in user input and checks if it is correct Date format, plus after current date.
      * @return a LocalDate object
      */
-    public static LocalDate dateHandler() {
+    public static LocalDate dateHandlerBefore() {
         LocalDate temp;
         while (true){
             try {
@@ -34,6 +34,29 @@ public class ErrorApp {
 
         }
     }
+    
+    /**
+     * Takes in user input and checks if it is correct Date format, plus after current date.
+     * @return a LocalDate object
+     */
+    public static LocalDate dateHandlerAfter() {
+        LocalDate temp;
+        while (true){
+            try {
+                temp = LocalDate.parse(sc.nextLine(), DateTimeFormatter.ofPattern("uuuu-M-d"));
+                if (temp.isAfter(LocalDate.now())) {
+                    System.out.println("Date cannot be after current date");
+                    continue;
+                }
+                return temp;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format");
+                continue;
+            }
+
+        }
+    }
+    
 
     /**
      * Takes in user input and ensures its a valid integer.

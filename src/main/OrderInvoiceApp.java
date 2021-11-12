@@ -6,16 +6,17 @@ import main.Menu.MenuItem;
 import main.Order.Order;
 import main.Order.OrderInvoice;
 
-public class OrderInvoiceApp {
+public class OrderInvoiceApp extends AggregatePrint {
 	private static OrderInvoice orderInvoice;
 	
-	public OrderInvoice processInvoice() {
+	@Override
+	protected void process() {
 		OrderApp.printShortOrders();
 		System.out.println("Select order to generate invoice (-1 to go back):");
 		int choice = ErrorApp.safeInteger();
 		if (choice == -1)
 		{
-			return null;
+			return;
 		}
 		else if (1<=choice && choice<=OrderApp.getOrdersSize())
 		{
@@ -26,63 +27,66 @@ public class OrderInvoiceApp {
 			if (success == 1)
 			{
 				SalesReportApp.addToReport(orderInvoice);
-				OrderInvoiceApp.printInvoice();
+				print();
 				OrderApp.remove(choice-1);
 			}
 			else
 			{
 				System.out.println("Processing cancelled.");
-				return null;
+				return;
 			}
 			
 		}
 		else {
 			System.out.println("Invalid selection.");
-			return null;
+			return;
 		}
-		return null;
+		return;
 	}
-	
-	
-	public static void printInvoice() {
+
+	@Override
+	public void print() {
 		if (orderInvoice == null) {
 			System.out.println("Returning...");
 			return;
 		}
+		groupSaleItems(orderInvoice.getOrderItems());
 		System.out.println("Generating invoice...");
 		System.out.println(
-		  "\n" + "========= ORDER INVOICE ========="
+				  "\n" + "=========== ORDER INVOICE ==========="
 		+ "\n" + "Date: "  + orderInvoice.getInvoiceDate()
 		+ "\n" + "Time: "  + orderInvoice.getInvoiceTime().format(DateTimeFormatter.ofPattern("HH:mm"))
 		+ "\n" + "Table: " + orderInvoice.getTable()
-		+ "\n" + String.format("%-25s %7s\n", "Item", "Price")
-		       + String.format("%-25s %7s\n", "----", "-----")
+		+ "\n" + String.format("%3s %-26s %6s\n", "Qty", "Item", "Price")
+			   + String.format("%3s %-26s %6s", "---", "----", "-----")
 		);
 		
-		for (MenuItem orderItem : orderInvoice.getOrderItems())
+		int i = 0;
+		for (MenuItem orderItem : grpedSaleItems)
 		{
 			String s = orderItem.getName();
 			if (s.length() > 26)
 			{
 				s = s.substring(0,26);
 			}
-			System.out.println(String.format("%-26s" + "%7s\n", s, orderItem.getPrice()));
+			System.out.println(String.format("%3s %-27s %5s\n", grpedSaleQty[i], s, orderItem.getPrice()*grpedSaleQty[i]));
+			i++;
 		}
 								
 				
-		System.out.println("---------------------------------");
-		System.out.println(String.format("Subtotal" 		+ "%25.2f", (orderInvoice.getInitialPrice())));
+		System.out.println("-------------------------------------");
+		System.out.println(String.format("Subtotal" 		+ "%29.2f", (orderInvoice.getInitialPrice())));
 		if ((orderInvoice.getInitialPrice() != orderInvoice.getDiscounted()))
 		{
-			System.out.println(String.format("Discount" 		+ "%25.2f", (orderInvoice.getInitialPrice()-orderInvoice.getDiscounted())));
+			System.out.println(String.format("Discount" 		+ "%29.2f", (orderInvoice.getInitialPrice()-orderInvoice.getDiscounted())));
 		}
-		System.out.println(String.format("Service Charge" 	+ "%19.2f", (orderInvoice.getRevenue()-orderInvoice.getDiscounted())));
-		System.out.println(String.format("GST"			 	+ "%30.2f\n", (orderInvoice.getFinalPrice()-orderInvoice.getRevenue())));
-		System.out.println(String.format("FINAL PRICE" 		+ "%22.2f\n", (orderInvoice.getFinalPrice())));
+		System.out.println(String.format("Service Charge" 	+ "%23.2f", (orderInvoice.getRevenue()-orderInvoice.getDiscounted())));
+		System.out.println(String.format("GST"			 	+ "%34.2f\n", (orderInvoice.getFinalPrice()-orderInvoice.getRevenue())));
+		System.out.println(String.format("FINAL PRICE" 		+ "%26.2f\n", (orderInvoice.getFinalPrice())));
 			
 		System.out.println(
-		         "=========== THANK YOU ==========="
-		+ "\n" + "======= HAVE A GREAT DAY! ======="
+		         "============= THANK YOU ============="
+		+ "\n" + "========= HAVE A GREAT DAY! ========="
 	    + "\n"
 		);
 		

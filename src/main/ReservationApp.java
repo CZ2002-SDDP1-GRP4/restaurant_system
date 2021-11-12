@@ -58,7 +58,7 @@ public class ReservationApp {
         name = ErrorApp.alphaString();
             
         System.out.println("Input date (eg. 2021-07-30):");
-        date = ErrorApp.dateHandler();
+        date = ErrorApp.dateHandlerBefore();
         System.out.println("Select timeslot:");
         counter = 0;
         for (String timeString : timeslots) {
@@ -177,7 +177,7 @@ public class ReservationApp {
 
         LocalDate date; LocalTime time; int counter, pax, table; String name; 
         System.out.println("Input date (eg. 2021-07-30):");
-        date = ErrorApp.dateHandler();
+        date = ErrorApp.dateHandlerBefore();
 
         System.out.println("Select timeslot:");
         counter = 0;
@@ -210,7 +210,7 @@ public class ReservationApp {
 
         LocalDate date; LocalTime time; int counter, pax, table;  
         System.out.println("Input date (eg. 2021-07-30):");
-        date = ErrorApp.dateHandler();
+        date = ErrorApp.dateHandlerBefore();
         System.out.println("Select timeslot:");
         counter = 0;
         for (String timeString : timeslots) {

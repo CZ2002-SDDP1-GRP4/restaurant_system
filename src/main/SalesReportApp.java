@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import main.Menu.MenuItem;
 import main.Order.OrderInvoice;
 
-public class SalesReportApp {
+public class SalesReportApp extends AggregatePrint {
 	private static ArrayList<OrderInvoice> orderInvoices;
-	private ArrayList<MenuItem> grpedSaleItems;
-	private int[] grpedSaleQty;
 	private double totalRevenue;
 
 	public SalesReportApp() {
@@ -23,13 +21,14 @@ public class SalesReportApp {
 		orderInvoices.add(orderInvoice);
 	}
 	
-	public void getPrintUI() {
+	@Override
+	public void process() {
 		System.out.println("By (1) Day (2) Month");
 		int choice = ErrorApp.safeInteger();
 		if (choice == 1)
 		{
 			System.out.println("Input date (eg. 2021-07-30):");
-	        LocalDate date = ErrorApp.dateHandler();
+	        LocalDate date = ErrorApp.dateHandlerAfter();
 	        processReport(date);
 		}
 		else if (choice == 2)
@@ -71,7 +70,7 @@ public class SalesReportApp {
 		}
 		groupSaleItems(ungroupedSaleItems);
 		System.out.println("Sales Revenue Report (for " + Month.of(month) + ")");
-		printReport();
+		print();
 	}
 
 	private void processReport(LocalDate date) {
@@ -87,39 +86,24 @@ public class SalesReportApp {
 		}
 		groupSaleItems(ungroupedSaleItems);
 		System.out.println("Sales Revenue Report (for " + date + ")");
-		printReport();
+		print();
 	}
 	
-	private void groupSaleItems(ArrayList<MenuItem> ungroupedSaleItems) {
-		for (MenuItem ungroupedItem : ungroupedSaleItems)
+	@Override
+	protected void print() {
+		if (totalRevenue == 0)
 		{
-			if (!grpedSaleItems.contains(ungroupedItem))
-			{
-				grpedSaleItems.add(ungroupedItem);
-			}
+			System.out.println("No sales during this period");
+			return;
 		}
-		grpedSaleQty = new int[grpedSaleItems.size()];
-		for (int i = 0; i < grpedSaleItems.size(); i++)
-		{
-			MenuItem cur = grpedSaleItems.get(i);
-			for (MenuItem ungroupedItem : ungroupedSaleItems)
-			{
-				if (ungroupedItem.equals(cur))
-				{
-					grpedSaleQty[i]++;
-				}
-			}
-		}
-	}
-	
-	private void printReport() {
-		System.out.println("Total revenue is " + totalRevenue);
+		System.out.printf( "Total revenue is $%.2f\n", totalRevenue);
+		System.out.println("\n" + String.format("%-26s %6s", "Item", "Qty")
+					   	 + "\n" + String.format("%-26s %6s", "----", "---")
+					   	 );
 		int i = 0;
 		for (MenuItem saleItem : grpedSaleItems)
 		{
-			System.out.println(String.format("%-26s" + "%7s\n", saleItem.getName(), grpedSaleQty[i++]));
+			System.out.println(String.format("%-27s %5s\n", saleItem.getName(), grpedSaleQty[i++]));
 		}
-		
 	}
-	
 }

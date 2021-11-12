@@ -53,10 +53,10 @@ public class RRPSS {
 				reservationApp.checkTableAvailability();
 				break;
 			case 10:
-				invoiceApp.processInvoice();
+				invoiceApp.process();
 				break;
 			case 11:
-				reportApp.getPrintUI();
+				reportApp.process();
 				break;
 			case 12:
 				staffApp.createStaff();
