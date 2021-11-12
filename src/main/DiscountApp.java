@@ -35,6 +35,11 @@ public class DiscountApp
 			System.out.println("Enter the amount of money this discount, " + name + ", deducts: ");
 			double flatrate = ErrorApp.safeDouble();
 			if (flatrate == (double)-1) return;
+			if (flatrate <= 0)
+			{
+				System.out.println("Discount must be positive");
+				return;
+			}
 			discount = new FlatDiscount(name, flatrate);
 		}
 		else if (choice == 2)

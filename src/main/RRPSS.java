@@ -10,6 +10,7 @@ public class RRPSS {
 		OrderInvoiceApp invoiceApp 		= new OrderInvoiceApp();
 		StaffApp staffApp 				= new StaffApp();
 		DiscountApp discountApp 		= new DiscountApp();
+		SalesReportApp reportApp		= new SalesReportApp();
 		Scanner sc = new Scanner(System.in);
 		int choice = -1;
 		do {
@@ -53,6 +54,9 @@ public class RRPSS {
 				break;
 			case 10:
 				invoiceApp.processInvoice();
+				break;
+			case 11:
+				reportApp.getPrintUI();
 				break;
 			case 12:
 				staffApp.createStaff();

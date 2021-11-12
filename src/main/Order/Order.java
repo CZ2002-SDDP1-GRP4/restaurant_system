@@ -37,11 +37,11 @@ public class Order {
     		"Ordered ITEMS: "
     	);
     	int i = 1;
-    	if (getOrderItems() == null) {
-    		System.out.println("	" + "Nothing yet");
+    	if (getOrderItems() == null || getOrderItems().size() == 0) {
+    		System.out.println("Nothing yet");
     	} else {
         	for (MenuItem item : getOrderItems()) {
-        		System.out.printf("	" + i++ + ": ");
+        		System.out.printf(i++ + ": ");
         		item.printInfo();
         	}
     	}

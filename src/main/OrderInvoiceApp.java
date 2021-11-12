@@ -25,6 +25,7 @@ public class OrderInvoiceApp {
 			int success = orderInvoice.processInvoice();
 			if (success == 1)
 			{
+				SalesReportApp.addToReport(orderInvoice);
 				OrderInvoiceApp.printInvoice();
 				OrderApp.remove(choice-1);
 			}

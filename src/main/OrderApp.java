@@ -84,7 +84,7 @@ public class OrderApp {
 	}
 	
 	public void printDetailedOrders() {
-		if (orders.size() == 0)
+		if (orders.size() == 0 || orders == null)
 		{
 			System.out.println("No active orders.");
 		}
@@ -101,7 +101,7 @@ public class OrderApp {
 	
 	public void modifyOrders() {
 		//REFACTOR ifnull?
-		if (orders == null) {
+		if (orders == null || orders.size() == 0) {
 			System.out.println("No orders active. Returning...");
 			return;
 		}
