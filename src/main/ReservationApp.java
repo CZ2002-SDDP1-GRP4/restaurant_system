@@ -302,6 +302,9 @@ public class ReservationApp {
         }
     }
 
+    /**
+     * Prints all reservations in the system.
+     */
     public void printAllReservations(){
         for (Table table : tables) {
             for (Reservation reservation : table.getReservations()) {
