@@ -16,15 +16,11 @@ public class RRPSS {
 			System.out.println("(1) Edit Menu Item Catalog\n" + "(2) Edit Promotion Catalog\n" + "(3) Edit Menus\n"
 					+ "(4) Create Order\n" + "(5) View Order\n" + "(6) Add/Remove Order Item(s) to/from Order\n"
 					+ "(7) Create Reservation Booking\n" + "(8) Check/Remove Reservation Booking\n"
-<<<<<<< Updated upstream
-					+ "(9) Check Table Availability\n" + "(10) Print Order Invoice\n"
-					+ "(11) Print Sale Revenue Report\n" + "(12) Add in staff details\n" + "(13) Add tables\n"
-					+ "(14) Print all reservations\n" + "(-1) Exit");
-=======
 					+ "(9) Check Table Availability\n" + "(10) Print Order Invoice\n" + "(11) Print Sale Revenue Report\n"
 					+  "(12) Add in staff details\n" + "(13) Add tables\n" + "(14) Add discount\n"
+							+ "(15) Print all resrvation\n"
 					+ "(-1) Exit");
->>>>>>> Stashed changes
+
 			System.out.println("Enter your Selection: ");
 			choice = ErrorApp.safeInteger();
 			switch (choice) {
@@ -65,12 +61,11 @@ public class RRPSS {
 				reservationApp.addTable();
 				break;
 			case 14:
-<<<<<<< Updated upstream
+				discountApp.createDiscount();
+				break;
+			case 15:
 				reservationApp.printAllReservations();
 				break;
-=======
-				discountApp.createDiscount();
->>>>>>> Stashed changes
 			default:
 				break;
 			}
