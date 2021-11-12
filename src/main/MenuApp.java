@@ -7,7 +7,37 @@ import main.Menu.Menu;
 import main.Menu.MenuItem;
 import main.Menu.Promotion;
 
-public class MenuApp {
+import main.IO.*;
+
+public class MenuApp implements RW{
+	String test = "hello Malthus";
+	String name = "malthus.txt";
+
+	@Override
+	public void write() {
+		// TODO Auto-generated method stub
+		IO io = new IO();
+		io.setFileName(this.name);
+		io.setWriter();
+		//write logic goes here
+		try {
+			io.bw.write(""+"\n");
+			io.bw.write(this.test+"\n");
+		}
+		catch(Exception ex){
+			System.out.println("Write failed");
+		}
+		io.closeWriter();
+		
+	}
+
+	@Override
+	public RW read() {
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
+	
     /**
      * List of menus containing menu items and promotions that will be displayed to
      * customers
@@ -29,6 +59,7 @@ public class MenuApp {
      * menu items from the normal menu item catalog
      */
     public void getNormalCatalogFunctions() {
+    	this.write();
         int userChoice = 0;
         Scanner scan = new Scanner(System.in);
         do {
