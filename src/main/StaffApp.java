@@ -30,42 +30,39 @@ public class StaffApp {
             "Cancel (-1)\n"+
             "Enter choice:"
         );
-        choice = sc.nextInt();
-        sc.nextLine(); //throw away the \n not consumed by nextInt()
-        
+        choice = ErrorApp.safeInteger();
+      
         
         switch(choice) {
         case 1:
         	String name,title;
         	int sex,id;
         	System.out.print("Please enter the name of staff:\n");
-        	name = sc.nextLine();
+        	name = ErrorApp.alphaString();
 
         	System.out.print("Please enter the gender of staff: 1.Male 2.Female 3.Others\n");
         	
-        	// REFACTOR ErrorApp?
-        	sex = sc.nextInt();
-        	sc.nextLine(); //throw away the \n not consumed by nextInt()
+        	sex = ErrorApp.safeInteger();
         	
-        	if(sex > 3 || sex <0) {
+        	while(sex > 3 || sex <0) {
         		System.out.print("Please enter a valid option of 1/2/3 : 1.Male 2.Female 3.Others\n");
-        	    sex = sc.nextInt();
-        	    sc.nextLine(); //throw away the \n not consumed by nextInt()
+        		sex = ErrorApp.safeInteger();
         	}
         	
         	System.out.print("Please enter the ID number of staff:\n");
-        	id = sc.nextInt();
-        	sc.nextLine(); //throw away the \n not consumed by nextInt()
+        	id = ErrorApp.safeInteger();
         	
         	System.out.print("Please enter the title of the staff:\n");
-        	title = sc.nextLine();    
+        	title = ErrorApp.alphaString();   
     
         	staffs.add(new Staff(name,id,title,sex));
         	System.out.println("Staff has been added!");
         	break;
         case 2:
         	for(Staff Staff: staffs) {
+        		System.out.printf("Employee No: %d\n", Staff.getStaffId());
         		Staff.printDetails();
+        		System.out.printf("\n");
         	}
         }
         
@@ -79,8 +76,8 @@ public class StaffApp {
 	public static int getStaffbyId() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter your staff ID (-1 to go back): ");
-		int staffId = sc.nextInt();
-		sc.nextLine(); //throw away the \n not consumed by nextInt()
+		int staffId = ErrorApp.safeInteger();
+		
 		for (Staff staff : staffs) {
 			if (staffId == staff.getStaffId())
 			{
