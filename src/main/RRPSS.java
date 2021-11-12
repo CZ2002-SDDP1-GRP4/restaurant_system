@@ -17,7 +17,7 @@ public class RRPSS {
 					+ "(7) Create Reservation Booking\n" + "(8) Check/Remove Reservation Booking\n"
 					+ "(9) Check Table Availability\n" + "(10) Print Order Invoice\n"
 					+ "(11) Print Sale Revenue Report\n" + "(12) Add in staff details\n" + "(13) Add tables\n"
-					+ "(-1) Exit");
+					+ "(14) Print all reservations\n" + "(-1) Exit");
 			System.out.println("Enter your Selection: ");
 			choice = ErrorApp.safeInteger();
 			switch (choice) {
@@ -56,6 +56,9 @@ public class RRPSS {
 				break;
 			case 13:
 				reservationApp.addTable();
+				break;
+			case 14:
+				reservationApp.printAllReservations();
 				break;
 			default:
 				break;
