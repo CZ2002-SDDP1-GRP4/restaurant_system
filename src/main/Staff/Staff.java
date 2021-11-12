@@ -32,7 +32,7 @@ public class Staff {
 	
 	public void printDetails() {
 		
-		System.out.printf("The details are:\nName: %s\nID: %d\nTitle: %s\nGender: %s\n",
+		System.out.printf("Name: %s\nID: %d\nTitle: %s\nGender: %s\n",
 							this.name,this.id,this.title,this.gender);
 		
 	}
