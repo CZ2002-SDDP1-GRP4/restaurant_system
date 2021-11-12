@@ -1,23 +1,18 @@
 package main.Discount;
 
-public class PercentDiscount extends Discount{
+public class PercentDiscount extends Discount {
 	
-	private double percent;
-	
-	public PercentDiscount(String name) {
-		super(name);
-	}
-
-	public double applyDiscount(double totalbill) {
-		
-		return percent*100*totalbill;
+	public PercentDiscount(String name, double rate) {
+		super(name, rate);
 	}
 	
-	public void setRate(double rate) {
-		this.percent = rate;
+	@Override
+	public void printDiscountRate() {
+		System.out.printf("$" + rate);
 	}
 	
-	public double getRate() {
-		return this.percent;
+	@Override
+	public double applyDiscount(double price) {
+		return price*rate;
 	}
 }

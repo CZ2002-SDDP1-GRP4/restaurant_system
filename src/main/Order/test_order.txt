@@ -1,7 +1,7 @@
 4 1 
 --> no staff found.
 
-12 1 case4 1 1 tester -1
+12 1 test 1 1 t -1
 --> staff created, 
 
 	4 4 

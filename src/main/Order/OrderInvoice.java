@@ -5,59 +5,65 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import main.DiscountApp;
 import main.ErrorApp;
+import main.Discount.Discount;
 import main.Menu.MenuItem;
 import main.Staff.Staff;
 
 public class OrderInvoice {
 	private LocalDate date;
 	private LocalTime time;
-	private Order order;
-	private Discount discount;
-	private double totalPrice;
+	private int table;
+	private ArrayList<MenuItem> orderItems;
+	private double initialPrice;
+	private double discounted;
+	private double revenue;
 	private double finalPrice;
 	
 	
 	public OrderInvoice(Order OrderToProcess) {
 		this.date = LocalDate.now();
 		this.time = LocalTime.now();
-		this.order = OrderToProcess;
-		this.discount = null;
+		this.table = OrderToProcess.getOrderTable();
+		this.orderItems = OrderToProcess.getOrderItems();
 	}
 	
-	public OrderInvoice processInvoice() {
+	public int processInvoice() {
+		
+		this.getOrderItems();
+		
 		double price = 0.00;
-		for (MenuItem orderitems : this.order.getOrderItems()) {
+		for (MenuItem orderitems : orderItems) {
 			price += orderitems.getPrice();
 		}
-		this.totalPrice = price;
-		System.out.println("Total price before discount is: " + price);
-		System.out.println(	"Does the customer have a membership?\n" +
-							"(1) Yes\n" +
-							"(2) No");
-		Scanner sc = new Scanner(System.in);
-		int choice;
-		do
+		
+		this.initialPrice = price;
+		System.out.printf("Price before discount, service charge and taxes: $%.2f\n", initialPrice);
+		
+		DiscountApp.printDiscount();		
+		System.out.println("Select discount to apply to invoice (-1 to go back):");
+		int choice = ErrorApp.safeInteger();
+		if (choice == -1)
 		{
-			choice = ErrorApp.safeInteger();
-			if (choice == 1)
-			{
-				System.out.println("Applying member discount");
-				price = price-2;
-				//double finalprice = applyDiscount(price);
-			}
-			else if (choice == 2)
-			{
-				continue;
-			}
-			else 
-			{
-				System.out.println("Invalid choice, try again?");
-			}
-		} while (choice != 1 && choice != 2);
-		System.out.println("Final price is " + price);
-		this.finalPrice = price;
-		return this;
+			return 0;
+		}
+		else if (1<=choice && choice<=DiscountApp.getDiscountSize())
+		{
+			Discount discount = DiscountApp.getDiscountbyID(choice);
+			this.discounted = discount.applyDiscount(price);
+			System.out.println("Applying discount...");
+		}
+		else
+		{
+			System.out.println("Invalid selection.");
+			return 0;
+		}
+		
+		System.out.println("Price before service charge and taxes: " + discounted);
+		this.revenue = Taxes.applyServiceCharge(discounted);
+		this.finalPrice = Taxes.applyGST(revenue);
+		return 1;
 	}
 	
 	public LocalDate getInvoiceDate() {
@@ -68,12 +74,24 @@ public class OrderInvoice {
 		return time;
 	}
 	
-	public void printInvoiceOrders() {
-		order.printDetailedOrder();
+	public int getTable() {
+		return table;
 	}
 	
-	public double getTotalPrice() {
-		return totalPrice;
+	public ArrayList<MenuItem> getOrderItems() {
+		return orderItems;
+	}
+	
+	public double getInitialPrice() {
+		return initialPrice;
+	}
+	
+	public double getDiscounted() {
+		return discounted;
+	}
+	
+	public double getRevenue() {
+		return revenue;
 	}
 	
 	public double getFinalPrice() {

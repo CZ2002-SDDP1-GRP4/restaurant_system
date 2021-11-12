@@ -1,21 +1,28 @@
 package main.Discount;
 
 public abstract class Discount {
-		
 	private String name;
-	
-	public Discount(String name) {
-	
+	protected double rate;
+
+	public Discount(String name, double rate) {
 		this.name = name;
+		this.rate = rate;
 	}
 	
-	public String getName(){
-		
-		return this.name;	
+	public String getDiscountName() {
+		return name;
 	}
 	
-	public abstract void setRate(double rate);
+	public void setDiscountRate(double rate) {
+		this.rate = rate;
+	}
+
+	public double getDiscountRate() {
+		return rate;
+	}
 	
-	public abstract double applyDiscount(double totalbill);
+	public abstract void printDiscountRate();
 	
+	public abstract double applyDiscount(double price);
+
 }

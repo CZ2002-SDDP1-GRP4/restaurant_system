@@ -1,23 +1,18 @@
 package main.Discount;
 
 public class FlatDiscount extends Discount {
-
-	private double flatrate;
 	
-	public FlatDiscount(String name) {
-		super(name);
-	}
-
-	public double applyDiscount(double totalbill) {
-		
-		return totalbill - this.flatrate;
+	public FlatDiscount(String name, double rate) {
+		super(name, rate);
 	}
 	
-	public void setRate(double rate) {
-		this.flatrate = rate;
+	@Override
+	public void printDiscountRate() {
+		System.out.printf(rate + "%%");
 	}
-
-	public double getRate() {
-		return this.flatrate;
+	
+	@Override
+	public double applyDiscount(double price) {
+		return price-rate;
 	}
 }

@@ -1,51 +1,78 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
+import main.Menu.MenuItem;
 import main.Order.Order;
 import main.Order.OrderInvoice;
 
 public class OrderInvoiceApp {
-	private static ArrayList<OrderInvoice> orderInvoices = new ArrayList<OrderInvoice>();
-
-	public void printInvoice() {
+	private static OrderInvoice orderInvoice;
+	
+	public OrderInvoice processInvoice() {
 		OrderApp.printShortOrders();
-		int choice;
-		Scanner sc = new Scanner(System.in);
 		System.out.println("Select order to generate invoice (-1 to go back):");
-		choice = ErrorApp.safeInteger();
+		int choice = ErrorApp.safeInteger();
 		if (choice == -1)
 		{
-			return;
+			return null;
 		}
 		else if (1<=choice && choice<=OrderApp.getOrdersSize())
 		{
+			System.out.println("Processing order...");
 			Order orderToProcess = OrderApp.get(choice-1);
-			OrderInvoice orderinvoice = new OrderInvoice(orderToProcess);
-			orderInvoices.add(orderinvoice.processInvoice());
-			OrderApp.remove(choice-1);
+			orderInvoice = new OrderInvoice(orderToProcess);
+			int success = orderInvoice.processInvoice();
+			if (success == 1)
+			{
+				OrderInvoiceApp.printInvoice();
+				OrderApp.remove(choice-1);
+			}
+			else
+			{
+				System.out.println("Processing cancelled.");
+				return null;
+			}
+			
 		}
 		else {
 			System.out.println("Invalid selection.");
-			return;
+			return null;
 		}
-		
-		OrderInvoice printMe = orderInvoices.get(orderInvoices.size()-1);
-		System.out.println(
-					"ORDER INVOICE:\n" +
-					"Date: " + printMe.getInvoiceDate() + "  " + "Time: " + printMe.getInvoiceTime() + "\n"
-		);
-		printMe.printInvoiceOrders();
-		System.out.println("Total price: " + printMe.getTotalPrice());
-		double discount = printMe.getTotalPrice()-printMe.getFinalPrice();
-		if (discount != 0)
-		{
-			System.out.println("Discount applied: -" + discount);
-			System.out.println("Final price: " + printMe.getFinalPrice());
-		}
+		return null;
 	}
 	
 	
+	public static void printInvoice() {
+		if (orderInvoice == null) {
+			System.out.println("Returning...");
+			return;
+		}
+		System.out.println(
+		  "\n" + "====== ORDER INVOICE ======"
+		+ "\n" + "Date: "  + orderInvoice.getInvoiceDate()
+		+ "\n" + "Time: "  + orderInvoice.getInvoiceTime()
+		+ "\n" + "Table: " + orderInvoice.getTable()
+		+ "\n" + "Orders: (Item ---- Price)"
+		);
+		
+		for (MenuItem orderItem : orderInvoice.getOrderItems())
+		{
 
+			System.out.printf("%s ----- %.2f\n", orderItem.getName(), orderItem.getPrice());
+		}
+		
+		System.out.printf(                  
+				 "---------------------------"
+		+ "\n" + "Subtotal:  	$%.2f", (orderInvoice.getInitialPrice())
+		+ "\n" + "Discount:    -$%.2f", (orderInvoice.getInitialPrice()-orderInvoice.getDiscounted())
+		+ "\n" + "Serv Charge: +$%.2f", (orderInvoice.getRevenue()-orderInvoice.getDiscounted())
+		+ "\n" + "FINAL PRICE:	$%.2f", (orderInvoice.getFinalPrice())
+		);
+		
+		System.out.println(
+				 "======== THANK YOU ========"
+		+ "\n" + "==== HAVE A GREAT DAY! ===="
+	    + "\n"
+		);
+		
+	}
 }
