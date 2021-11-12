@@ -590,7 +590,6 @@ public class MenuApp implements RW {
 
     @Override
     public RW read() {
-
         return null;
     }
 }
