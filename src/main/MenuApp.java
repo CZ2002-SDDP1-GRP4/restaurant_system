@@ -7,7 +7,10 @@ import main.Menu.Menu;
 import main.Menu.MenuItem;
 import main.Menu.Promotion;
 
-public class MenuApp {
+import main.IO.*;
+
+public class MenuApp implements RW {
+
     /**
      * List of menus containing menu items and promotions that will be displayed to
      * customers
@@ -24,13 +27,16 @@ public class MenuApp {
      */
     private ArrayList<Promotion> promoCatalog = new ArrayList<>();
 
+    private final String menuFileName = "menus";
+    private final String normalFileName = "normalCatalog";
+    private final String promoFileName = "promoCatalog";
+
     /**
      * Contains control logic that enables users to print, add, update, or remove
      * menu items from the normal menu item catalog
      */
     public void getNormalCatalogFunctions() {
         int userChoice = 0;
-        Scanner scan = new Scanner(System.in);
         do {
             System.out.println("Would you like to print/add/update/remove menu items in the catalog?");
             System.out.println("(1) Print\n" + "(2) Add\n" + "(3) Update\n" + "(4) Remove\n" + "Enter -1 to exit.");
@@ -60,7 +66,6 @@ public class MenuApp {
      */
     public void getPromoCatalogFunctions() {
         int userChoice = 0;
-        Scanner scan = new Scanner(System.in);
         do {
             System.out.println("Would you like to print/add/update/remove promotions in the catalog?");
             System.out.println("(1) Print\n" + "(2) Add\n" + "(3) Update\n" + "(4) Remove\n" + "Enter -1 to exit.");
@@ -89,19 +94,19 @@ public class MenuApp {
      * menus
      */
     public void getMenuFunctions() {
+        this.write();
         int userChoice = 0;
-        Scanner scan = new Scanner(System.in);
         do {
             System.out.println("Would you like to print/add/update/remove menus?");
             System.out.println("(1) Print Existing Menu\n" + "(2) Add New Menu\n" + "(3) Update Existing Menu\n"
-                    + "(4) Remove Existing Menu\n" + "Enter -1 to exit.");
+                    + "(4) Remove Existing Menu\n" + "(5) Save Menus\n" + "Enter -1 to exit.");
             userChoice = ErrorApp.safeInteger();
             switch (userChoice) {
             case 1:
                 MenuApp.printMenus();
                 if (menus.size() > 0) {
                     System.out.println("Which menu would you like to view?");
-                    int menuChoice = scan.nextInt() - 1;
+                    int menuChoice = ErrorApp.safeInteger() - 1;
                     if (menuChoice >= 0 && menuChoice < menus.size())
                         menus.get(menuChoice).printItems();
                     else
@@ -116,6 +121,9 @@ public class MenuApp {
                 break;
             case 4:
                 this.removeMenu();
+                break;
+            case 5:
+                this.write();
                 break;
             default:
                 break;
@@ -188,7 +196,6 @@ public class MenuApp {
      */
     private void updateMenu() {
         if (menus.size() > 0) {
-            Scanner scan = new Scanner(System.in);
             MenuApp.printMenus();
             System.out.println("Which menu would you like to update? Enter Menu No.");
             int menuChoice = ErrorApp.safeInteger() - 1;
@@ -550,4 +557,124 @@ public class MenuApp {
         itemToFind = inThisMenu.findItem(itemChoice);
         return itemToFind;
     }
+
+    @Override
+    public void write() {
+        // for every menu in array
+        IO.setFileName(menuFileName);
+        IO.setWriter();
+        for (int i = 0; i < menus.size(); i++) {
+            ArrayList<MenuItem> menuItemsIO = menus.get(i).getMenuItems();
+            IO.write(menus.get(i).getMenuName() + "\n");
+            for (int j = 0; j < menuItemsIO.size(); j++) {
+                if (menuItemsIO.get(j) instanceof Promotion) {
+                    Promotion castedPromoItem = (Promotion) menuItemsIO.get(j);
+                    IO.write("[P]\n");
+                    IO.write(castedPromoItem.getName() + "\n");
+                    IO.write(castedPromoItem.getPrice() + "\n");
+                    IO.write(castedPromoItem.getType() + "\n");
+                    IO.write(castedPromoItem.getDescription() + "\n");
+                    ArrayList<String> promoItems = castedPromoItem.getPromoItems();
+                    for (int k = 0; k < promoItems.size(); k++) {
+                        IO.write(promoItems.get(k) + "\n");
+                    }
+                    IO.write("-----\n");
+                } else {
+                    IO.write("[M]\n");
+                    IO.write(menuItemsIO.get(j).getName() + "\n");
+                    IO.write(menuItemsIO.get(j).getPrice() + "\n");
+                    IO.write(menuItemsIO.get(j).getType() + "\n");
+                    IO.write(menuItemsIO.get(j).getDescription() + "\n");
+                    IO.write("-----\n");
+                }
+            }
+            IO.write("==========\n");
+        }
+        IO.closeWriter();
+    }
+
+    @Override
+    public void read() {
+        IO.setFileName(menuFileName);
+        IO.setReader();
+        if (IO.checkFileExist()) {
+            System.out.println("File exists");
+            do // check for menus
+            {
+                Menu newMenu;
+                IO.readLine();
+                System.out.println(IO.getLine());
+                if (IO.getLine() != null) // if menu name exists
+                {
+                    String menuName = IO.getLine(); // store menu name
+                    newMenu = new Menu(menuName);
+                    do {
+                        IO.readLine(); // take in first menu item type
+                        if (!IO.getLine().equals("==========")) // if menu item exists
+                        {
+                            System.out.println("Menu item found");
+                            String menuItemOrPromo = IO.getLine(); // checks M or P
+                            System.out.println(menuItemOrPromo);
+                            IO.readLine(); // read in menu item name
+                            String itemName = IO.getLine(); // store menu item name
+                            System.out.println(itemName);
+                            IO.readLine();
+                            double itemPrice = Double.parseDouble(IO.getLine());
+                            System.out.println(itemPrice + "");
+                            IO.readLine();
+                            String itemType = IO.getLine();
+                            System.out.println(itemType);
+                            IO.readLine();
+                            String itemDesc = IO.getLine();
+                            System.out.println(itemDesc);
+                            if (menuItemOrPromo.equals("[P]")) {
+                                System.out.println("dealing with P");
+                                IO.readLine();
+                                ArrayList<String> items = new ArrayList<String>();
+                                while (!IO.getLine().equals("-----")) {
+                                    items.add(IO.getLine());
+                                    IO.readLine();
+                                }
+                                newMenu.addItem(
+                                        (MenuItem) new Promotion(itemName, itemPrice, itemType, itemDesc, items));
+                            } else {
+                                IO.readLine(); // skip -----
+                                newMenu.addItem(new MenuItem(itemName, itemPrice, itemType, itemDesc));
+                            }
+                        } else
+                            break;
+                    } while (true);
+                    menus.add(newMenu);
+                }
+            } while (IO.getLine() != null);
+            IO.closeReader();
+        }
+    }
+
+    // @Override
+    // public void write() {
+    // // TODO Auto-generated method stub
+    // IO.setFileName(filename);
+    // IO.setWriter();
+    // //write logic goes here
+    // IO.write("hello malthus");
+    // IO.closeWriter();
+    //
+    // }
+    //
+    // @Override
+    // public void read() {
+    // // TODO Auto-generated method stub
+    // IO.setFileName(filename);
+    // IO.setReader();
+    //
+    // if (IO.checkFileExist())
+    // {
+    // //logic goes here
+    // IO.readLine();
+    // this.test = IO.getLine();
+    // IO.closeReader();
+    // }
+    //
+    // }
 }

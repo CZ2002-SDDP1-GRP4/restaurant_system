@@ -1,6 +1,5 @@
 package main.Menu;
 
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +20,11 @@ public class Promotion extends MenuItem {
      */
     public Promotion(String name, double price, String type, String description) {
         super(name, price, type, description);
+    }
+
+    public Promotion(String name, double price, String type, String description, ArrayList<String> items) {
+        super(name, price, type, description);
+        this.items = items;
     }
 
     /**
@@ -79,5 +83,15 @@ public class Promotion extends MenuItem {
         } else {
             System.out.println("Invalid Item No.");
         }
+    }
+
+    /**
+     * Returns the ArrayList of String objects that represent items within this set
+     * package
+     * 
+     * @return items
+     */
+    public ArrayList<String> getPromoItems() {
+        return this.items;
     }
 }
