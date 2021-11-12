@@ -70,6 +70,26 @@ public class ErrorApp {
     }
 
     /**
+     * Takes in user input and ensures it is a valid table capacity.
+     * @return integer
+     */
+    public static int tableInt(){
+        while (true){
+            while (!sc.hasNextInt()) {
+                System.out.println("Please enter a valid number.");
+                sc.next();
+            }
+            int input = sc.nextInt(); 
+            sc.nextLine();
+            if (input % 2 != 0 && input >= 2 && input <= 10) {
+                System.out.println("Table capacity must be evevn <= 10 and > 2:");
+                continue;
+            }
+            return input;
+        }
+    }
+
+    /**
      * Takes in user input and ensures its a valid double.
      * @return double
      */

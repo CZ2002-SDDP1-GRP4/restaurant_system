@@ -283,7 +283,7 @@ public class ReservationApp {
         System.out.println("Enter table number:");
         int table_number = ErrorApp.safeInteger();
         System.out.println("Enter table capacity:");
-        int capacity = ErrorApp.safeInteger();
+        int capacity = ErrorApp.tableInt();
         System.out.println("Table has been added.");
         tables.add(new Table(table_number, capacity));
         System.out.println("Table added!");
