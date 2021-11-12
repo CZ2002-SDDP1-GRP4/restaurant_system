@@ -9,31 +9,31 @@ public final class IO {
 	 */
 	private static String filename;
 	private static String path;
-	
+
 	private static BufferedWriter bw;
 	private static BufferedReader br;
-	
+
 	private static String line;
 	private static boolean EOL;
-	private static boolean fileExist;
-	
+	private static boolean fileExist = false;
+
 	public static void start() {
 		String dir = System.getProperty("user.dir");
 		dir = dir + "/data";
 		File directory = new File(dir);
-		if(!directory.exists())
-		{
+		if (!directory.exists()) {
 			directory.mkdir();
 		}
 		path = dir;
 	}
 
-	public static void setReader()
-	{
+	public static void setReader() {
 		EOL = false;
 		try {
 			br = new BufferedReader(new FileReader(path + "/" + filename));
+			fileExist = true;
 		} catch (IOException e) {
+			fileExist = false;
 			System.out.println("IO Exception thrown");
 		}
 	}
@@ -49,9 +49,7 @@ public final class IO {
 	public static void setWriter() {
 		try {
 			bw = new BufferedWriter(new FileWriter(path + "/" + filename));
-			fileExist = true;
 		} catch (IOException e) {
-			fileExist = false;
 			System.out.println("Warning: No Data file exist.");
 		}
 	}
@@ -63,11 +61,9 @@ public final class IO {
 			System.out.println("IO Exception thrown - Writer had trouble closing");
 		}
 	}
-	
-	
-	public static void setFileName(String fn)
-	{
-		//we might have to check if the name is valid for use as file name
+
+	public static void setFileName(String fn) {
+		// we might have to check if the name is valid for use as file name
 		filename = fn + ".txt";
 	}
 
@@ -89,20 +85,16 @@ public final class IO {
 		path = p;
 	}
 
-	
-	public static void write(String data)
-	{
+	public static void write(String data) {
 		try {
 			bw.write(data);
 		} catch (IOException e) {
 			System.out.println("WRITE Error");
 		}
 	}
-	
-	public static void readLine()
-	{
-		if(!EOL)
-		{
+
+	public static void readLine() {
+		if (!EOL) {
 			try {
 				line = br.readLine();
 			} catch (IOException e) {
@@ -110,22 +102,22 @@ public final class IO {
 			}
 		}
 
-		if(line == null) EOL = true;
+		if (line == null)
+			EOL = true;
 	}
-	
-	public static String getLine()
-	{
-		if(!EOL) return line;
-		else return null;
+
+	public static String getLine() {
+		if (!EOL)
+			return line;
+		else
+			return null;
 	}
-	
-	public static boolean isEOL()
-	{
+
+	public static boolean isEOL() {
 		return EOL;
 	}
-	
-	public static boolean checkFileExist()
-	{
+
+	public static boolean checkFileExist() {
 		return fileExist;
 	}
 

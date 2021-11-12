@@ -23,6 +23,11 @@ public class Promotion extends MenuItem {
         super(name, price, type, description);
     }
 
+    public Promotion(String name, double price, String type, String description, ArrayList<String> items) {
+        super(name, price, type, description);
+        this.items = items;
+    }
+
     /**
      * Prints a summary of the menu item's name, price, type, and description
      * (superclass MenuItem functionality). Also prints a list of items contained

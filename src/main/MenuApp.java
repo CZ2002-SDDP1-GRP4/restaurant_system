@@ -9,8 +9,8 @@ import main.Menu.Promotion;
 
 import main.IO.*;
 
-public class MenuApp implements RW{
-	
+public class MenuApp implements RW {
+
     /**
      * List of menus containing menu items and promotions that will be displayed to
      * customers
@@ -26,6 +26,10 @@ public class MenuApp implements RW{
      * "storage" for promotions and their details
      */
     private ArrayList<Promotion> promoCatalog = new ArrayList<>();
+
+    private final String menuFileName = "menus";
+    private final String normalFileName = "normalCatalog";
+    private final String promoFileName = "promoCatalog";
 
     /**
      * Contains control logic that enables users to print, add, update, or remove
@@ -557,67 +561,121 @@ public class MenuApp implements RW{
 
     @Override
     public void write() {
-        IO io = new IO();
         // for every menu in array
+        IO.setFileName(menuFileName);
+        IO.setWriter();
         for (int i = 0; i < menus.size(); i++) {
-            io.setFileName(menus.get(i).getMenuName());
-            io.setWriter();
             ArrayList<MenuItem> menuItemsIO = menus.get(i).getMenuItems();
+            IO.write(menus.get(i).getMenuName() + "\n");
             for (int j = 0; j < menuItemsIO.size(); j++) {
                 if (menuItemsIO.get(j) instanceof Promotion) {
                     Promotion castedPromoItem = (Promotion) menuItemsIO.get(j);
-                    io.write("[P]\n");
-                    io.write(castedPromoItem.getName() + "\n");
-                    io.write(castedPromoItem.getPrice() + "\n");
-                    io.write(castedPromoItem.getType() + "\n");
-                    io.write(castedPromoItem.getDescription() + "\n");
+                    IO.write("[P]\n");
+                    IO.write(castedPromoItem.getName() + "\n");
+                    IO.write(castedPromoItem.getPrice() + "\n");
+                    IO.write(castedPromoItem.getType() + "\n");
+                    IO.write(castedPromoItem.getDescription() + "\n");
                     ArrayList<String> promoItems = castedPromoItem.getPromoItems();
                     for (int k = 0; k < promoItems.size(); k++) {
-                        io.write(promoItems.get(k) + "\n");
+                        IO.write(promoItems.get(k) + "\n");
                     }
-                    io.write("-----\n");
+                    IO.write("-----\n");
                 } else {
-                    io.write("[M]\n");
-                    io.write(menuItemsIO.get(j).getName() + "\n");
-                    io.write(menuItemsIO.get(j).getPrice() + "\n");
-                    io.write(menuItemsIO.get(j).getType() + "\n");
-                    io.write(menuItemsIO.get(j).getDescription() + "\n");
-                    io.write("-----\n");
+                    IO.write("[M]\n");
+                    IO.write(menuItemsIO.get(j).getName() + "\n");
+                    IO.write(menuItemsIO.get(j).getPrice() + "\n");
+                    IO.write(menuItemsIO.get(j).getType() + "\n");
+                    IO.write(menuItemsIO.get(j).getDescription() + "\n");
+                    IO.write("-----\n");
                 }
             }
-            io.closeWriter();
+            IO.write("==========\n");
         }
+        IO.closeWriter();
     }
 
     @Override
     public void read() {
-        return;
+        IO.setFileName(menuFileName);
+        IO.setReader();
+        if (IO.checkFileExist()) {
+            System.out.println("File exists");
+            do // check for menus
+            {
+                Menu newMenu;
+                IO.readLine();
+                System.out.println(IO.getLine());
+                if (IO.getLine() != null) // if menu name exists
+                {
+                    String menuName = IO.getLine(); // store menu name
+                    newMenu = new Menu(menuName);
+                    do {
+                        IO.readLine(); // take in first menu item type
+                        if (!IO.getLine().equals("==========")) // if menu item exists
+                        {
+                            System.out.println("Menu item found");
+                            String menuItemOrPromo = IO.getLine(); // checks M or P
+                            System.out.println(menuItemOrPromo);
+                            IO.readLine(); // read in menu item name
+                            String itemName = IO.getLine(); // store menu item name
+                            System.out.println(itemName);
+                            IO.readLine();
+                            double itemPrice = Double.parseDouble(IO.getLine());
+                            System.out.println(itemPrice + "");
+                            IO.readLine();
+                            String itemType = IO.getLine();
+                            System.out.println(itemType);
+                            IO.readLine();
+                            String itemDesc = IO.getLine();
+                            System.out.println(itemDesc);
+                            if (menuItemOrPromo.equals("[P]")) {
+                                System.out.println("dealing with P");
+                                IO.readLine();
+                                ArrayList<String> items = new ArrayList<String>();
+                                while (!IO.getLine().equals("-----")) {
+                                    items.add(IO.getLine());
+                                    IO.readLine();
+                                }
+                                newMenu.addItem(
+                                        (MenuItem) new Promotion(itemName, itemPrice, itemType, itemDesc, items));
+                            } else {
+                                IO.readLine(); // skip -----
+                                newMenu.addItem(new MenuItem(itemName, itemPrice, itemType, itemDesc));
+                            }
+                        } else
+                            break;
+                    } while (true);
+                    menus.add(newMenu);
+                }
+            } while (IO.getLine() != null);
+            IO.closeReader();
+        }
     }
-    
-//	@Override
-//	public void write() {
-//		// TODO Auto-generated method stub
-//		IO.setFileName(filename);
-//		IO.setWriter();
-//		//write logic goes here
-//		IO.write("hello malthus");
-//		IO.closeWriter();
-//		
-//	}
-//
-//	@Override
-//	public void read() {
-//		// TODO Auto-generated method stub
-//		IO.setFileName(filename);
-//		IO.setReader();
-//		
-//		if (IO.checkFileExist())
-//		{
-//			//logic goes here
-//			IO.readLine();
-//			this.test = IO.getLine();
-//			IO.closeReader();
-//		}
-//		
-//	}
+
+    // @Override
+    // public void write() {
+    // // TODO Auto-generated method stub
+    // IO.setFileName(filename);
+    // IO.setWriter();
+    // //write logic goes here
+    // IO.write("hello malthus");
+    // IO.closeWriter();
+    //
+    // }
+    //
+    // @Override
+    // public void read() {
+    // // TODO Auto-generated method stub
+    // IO.setFileName(filename);
+    // IO.setReader();
+    //
+    // if (IO.checkFileExist())
+    // {
+    // //logic goes here
+    // IO.readLine();
+    // this.test = IO.getLine();
+    // IO.closeReader();
+    // }
+    //
+    // }
 }

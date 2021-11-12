@@ -1,18 +1,16 @@
 package main;
 
-import java.util.Scanner;
-
 import main.IO.IO;
 
 public class RRPSS {
 	public static void main(String[] args) {
 		IO.start();
 		MenuApp menuApp = new MenuApp();
+		menuApp.read(); // loads data
 		ReservationApp reservationApp = new ReservationApp();
 		OrderApp orderApp = new OrderApp();
 		OrderInvoiceApp invoiceApp = new OrderInvoiceApp();
 		StaffApp staffApp = new StaffApp();
-		Scanner sc = new Scanner(System.in);
 		int choice = -1;
 		do {
 			System.out.println("(1) Edit Menu Item Catalog\n" + "(2) Edit Promotion Catalog\n" + "(3) Edit Menus\n"
