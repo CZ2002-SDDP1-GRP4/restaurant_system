@@ -38,8 +38,8 @@ public class OrderInvoice {
 		this.initialPrice = price;
 		System.out.printf("Price before discount, service charge and taxes: $%.2f\n", initialPrice);
 		
-		DiscountApp.printDiscount();		
 		System.out.println("Select discount to apply to invoice (-1 to go back):");
+		DiscountApp.printDiscount();
 		int choice = ErrorApp.safeInteger();
 		if (choice == -1)
 		{

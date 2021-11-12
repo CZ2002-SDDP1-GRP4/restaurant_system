@@ -62,7 +62,7 @@ public class DiscountApp
 	public static void printDiscount() {
 		if (discounts.size() == 0)
 		{
-			System.out.println("No discounts available.\n");
+			System.out.println("No discounts available. Press 0 to continue.\n");
 			return;
 		}
 		System.out.println("0: Skip (Do not apply discount)");
@@ -73,6 +73,7 @@ public class DiscountApp
 			discount.printDiscountRate();
 			System.out.printf("\n");
 		}
+		return;
 	}
 	
 	public static int getDiscountSize() {
