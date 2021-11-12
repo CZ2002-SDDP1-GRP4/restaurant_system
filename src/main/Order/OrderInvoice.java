@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import main.ErrorApp;
 import main.Menu.MenuItem;
 import main.Staff.Staff;
 
@@ -38,8 +39,7 @@ public class OrderInvoice {
 		int choice;
 		do
 		{
-			choice = sc.nextInt();
-			sc.nextLine(); //throw away the \n not consumed by nextInt()
+			choice = ErrorApp.safeInteger();
 			if (choice == 1)
 			{
 				System.out.println("Applying member discount");

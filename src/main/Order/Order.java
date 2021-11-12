@@ -1,8 +1,7 @@
 package main.Order;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-
+import main.ErrorApp;
 import main.MenuApp;
 import main.Menu.MenuItem;
 import main.Staff.Staff;
@@ -54,9 +53,7 @@ public class Order {
 		int menuChoice = MenuApp.chooseMenu();
 		if (menuChoice == -1) return;
 		
-		Scanner sc = new Scanner(System.in);
-		int itemChoice = sc.nextInt();
-		sc.nextLine(); //throw away the \n not consumed by nextInt()
+		int itemChoice = ErrorApp.safeInteger();
 		if (itemChoice == -1) return;
 		
 		itemToAdd = MenuApp.findItem(menuChoice, itemChoice-1);
@@ -72,9 +69,7 @@ public class Order {
 		this.printDetailedOrder();
 		int choice = -1;
 		System.out.println("Which item do you want to remove?");
-		Scanner sc = new Scanner(System.in);
-		choice = sc.nextInt();
-		sc.nextLine(); //throw away the \n not consumed by nextInt()
+		choice = ErrorApp.safeInteger();
 		if (1 <= choice && choice <= getOrderItems().size())
 		{
 			choice--;

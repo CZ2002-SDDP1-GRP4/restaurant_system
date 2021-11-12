@@ -14,8 +14,7 @@ public class OrderInvoiceApp {
 		int choice;
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Select order to generate invoice (-1 to go back):");
-		choice = sc.nextInt();
-		sc.nextLine(); //throw away the \n not consumed by nextInt()
+		choice = ErrorApp.safeInteger();
 		if (choice == -1)
 		{
 			return;

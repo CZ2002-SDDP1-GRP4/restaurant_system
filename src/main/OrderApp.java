@@ -35,9 +35,7 @@ public class OrderApp {
 								"(1) Yes\n" +
 								"(2) No (a walk-in customer)"
 			);
-			choice = sc.nextInt();
-			sc.nextLine(); //throw away the \n not consumed by nextInt()
-			
+			choice = ErrorApp.safeInteger();
 			
 			if (choice == 1)
 			{
@@ -56,8 +54,7 @@ public class OrderApp {
 			else if (choice == 2)
 			{
 				System.out.println("Number of pax?");
-				int pax = sc.nextInt();
-				sc.nextLine(); //throw away the \n not consumed by nextInt()
+				int pax = ErrorApp.safeInteger();
 				LocalDate today = LocalDate.now();
                 LocalTime now = LocalTime.now();
                 table_number = ReservationApp.checkTableAvailability(today, now, pax);
@@ -114,8 +111,7 @@ public class OrderApp {
 		Scanner sc = new Scanner(System.in);
 		int choice = -1;
 		do {
-			choice = sc.nextInt();
-			sc.nextLine(); //throw away the \n not consumed by nextInt()
+			choice = ErrorApp.safeInteger();
 	        if (0 <= choice && choice <= i-1) {
 	        	activeOrder = orders.get(choice-1);
 	        } else if (choice == -1) return;
@@ -128,8 +124,7 @@ public class OrderApp {
 		int choice1 = -1;
 		do
 		{
-			choice1 = sc.nextInt();
-			sc.nextLine(); //throw away the \n not consumed by nextInt()
+			choice1 = ErrorApp.safeInteger();
 			if (choice1 == 1)
 			{
 				activeOrder.addItem();
