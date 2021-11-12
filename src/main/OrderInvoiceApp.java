@@ -70,12 +70,12 @@ public class OrderInvoiceApp {
 								
 				
 		System.out.println("---------------------------------");
-		System.out.println(String.format("Subtotal" 		+ "%25.2f\n", (orderInvoice.getInitialPrice())));
+		System.out.println(String.format("Subtotal" 		+ "%25.2f", (orderInvoice.getInitialPrice())));
 		if ((orderInvoice.getInitialPrice() != orderInvoice.getDiscounted()))
 		{
-			System.out.println(String.format("Discount" 		+ "%25.2f\n", (orderInvoice.getInitialPrice()-orderInvoice.getDiscounted())));
+			System.out.println(String.format("Discount" 		+ "%25.2f", (orderInvoice.getInitialPrice()-orderInvoice.getDiscounted())));
 		}
-		System.out.println(String.format("Service Charge" 	+ "%19.2f\n", (orderInvoice.getRevenue()-orderInvoice.getDiscounted())));
+		System.out.println(String.format("Service Charge" 	+ "%19.2f", (orderInvoice.getRevenue()-orderInvoice.getDiscounted())));
 		System.out.println(String.format("GST"			 	+ "%30.2f\n", (orderInvoice.getFinalPrice()-orderInvoice.getRevenue())));
 		System.out.println(String.format("FINAL PRICE" 		+ "%22.2f\n", (orderInvoice.getFinalPrice())));
 			
