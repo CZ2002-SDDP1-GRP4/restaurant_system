@@ -293,21 +293,21 @@ public class ReservationApp {
      * Find Table and set available to false
      * @param table_number
      */
-    public static void setOccupied(int table_number) {
+    public static void setTableStatus(int table_number, boolean availability) {
         for (Table table : tables) {
             int cur_table_number = table.getTableNumber();
             if (cur_table_number == table_number){
-                    table.setAvailable(false);
+                    table.setAvailable(availability);
             }
         }
     }
-    
-    //COMMENT psps here is more code spaghetti for orderapp-->remove
-    public static void setUnoccupied(int table_number) {
+
+    public void printAllReservations(){
         for (Table table : tables) {
-            int cur_table_number = table.getTableNumber();
-            if (cur_table_number == table_number){
-                    table.setAvailable(true);
+            for (Reservation reservation : table.getReservations()) {
+                System.out.println("Name: " + reservation.getName() + " Contact: " + reservation.getContact());
+                System.out.println("Date: " + reservation.getDate() + " Time: " + reservation.getTime());
+                System.out.println("Assigned to Table: " + reservation.getTableNumber());
             }
         }
     }
