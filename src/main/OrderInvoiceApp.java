@@ -1,5 +1,7 @@
 package main;
 
+import java.time.format.DateTimeFormatter;
+
 import main.Menu.MenuItem;
 import main.Order.Order;
 import main.Order.OrderInvoice;
@@ -46,33 +48,43 @@ public class OrderInvoiceApp {
 			System.out.println("Returning...");
 			return;
 		}
+		System.out.println("Generating invoice...");
 		System.out.println(
-		  "\n" + "====== ORDER INVOICE ======"
+		  "\n" + "========= ORDER INVOICE ========="
 		+ "\n" + "Date: "  + orderInvoice.getInvoiceDate()
-		+ "\n" + "Time: "  + orderInvoice.getInvoiceTime()
+		+ "\n" + "Time: "  + orderInvoice.getInvoiceTime().format(DateTimeFormatter.ofPattern("HH:mm"))
 		+ "\n" + "Table: " + orderInvoice.getTable()
-		+ "\n" + "Orders: (Item ---- Price)"
+		+ "\n" + String.format("%-25s %7s\n", "Item", "Price")
+		       + String.format("%-25s %7s\n", "----", "-----")
 		);
 		
 		for (MenuItem orderItem : orderInvoice.getOrderItems())
 		{
-
-			System.out.printf("%s ----- %.2f\n", orderItem.getName(), orderItem.getPrice());
+			String s = orderItem.getName();
+			if (s.length() > 26)
+			{
+				s = s.substring(0,26);
+			}
+			System.out.println(String.format("%-26s" + "%7s\n", s, orderItem.getPrice()));
 		}
-		
-		System.out.printf(                  
-				 "---------------------------"
-		+ "\n" + "Subtotal:  	$%.2f", (orderInvoice.getInitialPrice())
-		+ "\n" + "Discount:    -$%.2f", (orderInvoice.getInitialPrice()-orderInvoice.getDiscounted())
-		+ "\n" + "Serv Charge: +$%.2f", (orderInvoice.getRevenue()-orderInvoice.getDiscounted())
-		+ "\n" + "FINAL PRICE:	$%.2f", (orderInvoice.getFinalPrice())
-		);
-		
+								
+				
+		System.out.println("---------------------------------");
+		System.out.println(String.format("Subtotal" 		+ "%25.2f\n", (orderInvoice.getInitialPrice())));
+		if ((orderInvoice.getInitialPrice() != orderInvoice.getDiscounted()))
+		{
+			System.out.println(String.format("Discount" 		+ "%25.2f\n", (orderInvoice.getInitialPrice()-orderInvoice.getDiscounted())));
+		}
+		System.out.println(String.format("Service Charge" 	+ "%19.2f\n", (orderInvoice.getRevenue()-orderInvoice.getDiscounted())));
+		System.out.println(String.format("GST"			 	+ "%30.2f\n", (orderInvoice.getFinalPrice()-orderInvoice.getRevenue())));
+		System.out.println(String.format("FINAL PRICE" 		+ "%22.2f\n", (orderInvoice.getFinalPrice())));
+			
 		System.out.println(
-				 "======== THANK YOU ========"
-		+ "\n" + "==== HAVE A GREAT DAY! ===="
+		         "=========== THANK YOU ==========="
+		+ "\n" + "======= HAVE A GREAT DAY! ======="
 	    + "\n"
 		);
 		
+		return;
 	}
 }

@@ -39,9 +39,14 @@ public class DiscountApp
 		}
 		else if (choice == 2)
 		{
-			System.out.println("Enter the percentage off this discount, " + name + ", applies: ");
+			System.out.println("Enter the percentage off this discount, " + name + ", applies: \n"
+							+  "E.g. if 20% off, type 0.2");
 			double percentrate = ErrorApp.safeDouble();
-			if (percentrate == (double)-1) return;
+			if (percentrate <= 0 || percentrate > 1.00)
+			{
+				System.out.println("Please enter a number between 0.01 and 1.00 inclusive");
+				return;
+			}
 			discount = new PercentDiscount(name, percentrate);
 		}
 		discounts.add(discount);
@@ -55,9 +60,11 @@ public class DiscountApp
 			System.out.println("No discounts available.\n");
 			return;
 		}
+		System.out.println("0: Skip (Do not apply discount)");
+		int i = 1;
 		for (Discount discount : discounts)
 		{
-			System.out.printf("Name: " + discount.getDiscountName() + ", ");
+			System.out.printf(i + ": " + discount.getDiscountName() + ", ");
 			discount.printDiscountRate();
 			System.out.printf("\n");
 		}

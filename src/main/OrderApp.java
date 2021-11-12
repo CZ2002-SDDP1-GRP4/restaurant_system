@@ -84,6 +84,10 @@ public class OrderApp {
 	}
 	
 	public void printDetailedOrders() {
+		if (orders.size() == 0)
+		{
+			System.out.println("No active orders.");
+		}
 		for (Order order : orders) { 
 			order.printDetailedOrder();
 		}

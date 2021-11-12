@@ -3,13 +3,10 @@ package main.Order;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 import main.DiscountApp;
 import main.ErrorApp;
 import main.Discount.Discount;
 import main.Menu.MenuItem;
-import main.Staff.Staff;
 
 public class OrderInvoice {
 	private LocalDate date;
@@ -51,8 +48,17 @@ public class OrderInvoice {
 		else if (1<=choice && choice<=DiscountApp.getDiscountSize())
 		{
 			Discount discount = DiscountApp.getDiscountbyID(choice);
-			this.discounted = discount.applyDiscount(price);
-			System.out.println("Applying discount...");
+			double returnval = discount.applyDiscount(price);
+			if (returnval == -1.00)
+			{
+				return -1;
+			}
+			this.discounted = returnval;
+			//System.out.println("Applying discount...");
+		}
+		else if (choice == 0)
+		{
+			this.discounted = price;
 		}
 		else
 		{
@@ -60,7 +66,6 @@ public class OrderInvoice {
 			return 0;
 		}
 		
-		System.out.println("Price before service charge and taxes: " + discounted);
 		this.revenue = Taxes.applyServiceCharge(discounted);
 		this.finalPrice = Taxes.applyGST(revenue);
 		return 1;
