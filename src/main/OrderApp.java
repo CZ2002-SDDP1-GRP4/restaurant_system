@@ -80,7 +80,7 @@ public class OrderApp {
         
         //REFACTOR compare ReservationApp 189 and StaffApp 61
         orders.add(new Order(table_number, staff));
-        ReservationApp.setOccupied(table_number);
+        ReservationApp.setTableStatus(table_number, false);
 	}
 	
 	public void printDetailedOrders() {
@@ -146,7 +146,7 @@ public class OrderApp {
 	}
 	
 	public static void remove(int choice) {
-		ReservationApp.setUnoccupied(orders.get(choice).getOrderTable());
+		ReservationApp.setTableStatus(orders.get(choice).getOrderTable(), true);
 		orders.remove(choice);
 	}
 }

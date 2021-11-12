@@ -17,7 +17,7 @@ public class ReservationApp {
     /**The list of tables which the restaurant has.*/
     private static ArrayList<Table> tables;
     /**Expiry time constant in minutes */
-    private static final int expiryTime = 55; //TODO: CHANGE BACK TO 10
+    private static final int expiryTime = 10; 
     /**Start time of available reservation timeslots.*/
     private String [] timeslots = {
         "08:00",
@@ -293,21 +293,24 @@ public class ReservationApp {
      * Find Table and set available to false
      * @param table_number
      */
-    public static void setOccupied(int table_number) {
+    public static void setTableStatus(int table_number, boolean availability) {
         for (Table table : tables) {
             int cur_table_number = table.getTableNumber();
             if (cur_table_number == table_number){
-                    table.setAvailable(false);
+                    table.setAvailable(availability);
             }
         }
     }
-    
-    //COMMENT psps here is more code spaghetti for orderapp-->remove
-    public static void setUnoccupied(int table_number) {
+
+    /**
+     * Prints all reservations in the system.
+     */
+    public void printAllReservations(){
         for (Table table : tables) {
-            int cur_table_number = table.getTableNumber();
-            if (cur_table_number == table_number){
-                    table.setAvailable(true);
+            for (Reservation reservation : table.getReservations()) {
+                System.out.println("Name: " + reservation.getName() + " Contact: " + reservation.getContact());
+                System.out.println("Date: " + reservation.getDate() + " Time: " + reservation.getTime());
+                System.out.println("Assigned to Table: " + reservation.getTableNumber());
             }
         }
     }
