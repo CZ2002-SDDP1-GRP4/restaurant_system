@@ -9,7 +9,8 @@ import main.Menu.Promotion;
 
 import main.IO.*;
 
-public class MenuApp implements RW {
+public class MenuApp implements RW{
+	
     /**
      * List of menus containing menu items and promotions that will be displayed to
      * customers
@@ -589,7 +590,34 @@ public class MenuApp implements RW {
     }
 
     @Override
-    public RW read() {
-        return null;
+    public void read() {
+        return;
     }
+    
+//	@Override
+//	public void write() {
+//		// TODO Auto-generated method stub
+//		IO.setFileName(filename);
+//		IO.setWriter();
+//		//write logic goes here
+//		IO.write("hello malthus");
+//		IO.closeWriter();
+//		
+//	}
+//
+//	@Override
+//	public void read() {
+//		// TODO Auto-generated method stub
+//		IO.setFileName(filename);
+//		IO.setReader();
+//		
+//		if (IO.checkFileExist())
+//		{
+//			//logic goes here
+//			IO.readLine();
+//			this.test = IO.getLine();
+//			IO.closeReader();
+//		}
+//		
+//	}
 }

@@ -2,72 +2,79 @@ package main.IO;
 
 import java.io.*;
 
-public class IO {
+public final class IO {
 
 	/*
 	 * String to denote directory where all data should be saved
 	 */
-	private String filename;
-	private String path;
-	public BufferedWriter bw;
-	public BufferedReader br;
-
-	public IO() {
+	private static String filename;
+	private static String path;
+	
+	private static BufferedWriter bw;
+	private static BufferedReader br;
+	
+	private static String line;
+	private static boolean EOL;
+	private static boolean fileExist;
+	
+	public static void start() {
 		String dir = System.getProperty("user.dir");
 		dir = dir + "/data";
 		File directory = new File(dir);
-		if (!directory.exists()) {
+		if(!directory.exists())
+		{
 			directory.mkdir();
 		}
-		this.path = dir;
+		path = dir;
 	}
 
-	public IO(String path, String filename) {
-		this.path = path;
-		this.filename = filename;
-	}
-
-	public void setReader() {
+	public static void setReader()
+	{
+		EOL = false;
 		try {
-			this.br = new BufferedReader(new FileReader(this.path + "/" + this.filename));
+			br = new BufferedReader(new FileReader(path + "/" + filename));
 		} catch (IOException e) {
 			System.out.println("IO Exception thrown");
 		}
 	}
 
-	public void closeReader() {
+	public static void closeReader() {
 		try {
-			this.br.close();
+			br.close();
 		} catch (IOException e) {
 			System.out.println("IO Exception thrown - Reader had trouble closing");
 		}
 	}
 
-	public void setWriter() {
+	public static void setWriter() {
 		try {
-			this.bw = new BufferedWriter(new FileWriter(this.path + "/" + this.filename));
+			bw = new BufferedWriter(new FileWriter(path + "/" + filename));
+			fileExist = true;
 		} catch (IOException e) {
-			System.out.println("IO Exception thrown");
+			fileExist = false;
+			System.out.println("Warning: No Data file exist.");
 		}
 	}
 
-	public void closeWriter() {
+	public static void closeWriter() {
 		try {
-			this.bw.close();
+			bw.close();
 		} catch (IOException e) {
 			System.out.println("IO Exception thrown - Writer had trouble closing");
 		}
 	}
-
-	public void setFileName(String fn) {
-		// we might have to check if the name is valid for use as file name
-		this.filename = fn + ".txt";
+	
+	
+	public static void setFileName(String fn)
+	{
+		//we might have to check if the name is valid for use as file name
+		filename = fn + ".txt";
 	}
 
-	public void setDirectory(String path) {
+	public static void setDirectory(String p) {
 		// check if the path is a valid working directory
 		try {
-			File file = new File(path);
+			File file = new File(p);
 
 			// we can create our own custom exceptions if required
 			if (!file.isDirectory())
@@ -79,15 +86,47 @@ public class IO {
 			return;
 		}
 
-		this.path = path;
+		path = p;
 	}
 
-	public void write(String data) {
+	
+	public static void write(String data)
+	{
 		try {
-			this.bw.write(data);
+			bw.write(data);
 		} catch (IOException e) {
-			System.out.println("Write ERROR");
+			System.out.println("WRITE Error");
 		}
+	}
+	
+	public static void readLine()
+	{
+		if(!EOL)
+		{
+			try {
+				line = br.readLine();
+			} catch (IOException e) {
+				System.out.println("READ Error");
+			}
+		}
+
+		if(line == null) EOL = true;
+	}
+	
+	public static String getLine()
+	{
+		if(!EOL) return line;
+		else return null;
+	}
+	
+	public static boolean isEOL()
+	{
+		return EOL;
+	}
+	
+	public static boolean checkFileExist()
+	{
+		return fileExist;
 	}
 
 }

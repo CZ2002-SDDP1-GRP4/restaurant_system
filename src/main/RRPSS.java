@@ -2,8 +2,11 @@ package main;
 
 import java.util.Scanner;
 
+import main.IO.IO;
+
 public class RRPSS {
 	public static void main(String[] args) {
+		IO.start();
 		MenuApp menuApp = new MenuApp();
 		ReservationApp reservationApp = new ReservationApp();
 		OrderApp orderApp = new OrderApp();
