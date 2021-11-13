@@ -28,7 +28,7 @@ public class OrderInvoiceApp extends AggregatePrint {
 	 * 3) Calling the appropriate method in Order Invoice class to process it
 	 * @Override
 	 */
-	protected void process() {
+	public void process() {
 		OrderApp.printShortOrders();
 		System.out.println("Select order to generate invoice (-1 to go back):");
 		int choice = ErrorApp.safeInteger();
@@ -66,9 +66,9 @@ public class OrderInvoiceApp extends AggregatePrint {
 
 	/**
 	 * Method to print the Order Invoice. 
-	 * The Order Invoice has been specially and carefully formatted to 
+	 * The Order Invoice has been specially and carefully formatted to simulate a real restaurant receipt
+	 * @Override
 	 */
-	@Override
 	public void print() {
 		if (orderInvoice == null) {
 			System.out.println("Returning...");

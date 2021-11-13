@@ -84,7 +84,7 @@ public class SalesReportApp extends AggregatePrint implements RW {
 	 * 
 	 * @Override
 	 */
-	private void processReport(int month) {
+	public void processReport(int month) {
 		ArrayList<MenuItem> ungroupedSaleItems = new ArrayList<MenuItem>();
 		totalRevenue = 0;
 		for (OrderInvoice orderinvoice : orderInvoices) {
@@ -104,7 +104,7 @@ public class SalesReportApp extends AggregatePrint implements RW {
 	 * 
 	 * @Override
 	 */
-	private void processReport(LocalDate date) {
+	public void processReport(LocalDate date) {
 		totalRevenue = 0;
 		ArrayList<MenuItem> ungroupedSaleItems = new ArrayList<MenuItem>();
 		for (OrderInvoice orderinvoice : orderInvoices) {
@@ -123,8 +123,14 @@ public class SalesReportApp extends AggregatePrint implements RW {
 	 * 
 	 * @Override
 	 */
+<<<<<<< Updated upstream
 	protected void print() {
 		if (totalRevenue == 0) {
+=======
+	public void print() {
+		if (totalRevenue == 0)
+		{
+>>>>>>> Stashed changes
 			System.out.println("No sales during this period");
 			return;
 		}
