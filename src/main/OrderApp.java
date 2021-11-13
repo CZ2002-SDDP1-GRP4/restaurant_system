@@ -6,17 +6,38 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import main.Order.Order;
-import main.Order.OrderInvoice;
 import main.Reservation.Reservation;
 import main.Staff.Staff;
-
+/**
+ * Represents the Order App class that stores all active orders and 
+ * provides methods to interface with all orders
+ * @author Bryan
+ * @version 1.0
+ */
 public class OrderApp {
+	/**
+	 * The array list of active orders the restaurant is currently serving
+	 */
 	private static ArrayList<Order> orders;
 	
+	/**
+	 * Public constructor instantiating the order array list.
+	 */
 	public OrderApp() {
 		orders = new ArrayList<Order>();
 	}
 
+	/**
+	 * Method to add a new order to the order array list, after doing the necessary checks 
+	 * to gather relevant information
+	 * {@link StaffApp#getStaffbyId()}
+	 * {@link StaffApp#getStaffbyId(staffId)}
+	 * {@link ReservationApp#checkReservation()}
+	 * {@link Reservation#getTableNumber()}
+	 * {@link ReservationApp#checkTableAvailability()}
+	 * {@link Order#Order()}
+	 * {@link ReservationApp#setTableStatus()}
+	 */
 	public void createOrder() {
 		int staffId = StaffApp.getStaffbyId();
 		if (staffId == -1) return;
@@ -25,9 +46,6 @@ public class OrderApp {
 		int table_number = -1;
 		
 		String name = null;
-		
-		// REFACTOR ErrorApp?
-		Scanner sc = new Scanner(System.in);
 		int choice = 0;
 		do
 		{
@@ -40,7 +58,7 @@ public class OrderApp {
 			if (choice == 1)
 			{
 				System.out.println("What's the customer's name used in the reservation?");
-				name = sc.nextLine();
+				name = ErrorApp.alphaString();
 				LocalDate today = LocalDate.now();
                 LocalTime now = LocalTime.now();
 				Reservation reservation = ReservationApp.checkReservation(name, today, now);
@@ -78,11 +96,13 @@ public class OrderApp {
 		
         System.out.println("Customer has been assigned table " + table_number);
         
-        //REFACTOR compare ReservationApp 189 and StaffApp 61
         orders.add(new Order(table_number, staff));
         ReservationApp.setTableStatus(table_number, false);
 	}
 	
+	/**
+	 * Method to print a detailed list of orders.
+	 */
 	public void printDetailedOrders() {
 		if (orders.size() == 0 || orders == null)
 		{
@@ -93,14 +113,21 @@ public class OrderApp {
 		}
 	}
 	
+	/**
+	 * Method to print a summarised list of orders.
+	 * Instantiated as static to allow OrderInvoice to call this method without needing to 
+	 * instantiate an instance object of this OrderApp class
+	 */
 	public static void printShortOrders() {
 		for (Order order : orders) { 
 			order.printShortOrder();
 		}
 	}
 	
+	/**
+	 * Method to choose an order from the list to modify.
+	 */
 	public void modifyOrders() {
-		//REFACTOR ifnull?
 		if (orders == null || orders.size() == 0) {
 			System.out.println("No orders active. Returning...");
 			return;
@@ -112,7 +139,6 @@ public class OrderApp {
 			order.printShortOrder();
 		}
 		Order activeOrder = null;
-		Scanner sc = new Scanner(System.in);
 		int choice = -1;
 		do {
 			choice = ErrorApp.safeInteger();
@@ -141,14 +167,28 @@ public class OrderApp {
 		} while (choice1 != 1 && choice1 != 2 && choice1 != -1);
 	}
 	
+	/**
+	 * Getter method to return the size of the orders array list.
+	 * @return Integer value of the number of active orders.
+	 */
 	public static int getOrdersSize() {
 		return orders.size();
 	}
 
+	/**
+	 * Getter method to find an order using its index.
+	 * @param Integer value of order's index
+	 * @return Order object
+	 */
 	public static Order get(int choice) {
 		return orders.get(choice);
 	}
 	
+	/**
+	 * Setter method to mark an order as done. This sets the table as available again, 
+	 * and removes the order from the list.
+	 * @param Integer value of order's index
+	 */
 	public static void remove(int choice) {
 		ReservationApp.setTableStatus(orders.get(choice).getOrderTable(), true);
 		orders.remove(choice);

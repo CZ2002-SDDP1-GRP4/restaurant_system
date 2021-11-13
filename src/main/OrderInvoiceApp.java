@@ -6,9 +6,22 @@ import main.Menu.MenuItem;
 import main.Order.Order;
 import main.Order.OrderInvoice;
 
+/**
+ * Represents the Order Invoice App class that is responsible for
+ * processing a single OrderInvoice, grouping the sale items, and then printing it.
+ * It is a concrete class that inherits from the AggregatePrint abstract class.
+ * @author Bryan
+ * @version 1.0
+ */
 public class OrderInvoiceApp extends AggregatePrint {
 	private static OrderInvoice orderInvoice;
 	
+	/**
+	 * Method to process an Order Invoice. This is done by
+	 * 1) Printing the list of orders for the user to choose
+	 * 2) Retreiving the selection
+	 * 3) Calling the appropriate method in Order Invoice class to process it
+	 */
 	@Override
 	protected void process() {
 		OrderApp.printShortOrders();
@@ -30,8 +43,12 @@ public class OrderInvoiceApp extends AggregatePrint {
 				print();
 				OrderApp.remove(choice-1);
 			}
-			else
+			else if (success == 2)
 			{
+				System.out.println("Nothing was ordered. Table will be cleared.");
+				OrderApp.remove(choice-1);
+			}
+			else {
 				System.out.println("Processing cancelled.");
 				return;
 			}
@@ -41,9 +58,12 @@ public class OrderInvoiceApp extends AggregatePrint {
 			System.out.println("Invalid selection.");
 			return;
 		}
-		return;
 	}
 
+	/**
+	 * Method to print the Order Invoice. 
+	 * The Order Invoice has been specially and carefully formatted to 
+	 */
 	@Override
 	public void print() {
 		if (orderInvoice == null) {

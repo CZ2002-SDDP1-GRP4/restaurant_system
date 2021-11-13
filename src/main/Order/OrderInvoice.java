@@ -28,6 +28,11 @@ public class OrderInvoice {
 	
 	public int processInvoice() {
 		
+		if (this.orderItems.size() == 0)
+		{
+			return 2;
+		}
+		
 		this.getOrderItems();
 		
 		double price = 0.00;
