@@ -318,12 +318,15 @@ public class ReservationApp {
      * Prints all reservations in the system.
      */
     public void printAllReservations() {
+        int count = 0;
         for (Table table : tables) {
             for (Reservation reservation : table.getReservations()) {
                 System.out.println("Name: " + reservation.getName() + " Contact: " + reservation.getContact());
                 System.out.println("Date: " + reservation.getDate() + " Time: " + reservation.getTime());
                 System.out.println("Assigned to Table: " + reservation.getTableNumber());
+                count ++;
             }
         }
+        if (count == 0) System.out.println("No reservations found.");
     }
 }
