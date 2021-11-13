@@ -8,12 +8,8 @@ import java.util.ArrayList;
 
 import main.Menu.MenuItem;
 import main.Order.OrderInvoice;
-
-<<<<<<< Updated upstream
 import main.IO.*;
 
-public class SalesReportApp extends AggregatePrint implements RW {
-=======
 /**
  * Represents the Sales Report App class that is responsible for
  * 1) Receiving the order invoices
@@ -24,25 +20,20 @@ public class SalesReportApp extends AggregatePrint implements RW {
  * @author Bryan
  * @version 1.0
  */
-public class SalesReportApp extends AggregatePrint {
+public class SalesReportApp extends AggregatePrint implements RW {
 	/**
 	 * An attribute remembering the Order Invoice object.
 	 */
->>>>>>> Stashed changes
 	private static ArrayList<OrderInvoice> orderInvoices;
 	/**
 	 * An attribute to calculate total revenue
 	 */
 	private double totalRevenue;
-<<<<<<< Updated upstream
 	private final String filename = "orderinvoices"; 
-
-=======
 	
 	/**
 	 * Public constructor to create sales report app and initailise revenue to 0
 	 */
->>>>>>> Stashed changes
 	public SalesReportApp() {
 		orderInvoices = new ArrayList<OrderInvoice>();
 		grpedSaleItems = new ArrayList<MenuItem>();
