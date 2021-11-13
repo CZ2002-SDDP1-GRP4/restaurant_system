@@ -7,14 +7,29 @@ import main.Discount.Discount;
 import main.Discount.FlatDiscount;
 import main.Discount.PercentDiscount;
 
+/**
+ * A class representing the Discount App used to interact with the entire discount array.
+ * @author Bryan
+ * @version 1.0
+ */
 public class DiscountApp 
 {
+	/**
+	 * Attribute to store the array list of discounts
+	 */
 	private static ArrayList<Discount> discounts;
 	
+	/**
+	 * Public constructor to initialise the array of discounts
+	 */
 	public DiscountApp() {
 		discounts = new ArrayList<Discount>();
 	}
 	
+	/**
+	 * Method to create a discount, gathering the relevant information and then
+	 * calling the appropriate subclass
+	 */
 	public void createDiscount() {
 		System.out.println("Type the name of the discount");
 		Scanner sc = new Scanner(System.in);
@@ -59,6 +74,10 @@ public class DiscountApp
 		
 	}
 	
+	/**
+	 * Method to print the discounts and apply one of them.
+	 * If no discount to apply, enter 0.
+	 */
 	public static void printDiscount() {
 		if (discounts.size() == 0)
 		{
@@ -72,14 +91,24 @@ public class DiscountApp
 			System.out.printf(i + ": " + discount.getDiscountName() + ", ");
 			discount.printDiscountRate();
 			System.out.printf("\n");
+			i++;
 		}
 		return;
 	}
 	
+	/**
+	 * Getter method for number of discounts available
+	 * @return integer for number of discounts
+	 */
 	public static int getDiscountSize() {
 		return discounts.size();
 	}
-
+	
+	/**
+	 * Getter method for Discount object by ID.
+	 * @param Integer choice
+	 * @return Discount object selected
+	 */
 	public static Discount getDiscountbyID(int choice) {
 		return discounts.get(choice-1);
 	}
