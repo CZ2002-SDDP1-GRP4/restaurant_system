@@ -62,7 +62,13 @@ public class SalesReportApp extends AggregatePrint implements RW {
 		if (choice == 1) {
 			System.out.println("Input date (eg. 2021-07-30):");
 			LocalDate date = ErrorApp.dateHandlerAfter();
-			processReport(date);
+			try {
+				processReport(date);
+			}
+			catch (IndexOutOfBoundsException IOBE) {
+				System.out.println("No order invoices found");
+			}
+			
 		} else if (choice == 2) {
 			System.out.println("Select month: (-1 to return)\n" + "(1) January\n" + "(2) Feburary\n" + "(3) March\n"
 					+ "(4) April\n" + "(5) May\n" + "(6) June\n" + "(7) July\n" + "(8) August\n" + "(9) September\n"
@@ -73,7 +79,15 @@ public class SalesReportApp extends AggregatePrint implements RW {
 			else if (1 > month || month > 12) {
 				System.out.println("Invalid choice");
 			} else
-				processReport(month);
+			{
+				try {
+					processReport(month);
+				}
+				catch (IndexOutOfBoundsException IOBE) {
+					System.out.println("No order invoices found");
+				}
+			}	
+				
 		} else if (choice == -1)
 			return;
 	}
