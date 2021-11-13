@@ -19,6 +19,17 @@ public class OrderInvoice {
 	private double finalPrice;
 	
 	
+	public OrderInvoice(LocalDate date, LocalTime time, int table, double initialPrice, double discounted, double revenue, double finalPrice, ArrayList<MenuItem> orderItems) {
+		this.date = date;
+		this.time = time;
+		this.table = table;
+		this.initialPrice = initialPrice;
+		this.discounted = discounted;
+		this.revenue = revenue;
+		this.finalPrice = finalPrice;
+		this.orderItems = orderItems;
+	}
+	
 	public OrderInvoice(Order OrderToProcess) {
 		this.date = LocalDate.now();
 		this.time = LocalTime.now();

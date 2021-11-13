@@ -1,15 +1,20 @@
 package main;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import main.Menu.MenuItem;
 import main.Order.OrderInvoice;
 
-public class SalesReportApp extends AggregatePrint {
+import main.IO.*;
+
+public class SalesReportApp extends AggregatePrint implements RW {
 	private static ArrayList<OrderInvoice> orderInvoices;
 	private double totalRevenue;
+	private final String filename = "orderinvoices"; 
 
 	public SalesReportApp() {
 		orderInvoices = new ArrayList<OrderInvoice>();
@@ -105,5 +110,78 @@ public class SalesReportApp extends AggregatePrint {
 		{
 			System.out.println(String.format("%-27s %5s\n", saleItem.getName(), grpedSaleQty[i++]));
 		}
+	}
+
+	@Override
+	public void write() {
+		// TODO Auto-generated method stub
+		IO.setFileName(this.filename);
+		IO.setWriter();
+		
+		for(int i = 0; i < orderInvoices.size(); i++)
+		{
+			OrderInvoice oi = orderInvoices.get(i);
+			IO.write(oi.getInvoiceDate()+",");
+			IO.write(oi.getInvoiceTime()+",");
+			IO.write(oi.getTable()+",");
+			IO.write(oi.getInitialPrice()+",");
+			IO.write(oi.getDiscounted()+",");
+			IO.write(oi.getRevenue()+",");
+			IO.write(oi.getFinalPrice()+"\n");
+			for (int j = 0; j < oi.getOrderItems().size(); j++)
+			{
+				MenuItem mi = oi.getOrderItems().get(j);
+				IO.write(mi.getName() + "§");
+				IO.write(mi.getPrice() + "§");
+				IO.write(mi.getType() + "§");
+				IO.write(mi.getDescription() + "\n");
+			}
+			IO.write("-----\n");
+		}
+		IO.closeWriter();
+		
+	}
+
+	@Override
+	public void read() {
+		// TODO Auto-generated method stub
+		IO.setFileName(filename);
+		IO.setReader();
+		
+		if(IO.checkFileExist())
+		{
+			System.out.println("Order Invoice backup file exists, restoring now.");
+			IO.readLine(); //reads the first line of the text
+			while(!IO.isEOL()) //as long as we are not at the end of line
+			{
+				String[] data = IO.getLine().split(","); // takes line and split by comma
+				LocalDate date = LocalDate.parse(data[0], DateTimeFormatter.ofPattern("uuuu-M-d"));
+				LocalTime time = LocalTime.parse(data[1]);
+				int table = Integer.parseInt(data[2]);
+				double initialPrice = Double.parseDouble(data[3]);
+				double discounted = Double.parseDouble(data[4]);
+				double revenue = Double.parseDouble(data[5]);
+				double finalPrice = Double.parseDouble(data[6]);
+				ArrayList<MenuItem> orderItems = new ArrayList<MenuItem>();
+				IO.readLine(); // get the next line
+				while (!IO.isEOL() && !IO.getLine().equals("-----"))
+				{
+					String[] menuItemData = IO.getLine().split("§");
+					String name = menuItemData[0];
+					double price = Double.parseDouble(menuItemData[1]);
+					String type = menuItemData[2];
+					String description = menuItemData[3];
+					MenuItem mi = new MenuItem(name, price, type, description);
+					orderItems.add(mi);
+					IO.readLine();
+				}
+				OrderInvoice oi = new OrderInvoice(date, time, table, initialPrice, discounted, revenue, finalPrice, orderItems); 
+				orderInvoices.add(oi);
+				IO.readLine();
+			}
+		}
+		
+		IO.closeReader();
+		
 	}
 }

@@ -4,19 +4,27 @@ import main.IO.IO;
 
 public class RRPSS {
 	public static void main(String[] args) {
+		System.out.println("Starting RRPSS ...");
 		IO.start();
 
 		DiscountApp discountApp = new DiscountApp();
 		SalesReportApp reportApp = new SalesReportApp();
+		
 		MenuApp menuApp = new MenuApp();
 		ReservationApp reservationApp = new ReservationApp();
 		OrderApp orderApp = new OrderApp();
 		OrderInvoiceApp invoiceApp = new OrderInvoiceApp();
 		StaffApp staffApp = new StaffApp();
 
+		System.out.println("Reading saved data... ");
 		// loading data in from backup .txt files
 		menuApp.read();
-
+		reportApp.read();
+		
+		System.out.println("\n+--------------------+");
+		System.out.println("|  Welcome to RRPSS  |");
+		System.out.println("+--------------------+\n");
+		
 		int choice = -1;
 		do {
 			System.out.println("(1) Edit Menu Item Catalog\n" + "(2) Edit Promotion Catalog\n" + "(3) Edit Menus\n"
@@ -24,7 +32,7 @@ public class RRPSS {
 					+ "(7) Create Reservation Booking\n" + "(8) Check/Remove Reservation Booking\n"
 					+ "(9) Check Table Availability\n" + "(10) Print Order Invoice\n"
 					+ "(11) Print Sale Revenue Report\n" + "(12) Add in staff details\n" + "(13) Add tables\n"
-					+ "(14) Add discount\n" + "(15) Print all resrvation\n" + "(-1) Exit");
+					+ "(14) Add discount\n" + "(15) Print all reservation\n" + "(-1) Exit");
 
 			System.out.println("Enter your Selection: ");
 			choice = ErrorApp.safeInteger();
@@ -78,8 +86,10 @@ public class RRPSS {
 				break;
 			}
 		} while (choice != -1);
-
 		// backing up
+		System.out.println("Saving system data...");
 		menuApp.write();
+		reportApp.write();
+		System.out.println("Thank you for using RRPSS!\n[Program closed]");
 	}
 }

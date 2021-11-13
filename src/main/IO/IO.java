@@ -34,7 +34,7 @@ public final class IO {
 			fileExist = true;
 		} catch (IOException e) {
 			fileExist = false;
-			System.out.println("IO Exception thrown");
+			System.out.println("Warning: "+filename+ " Data file does not exist");
 		}
 	}
 
@@ -50,7 +50,7 @@ public final class IO {
 		try {
 			bw = new BufferedWriter(new FileWriter(path + "/" + filename));
 		} catch (IOException e) {
-			System.out.println("Warning: No Data file exist.");
+			System.out.println("ERROR: Could not write to specified file");
 		}
 	}
 
