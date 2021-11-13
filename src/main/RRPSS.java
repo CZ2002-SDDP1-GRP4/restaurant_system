@@ -5,14 +5,18 @@ import main.IO.IO;
 public class RRPSS {
 	public static void main(String[] args) {
 		IO.start();
+
 		DiscountApp discountApp = new DiscountApp();
 		SalesReportApp reportApp = new SalesReportApp();
 		MenuApp menuApp = new MenuApp();
-		menuApp.read(); // loads data
 		ReservationApp reservationApp = new ReservationApp();
 		OrderApp orderApp = new OrderApp();
 		OrderInvoiceApp invoiceApp = new OrderInvoiceApp();
 		StaffApp staffApp = new StaffApp();
+
+		// loading data in from backup .txt files
+		menuApp.read();
+
 		int choice = -1;
 		do {
 			System.out.println("(1) Edit Menu Item Catalog\n" + "(2) Edit Promotion Catalog\n" + "(3) Edit Menus\n"
@@ -74,5 +78,8 @@ public class RRPSS {
 				break;
 			}
 		} while (choice != -1);
+
+		// backing up
+		menuApp.write();
 	}
 }

@@ -99,7 +99,7 @@ public class MenuApp implements RW {
         do {
             System.out.println("Would you like to print/add/update/remove menus?");
             System.out.println("(1) Print Existing Menu\n" + "(2) Add New Menu\n" + "(3) Update Existing Menu\n"
-                    + "(4) Remove Existing Menu\n" + "(5) Save Menus\n" + "Enter -1 to exit.");
+                    + "(4) Remove Existing Menu\n" + "Enter -1 to exit.");
             userChoice = ErrorApp.safeInteger();
             switch (userChoice) {
             case 1:
@@ -121,9 +121,6 @@ public class MenuApp implements RW {
                 break;
             case 4:
                 this.removeMenu();
-                break;
-            case 5:
-                this.write();
                 break;
             default:
                 break;
@@ -558,9 +555,42 @@ public class MenuApp implements RW {
         return itemToFind;
     }
 
+    /**
+     * Overwrites backup .txt files with current menus, normal catalog, and promo
+     * catalog
+     */
     @Override
     public void write() {
-        // for every menu in array
+        // STORING PROMO CATALOG
+        IO.setFileName(promoFileName);
+        IO.setWriter();
+        for (int i = 0; i < promoCatalog.size(); i++) {
+            Promotion castedPromoItem = promoCatalog.get(i);
+            IO.write(castedPromoItem.getName() + "\n");
+            IO.write(castedPromoItem.getPrice() + "\n");
+            IO.write(castedPromoItem.getType() + "\n");
+            IO.write(castedPromoItem.getDescription() + "\n");
+            ArrayList<String> promoItems = castedPromoItem.getPromoItems();
+            for (int k = 0; k < promoItems.size(); k++) {
+                IO.write(promoItems.get(k) + "\n");
+            }
+            IO.write("-----\n");
+        }
+        IO.closeWriter();
+
+        // STORING NORMAL CATALOG
+        IO.setFileName(normalFileName);
+        IO.setWriter();
+        for (int i = 0; i < normalCatalog.size(); i++) {
+            IO.write(normalCatalog.get(i).getName() + "\n");
+            IO.write(normalCatalog.get(i).getPrice() + "\n");
+            IO.write(normalCatalog.get(i).getType() + "\n");
+            IO.write(normalCatalog.get(i).getDescription() + "\n");
+            IO.write("-----\n");
+        }
+        IO.closeWriter();
+
+        // STORING MENUS
         IO.setFileName(menuFileName);
         IO.setWriter();
         for (int i = 0; i < menus.size(); i++) {
@@ -593,17 +623,68 @@ public class MenuApp implements RW {
         IO.closeWriter();
     }
 
+    /**
+     * Reads in data from .txt files and restores menus, normal catalog, and promo
+     * catalog from backup
+     */
     @Override
     public void read() {
+        // READING PROMO CATALOG
+        IO.setFileName(promoFileName);
+        IO.setReader();
+        if (IO.checkFileExist()) {
+            System.out.println("Promotion Catalog backup file exists, restoring now.");
+            IO.readLine();
+            while (IO.getLine() != null) {
+                String itemName = IO.getLine();
+                IO.readLine();
+                double itemPrice = Double.parseDouble(IO.getLine());
+                IO.readLine();
+                String itemType = IO.getLine();
+                IO.readLine();
+                String itemDesc = IO.getLine();
+                IO.readLine();
+                ArrayList<String> promoItems = new ArrayList<String>();
+                while (!IO.getLine().equals("-----")) {
+                    promoItems.add(IO.getLine());
+                    IO.readLine();
+                }
+                promoCatalog.add(new Promotion(itemName, itemPrice, itemType, itemDesc, promoItems));
+                IO.readLine(); // get next line after -----
+            }
+            IO.closeReader();
+        }
+
+        // READING NORMAL CATALOG
+        IO.setFileName(normalFileName);
+        IO.setReader();
+        if (IO.checkFileExist()) {
+            System.out.println("Menu Item Catalog backup file exists, restoring now.");
+            IO.readLine();
+            while (IO.getLine() != null) {
+                String itemName = IO.getLine();
+                IO.readLine();
+                double itemPrice = Double.parseDouble(IO.getLine());
+                IO.readLine();
+                String itemType = IO.getLine();
+                IO.readLine();
+                String itemDesc = IO.getLine();
+                normalCatalog.add(new MenuItem(itemName, itemPrice, itemType, itemDesc));
+                IO.readLine(); // get in -----
+                IO.readLine();
+            }
+            IO.closeReader();
+        }
+
+        // READING MENUS
         IO.setFileName(menuFileName);
         IO.setReader();
         if (IO.checkFileExist()) {
-            System.out.println("File exists");
+            System.out.println("Menu backup file exists, restoring now.");
             do // check for menus
             {
                 Menu newMenu;
                 IO.readLine();
-                System.out.println(IO.getLine());
                 if (IO.getLine() != null) // if menu name exists
                 {
                     String menuName = IO.getLine(); // store menu name
@@ -612,23 +693,16 @@ public class MenuApp implements RW {
                         IO.readLine(); // take in first menu item type
                         if (!IO.getLine().equals("==========")) // if menu item exists
                         {
-                            System.out.println("Menu item found");
                             String menuItemOrPromo = IO.getLine(); // checks M or P
-                            System.out.println(menuItemOrPromo);
                             IO.readLine(); // read in menu item name
                             String itemName = IO.getLine(); // store menu item name
-                            System.out.println(itemName);
                             IO.readLine();
                             double itemPrice = Double.parseDouble(IO.getLine());
-                            System.out.println(itemPrice + "");
                             IO.readLine();
                             String itemType = IO.getLine();
-                            System.out.println(itemType);
                             IO.readLine();
                             String itemDesc = IO.getLine();
-                            System.out.println(itemDesc);
                             if (menuItemOrPromo.equals("[P]")) {
-                                System.out.println("dealing with P");
                                 IO.readLine();
                                 ArrayList<String> items = new ArrayList<String>();
                                 while (!IO.getLine().equals("-----")) {
@@ -650,31 +724,4 @@ public class MenuApp implements RW {
             IO.closeReader();
         }
     }
-
-    // @Override
-    // public void write() {
-    // // TODO Auto-generated method stub
-    // IO.setFileName(filename);
-    // IO.setWriter();
-    // //write logic goes here
-    // IO.write("hello malthus");
-    // IO.closeWriter();
-    //
-    // }
-    //
-    // @Override
-    // public void read() {
-    // // TODO Auto-generated method stub
-    // IO.setFileName(filename);
-    // IO.setReader();
-    //
-    // if (IO.checkFileExist())
-    // {
-    // //logic goes here
-    // IO.readLine();
-    // this.test = IO.getLine();
-    // IO.closeReader();
-    // }
-    //
-    // }
 }

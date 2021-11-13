@@ -1,62 +1,79 @@
-Halo
+Award Winning
 [M]
-1
-1.0
-1
-1
------
-[M]
-1
-1.0
-1
-1
------
-[M]
-1
-1.0
-1
-1
+Chicken Rice
+4.5
+Main
+Delicious lunch food
 -----
 [P]
-2
-2.0
-2
-2
-Gim
-bRendan
------
-[P]
-2
-2.0
-2
-2
-Gim
-bRendan
------
-[P]
-2
-2.0
-2
-2
-Gim
-bRendan
+New Year Feast
+88.88
+New Year Special
+Celebrate a new year with this feast
+Mandarin Oranges
+Orange Juice
+Pineapple Tart Cake
 -----
 ==========
-Empty
-[P]
-2
-2.0
-2
-2
-gim
-brendan
+Chef's Recommendation
+[M]
+Milo Peng
+1.2
+Drink
+Super good for hot days
+-----
+[M]
+Chicken Rice
+4.5
+Main
+Delicious lunch food
 -----
 [P]
-2
-2.0
-2
-2
-gim
-brendan
+Christmas Bundle of Joy
+55.77
+Christmas Special
+Perfect for families and Santa
+Log Cake
+Chocolate Milkshake
+Fried Chicken
+-----
+[P]
+New Year Feast
+88.88
+New Year Special
+Celebrate a new year with this feast
+Mandarin Oranges
+Orange Juice
+Pineapple Tart Cake
+-----
+==========
+Local Favourites
+[M]
+Milo Peng
+1.2
+Drink
+Super good for hot days
+-----
+[M]
+Chicken Rice
+4.5
+Main
+Delicious lunch food
+-----
+[P]
+New Year Feast
+88.88
+New Year Special
+Celebrate a new year with this feast
+Mandarin Oranges
+Orange Juice
+Pineapple Tart Cake
+-----
+[P]
+Finals Prep Package
+55.55
+School Promo
+Perfect for students studying for finals
+Kopi Peng Gao
 -----
 ==========
