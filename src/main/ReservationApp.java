@@ -237,6 +237,7 @@ public class ReservationApp {
      */
     public static int checkTableAvailability(LocalDate date, LocalTime time, int pax) {
         try {
+
             for (Table table : tables) {
                 int check = 0;
                 if (table.getCapacity() >= pax && table.getAvailability() == true) {
@@ -306,10 +307,18 @@ public class ReservationApp {
      * @param table_number
      */
     public static void setTableStatus(int table_number, boolean availability) {
+
         for (Table table : tables) {
             int cur_table_number = table.getTableNumber();
+            ArrayList <Reservation> found = new ArrayList<Reservation>();
             if (cur_table_number == table_number) {
                 table.setAvailable(availability);
+               for (Reservation reservation : table.getReservations()) {
+                   if (reservation.getDate().isEqual(LocalDate.now()) && reservation.getTime().isBefore(reservation.getTime())){
+                        found.add(reservation);
+                   }
+               }
+               table.getReservations().removeAll(found);
             }
         }
     }
