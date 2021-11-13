@@ -86,6 +86,11 @@ public class SalesReportApp extends AggregatePrint implements RW {
 	 */
 	public void processReport(int month) {
 		ArrayList<MenuItem> ungroupedSaleItems = new ArrayList<MenuItem>();
+		if (orderInvoices.size() == 0)
+		{
+			System.out.println("No order invoices found");
+			return;
+		}
 		totalRevenue = 0;
 		for (OrderInvoice orderinvoice : orderInvoices) {
 			if (month == orderinvoice.getInvoiceDate().getMonthValue()) {
@@ -106,6 +111,11 @@ public class SalesReportApp extends AggregatePrint implements RW {
 	 */
 	public void processReport(LocalDate date) {
 		totalRevenue = 0;
+		if (orderInvoices.size() == 0)
+		{
+			System.out.println("No order invoices found");
+			return;
+		}
 		ArrayList<MenuItem> ungroupedSaleItems = new ArrayList<MenuItem>();
 		for (OrderInvoice orderinvoice : orderInvoices) {
 			if (date.isEqual(orderinvoice.getInvoiceDate())) {
