@@ -123,14 +123,9 @@ public class SalesReportApp extends AggregatePrint implements RW {
 	 * 
 	 * @Override
 	 */
-<<<<<<< Updated upstream
-	protected void print() {
-		if (totalRevenue == 0) {
-=======
 	public void print() {
 		if (totalRevenue == 0)
 		{
->>>>>>> Stashed changes
 			System.out.println("No sales during this period");
 			return;
 		}

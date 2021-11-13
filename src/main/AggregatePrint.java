@@ -33,13 +33,8 @@ public abstract class AggregatePrint {
 	 * Abstract method to process an object to get ready for grouping Sale Items.
 	 * See the subclasses for their exact implementation
 	 */
-<<<<<<< Updated upstream
-	protected abstract void process();
-
-=======
 	public abstract void process();
 	
->>>>>>> Stashed changes
 	/**
 	 * Method that: 1) Reads in an array list of ungrouped Menu Items, i.e. has
 	 * duplicates 2) Groups them and remembers the quantity for each Menu Item
@@ -76,11 +71,6 @@ public abstract class AggregatePrint {
 	 * Abstract method to print out the Order Invoice / Sale Report. See the
 	 * subclasses for their exact implementation.
 	 */
-<<<<<<< Updated upstream
-	protected abstract void print();
-
-=======
 	public abstract void print();
-	
->>>>>>> Stashed changes
+
 }
