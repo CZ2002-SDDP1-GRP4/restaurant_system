@@ -9,13 +9,12 @@ import java.util.NoSuchElementException;
 import main.Reservation.Reservation;
 import main.Reservation.Table;
 
-import main.IO.*;
 /**
  * Represents the app class for interfacing with reservation and table functions.
  * @author Brendan Ang
  * @version 1.0
  */
-public class ReservationApp implements RW{
+public class ReservationApp{
     /**The list of tables which the restaurant has.*/
     private static ArrayList<Table> tables;
     /**Expiry time constant in minutes */
@@ -316,18 +315,6 @@ public class ReservationApp implements RW{
             }
         }
     }
-
-	@Override
-	public void write() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void read() {
-		// TODO Auto-generated method stub
-		
-	}
     
     
 }
