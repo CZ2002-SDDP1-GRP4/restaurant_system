@@ -1,19 +1,41 @@
 package main.Discount;
 
+/**
+ * A class representing a flat discount.
+ * It is a concrete class that inherits from the abstract Discount class.
+ */
 public class FlatDiscount extends Discount {
 	
+	/**
+	 * Public constructor to instantiate a flat discount object. Calls the parent constructor.
+	 * @param name of discount
+	 * @param rate of discount
+	 */
 	public FlatDiscount(String name, double rate) {
 		super(name, rate);
 	}
 	
-	@Override
+	/**
+	 * A method implementing the abstract print discount method, 
+	 * adding a dollar sign to the front indicating it is a flat discount.
+	 * 
+	 * @Override
+	 */
 	public void printDiscountRate() {
 		System.out.printf("$" + rate);
 	}
 	
-	@Override
+	/**
+	 * A concrete class implementing the abstract apply discount method, 
+	 * minusing the rate from the final price since this is a flat discount,
+	 * but not before doing the relevant checks.
+	 * @param price before discount
+	 * @return final price after discount
+	 * {@link Discount#validateDiscount()}
+	 *
+	 * @Override
+	 */
 	public double applyDiscount(double price) {
-		//System.out.println("flat discount" + rate);
 		double finalprice = price-rate;
 		int choice = -2;
 		if (finalprice <= 0.00)

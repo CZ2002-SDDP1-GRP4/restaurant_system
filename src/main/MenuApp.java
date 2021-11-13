@@ -528,8 +528,11 @@ public class MenuApp implements RW {
             System.out.println("Promo Catalog is empty.");
     }
 
-    // COMMENT bleow i added this for order.java, its a copy paste from line 104,
-    // can combine later
+    /**
+     * Allows viewing of menus when adding menu items to orders
+     * 
+     * @return int
+     */
     public static int chooseMenu() {
         Scanner sc = new Scanner(System.in);
         MenuApp.printMenus();
@@ -547,7 +550,13 @@ public class MenuApp implements RW {
         return -1;
     }
 
-    // COMMENT i think this function is new
+    /**
+     * Given a menu choice and item choice, return the desired MenuItem object
+     * 
+     * @param menuChoice
+     * @param itemChoice
+     * @return itemToFind
+     */
     public static MenuItem findItem(int menuChoice, int itemChoice) {
         MenuItem itemToFind = null;
         Menu inThisMenu = menus.get(menuChoice);

@@ -2,21 +2,49 @@ package main.IO;
 
 import java.io.*;
 
+/**
+ * Handles writing to and reading from external files
+ */
 public final class IO {
 
 	/*
 	 * String to denote directory where all data should be saved
 	 */
 	private static String filename;
+
+	/**
+	 * String to denote path to data directory
+	 */
 	private static String path;
 
+	/**
+	 * BufferedWriter object helps to write to external files
+	 */
 	private static BufferedWriter bw;
+
+	/**
+	 * BufferedReader object helps to read from external files
+	 */
 	private static BufferedReader br;
 
+	/**
+	 * Stores instance of very next line of external text file
+	 */
 	private static String line;
+
+	/**
+	 * Boolean that denotes whether or not stored line is null, or the end of a line
+	 */
 	private static boolean EOL;
+
+	/**
+	 * Boolean that denotes whether the desired external file exists
+	 */
 	private static boolean fileExist = false;
 
+	/**
+	 * Sets up filename and file directory
+	 */
 	public static void start() {
 		String dir = System.getProperty("user.dir");
 		dir = dir + "/data";
@@ -27,6 +55,9 @@ public final class IO {
 		path = dir;
 	}
 
+	/**
+	 * Sets up BufferedReader object to start reading from external file
+	 */
 	public static void setReader() {
 		EOL = false;
 		try {
@@ -34,10 +65,14 @@ public final class IO {
 			fileExist = true;
 		} catch (IOException e) {
 			fileExist = false;
-			System.out.println("Warning: "+filename+ " Data file does not exist");
+			System.out.println("Warning: " + filename + " Data file does not exist");
 		}
 	}
 
+	/**
+	 * Closes BufferedReader object to stop reading from external file and save
+	 * changes
+	 */
 	public static void closeReader() {
 		try {
 			br.close();
@@ -46,6 +81,9 @@ public final class IO {
 		}
 	}
 
+	/**
+	 * Sets up BufferedWriter to start writing to external file
+	 */
 	public static void setWriter() {
 		try {
 			bw = new BufferedWriter(new FileWriter(path + "/" + filename));
@@ -54,6 +92,10 @@ public final class IO {
 		}
 	}
 
+	/**
+	 * Closes BufferedWriter object to stop writing to external file and save
+	 * changes
+	 */
 	public static void closeWriter() {
 		try {
 			bw.close();
@@ -62,11 +104,21 @@ public final class IO {
 		}
 	}
 
+	/**
+	 * Set external file name
+	 * 
+	 * @param fn
+	 */
 	public static void setFileName(String fn) {
 		// we might have to check if the name is valid for use as file name
 		filename = fn + ".txt";
 	}
 
+	/**
+	 * Set directory path for external files to be saved or read from
+	 * 
+	 * @param p
+	 */
 	public static void setDirectory(String p) {
 		// check if the path is a valid working directory
 		try {
@@ -85,6 +137,11 @@ public final class IO {
 		path = p;
 	}
 
+	/**
+	 * Safely writes a new line to external file
+	 * 
+	 * @param String to be written
+	 */
 	public static void write(String data) {
 		try {
 			bw.write(data);
@@ -93,6 +150,9 @@ public final class IO {
 		}
 	}
 
+	/**
+	 * Safely reads a new line into internal line object from external file
+	 */
 	public static void readLine() {
 		if (!EOL) {
 			try {
@@ -106,6 +166,11 @@ public final class IO {
 			EOL = true;
 	}
 
+	/**
+	 * Returns stored line object which represents next line of external file
+	 * 
+	 * @return line if it exists
+	 */
 	public static String getLine() {
 		if (!EOL)
 			return line;
@@ -113,10 +178,20 @@ public final class IO {
 			return null;
 	}
 
+	/**
+	 * Returns a boolean that indicates whether external file has ended
+	 * 
+	 * @return EOL boolean object
+	 */
 	public static boolean isEOL() {
 		return EOL;
 	}
 
+	/**
+	 * Returns a boolean that indicates whether external file eixsts
+	 * 
+	 * @return fileExist boolean object
+	 */
 	public static boolean checkFileExist() {
 		return fileExist;
 	}

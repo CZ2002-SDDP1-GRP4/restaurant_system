@@ -221,7 +221,12 @@ public class Menu {
             System.out.println("Invalid Item No.");
     }
 
-    // COMMENT added this for menuapp for adding items to order
+    /**
+     * Allows adding menu items to orders
+     * 
+     * @param itemChoice
+     * @return itemToFind or null
+     */
     public MenuItem findItem(int itemChoice) {
         MenuItem itemToFind = null;
 

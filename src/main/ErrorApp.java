@@ -9,17 +9,19 @@ import java.util.Scanner;
  * Class used to handle System input from users while handling exceptions.
  */
 public class ErrorApp {
-    
-    /**Scanner object used to take in user input */
+
+    /** Scanner object used to take in user input */
     public static Scanner sc = new Scanner(System.in);
 
     /**
-     * Takes in user input and checks if it is correct Date format, plus after current date.
+     * Takes in user input and checks if it is correct Date format, plus after
+     * current date.
+     * 
      * @return a LocalDate object
      */
     public static LocalDate dateHandlerBefore() {
         LocalDate temp;
-        while (true){
+        while (true) {
             try {
                 temp = LocalDate.parse(sc.nextLine(), DateTimeFormatter.ofPattern("uuuu-M-d"));
                 if (temp.isBefore(LocalDate.now())) {
@@ -34,14 +36,16 @@ public class ErrorApp {
 
         }
     }
-    
+
     /**
-     * Takes in user input and checks if it is correct Date format, plus after current date.
+     * Takes in user input and checks if it is correct Date format, plus after
+     * current date.
+     * 
      * @return a LocalDate object
      */
     public static LocalDate dateHandlerAfter() {
         LocalDate temp;
-        while (true){
+        while (true) {
             try {
                 temp = LocalDate.parse(sc.nextLine(), DateTimeFormatter.ofPattern("uuuu-M-d"));
                 if (temp.isAfter(LocalDate.now())) {
@@ -56,10 +60,10 @@ public class ErrorApp {
 
         }
     }
-    
 
     /**
      * Takes in user input and ensures its a valid integer.
+     * 
      * @return integer
      */
     public static int safeInteger() {
@@ -73,16 +77,18 @@ public class ErrorApp {
     }
 
     /**
-     * Takes in user input and ensures its a valid index for timeslots in ReservationApp.
+     * Takes in user input and ensures its a valid index for timeslots in
+     * ReservationApp.
+     * 
      * @return integer
      */
-    public static int safeTimeSlot(){
-        while (true){
+    public static int safeTimeSlot() {
+        while (true) {
             while (!sc.hasNextInt()) {
                 System.out.println("Please enter a valid number.");
                 sc.next();
             }
-            int input = sc.nextInt(); 
+            int input = sc.nextInt();
             sc.nextLine();
             if (!(input <= 12 && input >= 1)) {
                 System.out.println("Please enter valid timeslot choice:");
@@ -94,18 +100,19 @@ public class ErrorApp {
 
     /**
      * Takes in user input and ensures it is a valid table capacity.
+     * 
      * @return integer
      */
-    public static int tableInt(){
-        while (true){
+    public static int tableInt() {
+        while (true) {
             while (!sc.hasNextInt()) {
                 System.out.println("Please enter a valid number.");
                 sc.next();
             }
-            int input = sc.nextInt(); 
+            int input = sc.nextInt();
             sc.nextLine();
             if (input % 2 != 0 && input >= 2 && input <= 10) {
-                System.out.println("Table capacity must be evevn <= 10 and > 2:");
+                System.out.println("Table capacity must be even, <= 10 and > 2:");
                 continue;
             }
             return input;
@@ -114,28 +121,37 @@ public class ErrorApp {
 
     /**
      * Takes in user input and ensures its a valid double.
+     * 
      * @return double
      */
     public static double safeDouble() {
-        while (!sc.hasNextDouble()) {
-            System.out.println("Please enter a valid number.");
-            sc.next();
+        while (true) {
+            while (!sc.hasNextDouble()) {
+                System.out.println("Please enter a valid number.");
+                sc.next();
+            }
+            double input = sc.nextDouble();
+            sc.nextLine();
+            if (input < 0) {
+                System.out.println("Please enter a positive number.");
+                continue;
+            }
+            return input;
         }
-        double input = sc.nextDouble();
-        sc.nextLine();
-        return input;
+
     }
 
     /**
      * Takes in user input and ensures its contains only alphabets.
+     * 
      * @return String
      */
-    public static String alphaString(){
-       while(!sc.hasNext("[A-Za-z]+$")){
-           System.out.println("Please enter only alphabets.");
-           sc.nextLine();
-       } 
-       String string = sc.nextLine();
-       return string;
+    public static String alphaString() {
+        while (!sc.hasNext("[A-Za-z]+$")) {
+            System.out.println("Please enter only alphabets.");
+            sc.nextLine();
+        }
+        String string = sc.nextLine();
+        return string;
     }
 }

@@ -119,8 +119,11 @@ public class OrderApp {
 	 * instantiate an instance object of this OrderApp class
 	 */
 	public static void printShortOrders() {
+		int i = 1;
 		for (Order order : orders) { 
+			System.out.printf(i + ": ");
 			order.printShortOrder();
+			i++;
 		}
 	}
 	
