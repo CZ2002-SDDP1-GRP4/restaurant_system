@@ -9,24 +9,60 @@ import java.util.ArrayList;
 import main.Menu.MenuItem;
 import main.Order.OrderInvoice;
 
+<<<<<<< Updated upstream
 import main.IO.*;
 
 public class SalesReportApp extends AggregatePrint implements RW {
+=======
+/**
+ * Represents the Sales Report App class that is responsible for
+ * 1) Receiving the order invoices
+ * 2) Allowing the user to choose the time period for the reservation
+ * 3) GROUPING THE SALE ITEMS WITH QUANTITY 
+ * 4) Printing it in the Order Invoice format.
+ * It is a concrete class that inherits from the AggregatePrint abstract class.
+ * @author Bryan
+ * @version 1.0
+ */
+public class SalesReportApp extends AggregatePrint {
+	/**
+	 * An attribute remembering the Order Invoice object.
+	 */
+>>>>>>> Stashed changes
 	private static ArrayList<OrderInvoice> orderInvoices;
+	/**
+	 * An attribute to calculate total revenue
+	 */
 	private double totalRevenue;
+<<<<<<< Updated upstream
 	private final String filename = "orderinvoices"; 
 
+=======
+	
+	/**
+	 * Public constructor to create sales report app and initailise revenue to 0
+	 */
+>>>>>>> Stashed changes
 	public SalesReportApp() {
 		orderInvoices = new ArrayList<OrderInvoice>();
 		grpedSaleItems = new ArrayList<MenuItem>();
 		totalRevenue = 0;
 	}
 	
+	/**
+	 * Method to add an order invoice to the report
+	 * @param OrderInvoice object orderInvoice
+	 */
 	public static void addToReport(OrderInvoice orderInvoice) {
 		orderInvoices.add(orderInvoice);
 	}
 	
-	@Override
+	/**
+	 * Method to process a Sales Report. This is done by
+	 * 1) Prompting the user which time period they want
+	 * 2) Calling the appropriate overloaded processReport method
+	 * @Override
+	 */
 	public void process() {
 		System.out.println("By (1) Day (2) Month");
 		int choice = ErrorApp.safeInteger();
@@ -62,6 +98,10 @@ public class SalesReportApp extends AggregatePrint implements RW {
 		else if (choice == -1) return;
 	}
 
+	/**
+	 * Overloaded method to process a Sales Report. It checks whether the menuitem is within the time period.
+	 * @Override
+	 */
 	private void processReport(int month) {
 		ArrayList<MenuItem> ungroupedSaleItems = new ArrayList<MenuItem>();
 		totalRevenue = 0;
@@ -78,6 +118,10 @@ public class SalesReportApp extends AggregatePrint implements RW {
 		print();
 	}
 
+	/**
+	 * Overloaded method to process a Sales Report. It checks whether the menuitem is within the time period.
+	 * @Override
+	 */
 	private void processReport(LocalDate date) {
 		totalRevenue = 0;
 		ArrayList<MenuItem> ungroupedSaleItems = new ArrayList<MenuItem>();
@@ -94,7 +138,10 @@ public class SalesReportApp extends AggregatePrint implements RW {
 		print();
 	}
 	
-	@Override
+	/**
+	 * Mthod to print a Sales Report in the proper format
+	 * @Override
+	 */
 	protected void print() {
 		if (totalRevenue == 0)
 		{

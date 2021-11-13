@@ -6,17 +6,42 @@ import main.MenuApp;
 import main.Menu.MenuItem;
 import main.Staff.Staff;
 
+/**
+ * A class to define attributes and methods specific to a single order.
+ * @author Bryan
+ * @version 1.0
+ */
 public class Order {
+	/**
+	 * The table number of an order. Each order will be assigned to only one table.
+	 */
 	private int table_number;
+	/**
+	 * The staff serving the number. Each order will be assigned to only one staff.
+	 */
 	private Staff staff;
+	/**
+	 * An array list of MenuItems that the person has ordered.
+	 */
 	private ArrayList<MenuItem> orderItems;
 	
+	/**
+	 * Pulic constructor to initialise an Order.
+	 * @param Integer table_number
+	 * @param Staff staff
+	 * {@link Order#setOrderItems()}
+	 */
     public Order(int table_number, Staff staff) {
         this.table_number = table_number;
         this.staff = staff;
         setOrderItems(new ArrayList<MenuItem>());
     }
     
+    /**
+     * Method to print the details of a single Order, in summarised form.
+     * {@link Order#getOrderItems()}
+     * {@link MenuItem#getName()}
+     */
     public void printShortOrder() {
     	System.out.printf("Table " + table_number + ": ");
     	if (getOrderItems().size() == 0) {
@@ -29,6 +54,12 @@ public class Order {
     	}
     }
     
+    /**
+     * Method to print the details of a single Order, in detailed form.
+     * {@link Staff#toString()}
+     * {@link Order#getOrderItems()}
+     * {@link MenuItem#printInfo()}
+     */
     public void printDetailedOrder() {
     	System.out.println
     	(
@@ -47,6 +78,12 @@ public class Order {
     	}
     }
     
+    /**
+     * Method to add a menu item to a single Order
+     * {@link MenuApp#chooseMenu()}
+     * {@link MenuApp#findItem()}
+     * {@link MenuItem#getName()}
+     */
 	public void addItem() {
 		MenuItem itemToAdd = null;
 		
@@ -59,12 +96,17 @@ public class Order {
 		itemToAdd = MenuApp.findItem(menuChoice, itemChoice-1);
 		if (itemToAdd == null) return;
 		else {
-			System.out.println("Added to order: item " + itemToAdd.getName());
+			System.out.println("Added to order: " + itemToAdd.getName());
 			getOrderItems().add(itemToAdd);
 		}
 		
 	}
 
+	/**
+	 * Method to remove an item from a single order
+	 * {@link Order#printDetailedOrder()}
+	 * {@link MenuItem#getOrderItems()}
+	 */
 	public void removeItem() {
 		this.printDetailedOrder();
 		int choice = -1;
@@ -85,18 +127,34 @@ public class Order {
 		}
 	}
 
+	/**
+	 * Getter method for the array list of menu items
+	 * @return the array list of menu items
+	 */
 	public ArrayList<MenuItem> getOrderItems() {
 		return orderItems;
 	}
 
+	/**
+	 * Setter method for the array list of menu items
+	 * @param the array list of menu items
+	 */
 	public void setOrderItems(ArrayList<MenuItem> orderItems) {
 		this.orderItems = orderItems;
 	}
 	
+	/**
+	 * Getter method for the table number associated with the order.
+	 * @return integer table_number
+	 */
 	public int getOrderTable() {
 		return table_number;
 	}
 
+	/**
+	 * Getter method for the staff associated with the order.
+	 * @return Staff object
+	 */
 	public Staff getOrderStaff() {
 		return staff;
 	}
