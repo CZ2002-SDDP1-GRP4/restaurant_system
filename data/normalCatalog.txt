@@ -1,5 +1,5 @@
 Milo Peng
-1.2
+2.4
 Drink
 Super good for hot days
 -----
@@ -8,8 +8,8 @@ Chicken Rice
 Main
 Delicious lunch food
 -----
-Matcha Ice Cream
-3.5
-Dessert
-A japanese favourite
+Cheese Baked Rice
+6.5
+Main
+Super good rice
 -----

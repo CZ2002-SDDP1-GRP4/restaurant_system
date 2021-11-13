@@ -9,7 +9,7 @@ public class RRPSS {
 
 		DiscountApp discountApp = new DiscountApp();
 		SalesReportApp reportApp = new SalesReportApp();
-		
+
 		MenuApp menuApp = new MenuApp();
 		ReservationApp reservationApp = new ReservationApp();
 		OrderApp orderApp = new OrderApp();
@@ -20,19 +20,19 @@ public class RRPSS {
 		// loading data in from backup .txt files
 		menuApp.read();
 		reportApp.read();
-		
+
 		System.out.println("\n+--------------------+");
 		System.out.println("|  Welcome to RRPSS  |");
 		System.out.println("+--------------------+\n");
-		
+
 		int choice = -1;
 		do {
 			System.out.println("(1) Edit Menu Item Catalog\n" + "(2) Edit Promotion Catalog\n" + "(3) Edit Menus\n"
 					+ "(4) Create Order\n" + "(5) View Order\n" + "(6) Add/Remove Order Item(s) to/from Order\n"
 					+ "(7) Create Reservation Booking\n" + "(8) Check/Remove Reservation Booking\n"
 					+ "(9) Check Table Availability\n" + "(10) Print Order Invoice\n"
-					+ "(11) Print Sale Revenue Report\n" + "(12) Add in staff details\n" + "(13) Add tables\n"
-					+ "(14) Add discount\n" + "(15) Print all reservation\n" + "(-1) Exit");
+					+ "(11) Print Sales Revenue Report\n" + "(12) Add in Staff Details\n" + "(13) Add Tables\n"
+					+ "(14) Add Discount\n" + "(15) Print All Reservations\n" + "(-1) Exit");
 
 			System.out.println("Enter your Selection: ");
 			choice = ErrorApp.safeInteger();
