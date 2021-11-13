@@ -70,3 +70,42 @@ Orange Juice
 Pineapple Tart Cake
 -----
 ==========
+Summer Menu
+[M]
+Milo Peng
+2.4
+Drink
+Super good for hot days
+-----
+[M]
+Chicken Rice
+4.5
+Main
+Delicious lunch food
+-----
+[P]
+OOP Special
+33.33
+Special Bundle
+OOP very good bundle
+Ice Coffee
+Strawberry Cake
+Lor Mee
+Ice Tea
+-----
+[M]
+Cheese Baked Rice
+6.5
+Main
+Super good rice
+-----
+[P]
+Christmas Bundle of Joy
+55.77
+Christmas Special
+Perfect for families and Santa
+Log Cake
+Chocolate Milkshake
+Fried Chicken
+-----
+==========

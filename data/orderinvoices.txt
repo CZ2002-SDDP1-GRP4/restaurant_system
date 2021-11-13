@@ -2,3 +2,24 @@
 Chicken Rice�4.5�Main�Delicious lunch food
 Milo Peng�1.2�Drink�Super good for hot days
 -----
+2021-11-13,16:56:56.175266,1,178.95999999999998,178.95999999999998,196.856,210.63592
+Milo Peng�1.2�Drink�Super good for hot days
+New Year Feast�88.88�New Year Special�Celebrate a new year with this feast
+New Year Feast�88.88�New Year Special�Celebrate a new year with this feast
+-----
+2021-11-13,18:03:08.670564,1,60.27,60.27,66.29700000000001,70.93779000000002
+Chicken Rice�4.5�Main�Delicious lunch food
+Christmas Bundle of Joy�55.77�Christmas Special�Perfect for families and Santa
+-----
+2021-11-13,18:04:01.709980,2,5.7,5.7,6.2700000000000005,6.708900000000001
+Milo Peng�1.2�Drink�Super good for hot days
+Chicken Rice�4.5�Main�Delicious lunch food
+-----
+2021-11-13,18:04:54.573391,1,149.15,124.15,136.56500000000003,146.12455000000003
+Chicken Rice�4.5�Main�Delicious lunch food
+Christmas Bundle of Joy�55.77�Christmas Special�Perfect for families and Santa
+New Year Feast�88.88�New Year Special�Celebrate a new year with this feast
+-----
+2021-11-20,18:00:49.361400,1,4.5,4.5,4.95,5.296500000000001
+Chicken Rice�4.5�Main�Delicious lunch food
+-----
