@@ -105,6 +105,11 @@ public class SalesReportApp extends AggregatePrint implements RW {
 			System.out.println("No order invoices found");
 			return;
 		}
+		if (month > LocalDate.now().getMonthValue())
+		{
+			System.out.println("Month cannot be after current month");
+			return;
+		}
 		totalRevenue = 0;
 		for (OrderInvoice orderinvoice : orderInvoices) {
 			if (month == orderinvoice.getInvoiceDate().getMonthValue()) {

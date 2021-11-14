@@ -30,6 +30,11 @@ public class OrderInvoiceApp extends AggregatePrint {
 	 */
 	public void process() {
 		OrderApp.printShortOrders();
+		if (OrderApp.getOrdersSize() == 0)
+		{
+			System.out.println("No orders active.");
+			return;
+		}
 		System.out.println("Select order to generate invoice (-1 to go back):");
 		int choice = ErrorApp.safeInteger();
 		if (choice == -1)

@@ -109,6 +109,11 @@ public class Order {
 	 */
 	public void removeItem() {
 		this.printDetailedOrder();
+		if (this.getOrderItems().size() == 0)
+		{
+			System.out.println("Cannot remove anything from order");
+			return;
+		}
 		int choice = -1;
 		System.out.println("Which item do you want to remove?");
 		choice = ErrorApp.safeInteger();
