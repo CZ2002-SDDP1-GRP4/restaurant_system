@@ -10,12 +10,16 @@ import main.Staff.Staff;
 public class StaffApp {
 
 	private static ArrayList<Staff> staffs;
-	
+	/**
+	 * Creates an array list of staff objects
+	 */
 	public StaffApp() {
 		
 		staffs = new ArrayList<Staff>();
 	}
-	
+	/**
+	 * To add in staff details/instantiate new staff object or print out all staff details 
+	 */
 	public void createStaff() {
 	Scanner sc = new Scanner(System.in);
 	int choice = -1;
@@ -87,7 +91,7 @@ public class StaffApp {
     }
 	
 	/**
-	 * gets staff id 
+	 * gets staff id of staff who has entered in their details 
 	 */
 	public static int getStaffbyId() {
 		Scanner sc = new Scanner(System.in);
