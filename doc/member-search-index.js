@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"main","c":"StaffApp","l":"createStaff()"},{"p":"main","c":"StaffApp","l":"getStaffbyId()"},{"p":"main","c":"StaffApp","l":"getStaffbyId(int)"},{"p":"main","c":"StaffApp","l":"StaffApp()","u":"%3Cinit%3E()"}];updateSearchResults();

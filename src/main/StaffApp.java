@@ -9,14 +9,13 @@ import main.Staff.Staff;
 
 public class StaffApp {
 
-	// COMMENT bleow i changed this to static btw
 	private static ArrayList<Staff> staffs;
 	
 	public StaffApp() {
 		
 		staffs = new ArrayList<Staff>();
 	}
-
+	
 	public void createStaff() {
 	Scanner sc = new Scanner(System.in);
 	int choice = -1;
@@ -34,7 +33,9 @@ public class StaffApp {
         
         switch(choice) {
         case 1:{
-        	
+        	/**
+        	 * allow input of staff details i.e staff check in as attendance each day
+        	 */
         	System.out.print("Please enter the ID number of staff:\n");
         	int id1 = ErrorApp.safeInteger();
         	
@@ -71,6 +72,9 @@ public class StaffApp {
         	break;
         }
         case 2:{
+        	/** 
+        	 * Prints out details of all staff present and checked in on that day
+        	 */
         	for(Staff Staff: staffs) {
         		System.out.printf("Employee No: %d\n", Staff.getStaffId());
         		Staff.printDetails();
@@ -82,8 +86,9 @@ public class StaffApp {
 
     }
 	
-	//// COMMENT bleow 8/11 
-	// i use this for OrderApp --> CreateOrder
+	/**
+	 * gets staff id 
+	 */
 	public static int getStaffbyId() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter your staff ID (-1 to go back): ");
@@ -98,7 +103,11 @@ public class StaffApp {
 		System.out.println("No such staff found. Did you enter your staff ID correctly?");
 		return -1;
 	}
-	
+	/**
+	 * gets staff object by ID
+	 * @param staffId
+	 * @return
+	 */
 	public static Staff getStaffbyId(int staffId) {
 		for (Staff staff : staffs) {
 			if (staffId == staff.getStaffId())
