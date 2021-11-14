@@ -92,6 +92,7 @@ public class StaffApp {
 	
 	/**
 	 * gets staff id of staff who has entered in their details 
+	 * @return integer staffid
 	 */
 	public static int getStaffbyId() {
 		Scanner sc = new Scanner(System.in);
@@ -110,7 +111,7 @@ public class StaffApp {
 	/**
 	 * gets staff object by ID
 	 * @param staffId
-	 * @return
+	 * @return Staff object of employee 
 	 */
 	public static Staff getStaffbyId(int staffId) {
 		for (Staff staff : staffs) {

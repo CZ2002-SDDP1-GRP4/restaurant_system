@@ -55,7 +55,7 @@ public class Staff {
 	
 	/**
 	 * get staff id of this particular employee
-	 * @return
+	 * @return integer the staff id number 
 	 */
 	public int getStaffId() {
 		return id;
