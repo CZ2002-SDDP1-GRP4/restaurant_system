@@ -13,15 +13,23 @@ public class Promotion extends MenuItem {
     /**
      * Public constructor for Promotion class
      * 
-     * @param name
-     * @param price
-     * @param type
-     * @param description
+     * @param name The name of the promotional item
+     * @param price The price of the promotional item
+     * @param type The type of the promotional item
+     * @param description The description of the promotional item
      */
     public Promotion(String name, double price, String type, String description) {
         super(name, price, type, description);
     }
 
+    /**
+     * 
+     * @param name The name of the promotional item
+     * @param price The price of the promotional item
+     * @param type The type of the promotional item
+     * @param description The description of the promotional item
+     * @param items The items included as part of the promotional item
+     */
     public Promotion(String name, double price, String type, String description, ArrayList<String> items) {
         super(name, price, type, description);
         this.items = items;
@@ -66,7 +74,7 @@ public class Promotion extends MenuItem {
      * Adds a new menu item into this set package by its name contained within a
      * String parameter
      * 
-     * @param name
+     * @param name The name of the item included in the promotional set package
      */
     public void addItem(String name) {
         items.add(name);
@@ -75,7 +83,7 @@ public class Promotion extends MenuItem {
     /**
      * Removes a specific item within this set package by index
      * 
-     * @param index
+     * @param index The array index of the item to be removed
      */
     public void removeItem(int index) {
         if (index < items.size() && index >= 0) {

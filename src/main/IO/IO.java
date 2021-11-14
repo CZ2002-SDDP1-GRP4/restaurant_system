@@ -7,7 +7,7 @@ import java.io.*;
  */
 public final class IO {
 
-	/*
+	/**
 	 * String to denote directory where all data should be saved
 	 */
 	private static String filename;
@@ -107,7 +107,7 @@ public final class IO {
 	/**
 	 * Set external file name
 	 * 
-	 * @param fn
+	 * @param fn The file name to be read/write
 	 */
 	public static void setFileName(String fn) {
 		// we might have to check if the name is valid for use as file name
@@ -117,7 +117,10 @@ public final class IO {
 	/**
 	 * Set directory path for external files to be saved or read from
 	 * 
-	 * @param p
+	 * @param p The path to be set
+	 * 
+	 * This function is not used in our program. It's added for future use.
+	 * 
 	 */
 	public static void setDirectory(String p) {
 		// check if the path is a valid working directory
@@ -140,7 +143,7 @@ public final class IO {
 	/**
 	 * Safely writes a new line to external file
 	 * 
-	 * @param String to be written
+	 * @param data String to be written
 	 */
 	public static void write(String data) {
 		try {

@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"restaurant_system","l":"main"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"restaurant_system","l":"main"},{"m":"restaurant_system","l":"main.Discount"},{"m":"restaurant_system","l":"main.IO"},{"m":"restaurant_system","l":"main.Menu"},{"m":"restaurant_system","l":"main.Order"},{"m":"restaurant_system","l":"main.Reservation"},{"m":"restaurant_system","l":"main.Staff"}];updateSearchResults();

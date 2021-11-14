@@ -19,8 +19,8 @@ public class FlatDiscount extends Discount {
 	 * A method implementing the abstract print discount method, 
 	 * adding a dollar sign to the front indicating it is a flat discount.
 	 * 
-	 * @Override
 	 */
+	@Override
 	public void printDiscountRate() {
 		System.out.printf("$" + rate);
 	}
@@ -32,9 +32,9 @@ public class FlatDiscount extends Discount {
 	 * @param price before discount
 	 * @return final price after discount
 	 * {@link Discount#validateDiscount()}
-	 *
-	 * @Override
 	 */
+	
+	@Override
 	public double applyDiscount(double price) {
 		double finalprice = price-rate;
 		int choice = -2;

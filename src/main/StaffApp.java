@@ -6,7 +6,11 @@ import java.util.Scanner;
 
 import main.Staff.Staff;
 
-
+/**
+ * 
+ * The Staff Application to deal with operations relating to managing Staff objects
+ *
+ */
 public class StaffApp {
 
 	private static ArrayList<Staff> staffs;
@@ -110,7 +114,7 @@ public class StaffApp {
 	}
 	/**
 	 * gets staff object by ID
-	 * @param staffId
+	 * @param staffId The id of the staff to be found
 	 * @return Staff object of employee 
 	 */
 	public static Staff getStaffbyId(int staffId) {

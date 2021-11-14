@@ -39,7 +39,7 @@ public abstract class AggregatePrint {
 	 * Method that: 1) Reads in an array list of ungrouped Menu Items, i.e. has
 	 * duplicates 2) Groups them and remembers the quantity for each Menu Item
 	 * 
-	 * @param array list of menu items ungroupedSaleItems
+	 * @param ungroupedSaleItems array list of menu items 
 	 */
 	public static void groupSaleItems(ArrayList<MenuItem> ungroupedSaleItems) {
 		grpedSaleItems.clear();

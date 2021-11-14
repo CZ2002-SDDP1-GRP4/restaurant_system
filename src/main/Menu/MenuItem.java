@@ -18,10 +18,10 @@ public class MenuItem {
     /**
      * Public constructor for MenuItem class
      * 
-     * @param name
-     * @param price
-     * @param type
-     * @param description
+     * @param name The name of the menu item
+     * @param price The price of the menu item
+     * @param type The type of the menu item
+     * @param description The description of the menu item
      */
     public MenuItem(String name, double price, String type, String description) {
         this.name = name;
@@ -77,7 +77,7 @@ public class MenuItem {
     /**
      * Sets name of menu item with String parameter
      * 
-     * @param name
+     * @param name The new name of the menu item
      */
     public void setName(String name) {
         this.name = name;
@@ -86,7 +86,7 @@ public class MenuItem {
     /**
      * Sets description of menu item with String parameter
      * 
-     * @param description
+     * @param description The new description of the menu item
      */
     public void setDescription(String description) {
         this.description = description;
@@ -95,7 +95,7 @@ public class MenuItem {
     /**
      * Sets price of menu item with double parameter
      * 
-     * @param price
+     * @param price The new price of the menu item
      */
     public void setPrice(double price) {
         this.price = Math.round(price * 100.0) / 100.0;
@@ -104,7 +104,7 @@ public class MenuItem {
     /**
      * Sets type of menu item with String parameter
      * 
-     * @param type
+     * @param type The new type of the menu item
      */
     public void setType(String type) {
         this.type = type;

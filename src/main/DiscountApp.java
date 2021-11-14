@@ -106,7 +106,7 @@ public class DiscountApp
 	
 	/**
 	 * Getter method for Discount object by ID.
-	 * @param Integer choice
+	 * @param choice Integer user choice
 	 * @return Discount object selected
 	 */
 	public static Discount getDiscountbyID(int choice) {

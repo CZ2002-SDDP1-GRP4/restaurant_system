@@ -19,9 +19,8 @@ public class PercentDiscount extends Discount {
 	 * A method implementing the abstract print discount method, 
 	 * adding a percentage sign to the back indicating it is a percent discount.
 	 * The discount sign is repeated to escape itself. We *100 because rate is 0-1
-	 * 
-	 * @Override
 	 */
+	@Override
 	public void printDiscountRate() {
 		System.out.printf(rate*100 + "%%");
 	}
@@ -33,9 +32,9 @@ public class PercentDiscount extends Discount {
 	 * @param price before discount
 	 * @return final price after discount
 	 * {@link Discount#validateDiscount()}
-	 *
-	 * @Override
 	 */
+	
+	@Override
 	public double applyDiscount(double price) {
 		//System.out.println("percent discount" + rate);
 		double finalprice = price*(1.00-rate);

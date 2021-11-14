@@ -26,10 +26,10 @@ public class Order {
 	private ArrayList<MenuItem> orderItems;
 	
 	/**
-	 * Pulic constructor to initialise an Order.
-	 * @param Integer table_number
-	 * @param Staff staff
-	 * {@link Order#setOrderItems()}
+	 * Public constructor to initialize an Order.
+	 * @param table_number Integer value assigned to the table
+	 * @param staff The Staff entity serving that table
+	 * {@link Order#setOrderItems(ArrayList<MenuItem>)}
 	 */
     public Order(int table_number, Staff staff) {
         this.table_number = table_number;
@@ -81,7 +81,7 @@ public class Order {
     /**
      * Method to add a menu item to a single Order
      * {@link MenuApp#chooseMenu()}
-     * {@link MenuApp#findItem()}
+     * {@link MenuApp#findItem(int, int)}
      * {@link MenuItem#getName()}
      */
 	public void addItem() {
@@ -105,7 +105,7 @@ public class Order {
 	/**
 	 * Method to remove an item from a single order
 	 * {@link Order#printDetailedOrder()}
-	 * {@link MenuItem#getOrderItems()}
+	 * {@link Order#getOrderItems()}
 	 */
 	public void removeItem() {
 		this.printDetailedOrder();
@@ -142,7 +142,7 @@ public class Order {
 
 	/**
 	 * Setter method for the array list of menu items
-	 * @param the array list of menu items
+	 * @param orderItems the array list of menu items
 	 */
 	public void setOrderItems(ArrayList<MenuItem> orderItems) {
 		this.orderItems = orderItems;

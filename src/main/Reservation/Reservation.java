@@ -21,12 +21,12 @@ public class Reservation {
     
     /**
      * Creates new reservation.
-     * @param table_number
-     * @param date
-     * @param time
-     * @param pax
-     * @param name
-     * @param contact
+     * @param table_number The number assigned to the table
+     * @param date The user input date
+     * @param time The user input time
+     * @param pax The number of people being reserved a seat at the restaurant
+     * @param name The name of the reserving customer
+     * @param contact The contact number of the reserving customer
      */
     public Reservation(int table_number, LocalDate date, LocalTime time, int pax, String name, int contact){
         this.table_number = table_number;

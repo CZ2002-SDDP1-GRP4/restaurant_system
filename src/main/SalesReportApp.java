@@ -43,7 +43,7 @@ public class SalesReportApp extends AggregatePrint implements RW {
 	/**
 	 * Method to add an order invoice to the report
 	 * 
-	 * @param OrderInvoice object orderInvoice
+	 * @param orderInvoice A set of order details
 	 */
 	public static void addToReport(OrderInvoice orderInvoice) {
 		orderInvoices.add(orderInvoice);
@@ -54,8 +54,8 @@ public class SalesReportApp extends AggregatePrint implements RW {
 	 * time period they want 2) Calling the appropriate overloaded processReport
 	 * method
 	 * 
-	 * @Override
 	 */
+	@Override
 	public void process() {
 		System.out.println("By (1) Day (2) Month");
 		int choice = ErrorApp.safeInteger();
@@ -96,8 +96,9 @@ public class SalesReportApp extends AggregatePrint implements RW {
 	 * Overloaded method to process a Sales Report. It checks whether the menuitem
 	 * is within the time period.
 	 * 
-	 * @Override
+	 * @param month The integer value of the month
 	 */
+
 	public void processReport(int month) {
 		ArrayList<MenuItem> ungroupedSaleItems = new ArrayList<MenuItem>();
 		if (orderInvoices.size() == 0)
@@ -125,8 +126,7 @@ public class SalesReportApp extends AggregatePrint implements RW {
 	/**
 	 * Overloaded method to process a Sales Report. It checks whether the menuitem
 	 * is within the time period.
-	 * 
-	 * @Override
+	 * @param date The user selected date
 	 */
 	public void processReport(LocalDate date) {
 		totalRevenue = 0;
@@ -148,10 +148,10 @@ public class SalesReportApp extends AggregatePrint implements RW {
 	}
 
 	/**
-	 * Mthod to print a Sales Report in the proper format
 	 * 
-	 * @Override
+	 * Mthod to print a Sales Report in the proper format
 	 */
+	@Override
 	public void print() {
 		if (totalRevenue == 0)
 		{
@@ -167,6 +167,9 @@ public class SalesReportApp extends AggregatePrint implements RW {
 		}
 	}
 
+	/**
+     * Overwrites backup .txt files with current orderInvoices data
+     */
 	@Override
 	public void write() {
 		// TODO Auto-generated method stub
@@ -195,6 +198,9 @@ public class SalesReportApp extends AggregatePrint implements RW {
 
 	}
 
+	/**
+     * Reads in data from ".txt" files and restores the arrayList orderInvoices from backup
+     */
 	@Override
 	public void read() {
 		// TODO Auto-generated method stub

@@ -16,7 +16,7 @@ public class Menu {
      * Public constructor for Menu class, takes in a String parameter to store as
      * the name of this menu
      * 
-     * @param menuName
+     * @param menuName The name of the menu
      */
     public Menu(String menuName) {
         this.menuName = menuName;
@@ -34,7 +34,7 @@ public class Menu {
     /**
      * Sets name of this menu using String parameter
      * 
-     * @param menuName
+     * @param menuName The name of the menu
      */
     public void setMenuName(String menuName) {
         this.menuName = menuName;
@@ -80,7 +80,7 @@ public class Menu {
     /**
      * Adds menu items to this menu
      * 
-     * @param item
+     * @param item The MenuItem object
      */
     public void addItem(MenuItem item) {
         menuItems.add(item);
@@ -212,7 +212,7 @@ public class Menu {
     /**
      * Removes a menu item from this menu using an integer index parameter
      * 
-     * @param index
+     * @param index The array index of the menu item to be removed
      */
     public void removeItem(int index) {
         if (index >= 0 && index < menuItems.size())
@@ -224,7 +224,7 @@ public class Menu {
     /**
      * Allows adding menu items to orders
      * 
-     * @param itemChoice
+     * @param itemChoice The array index of the menu to find the requested item
      * @return itemToFind or null
      */
     public MenuItem findItem(int itemChoice) {

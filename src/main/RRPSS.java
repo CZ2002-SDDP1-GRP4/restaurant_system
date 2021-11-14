@@ -2,7 +2,18 @@ package main;
 
 import main.IO.IO;
 
+/** The Restaurant Reservation and Point of Sale System
+ * 
+ * @author chuag
+ *
+ */
 public class RRPSS {
+	
+	/** This is the main function class to our Restaurant Reservation and Point of Sale System
+	 * 
+	 * @author chuag
+	 * @param args series of string input by user for testing test cases
+	 */
 	public static void main(String[] args) {
 		System.out.println("Starting RRPSS ...");
 		IO.start();

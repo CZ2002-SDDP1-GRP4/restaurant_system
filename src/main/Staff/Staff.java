@@ -1,20 +1,49 @@
 package main.Staff;
 
+/**
+ * The staff class to create the staff members of the restaurant
+ *
+ */
 public class Staff {
 	/**
-	 * Attributes for each staff 
+	 * The name of the Staff person 
 	 */
 	private String name;
-	public enum Gender {Male, Female, Others};	
+	/**
+	 * The gender options that any Staff person can take on
+	 * 
+	 */
+	public enum Gender {
+		/**
+		 * The person is male
+		 */
+		Male,
+		/**
+		 * The person is female
+		 */
+		Female,
+		/**
+		 * The person defines their own gender (non-binary)
+		 */
+		Others};
+	/**
+	 * The gender of a staff option based on the above enumerated type
+	 */
 	private Gender gender;
+	/**
+	 * The Staff's id
+	 */
 	private int id;
+	/**
+	 * The title or role of the staff person
+	 */
 	private String title;
 	/**
 	 * constructor for staff object 
-	 * @param name
-	 * @param id
-	 * @param title
-	 * @param sex
+	 * @param name The name of the staff
+	 * @param id The id of the staff
+	 * @param title The title of the staff
+	 * @param sex The gender of the staff
 	 */
 	public Staff(String name,int id,String title,int sex) {
 

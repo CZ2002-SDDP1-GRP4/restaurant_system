@@ -24,10 +24,10 @@ public class OrderInvoiceApp extends AggregatePrint {
 	/**
 	 * Method to process an Order Invoice. This is done by
 	 * 1) Printing the list of orders for the user to choose
-	 * 2) Retreiving the selection
+	 * 2) Retrieving the selection
 	 * 3) Calling the appropriate method in Order Invoice class to process it
-	 * @Override
 	 */
+	@Override
 	public void process() {
 		OrderApp.printShortOrders();
 		if (OrderApp.getOrdersSize() == 0)
@@ -72,8 +72,8 @@ public class OrderInvoiceApp extends AggregatePrint {
 	/**
 	 * Method to print the Order Invoice. 
 	 * The Order Invoice has been specially and carefully formatted to simulate a real restaurant receipt
-	 * @Override
 	 */
+	@Override
 	public void print() {
 		if (orderInvoice == null) {
 			System.out.println("Returning...");

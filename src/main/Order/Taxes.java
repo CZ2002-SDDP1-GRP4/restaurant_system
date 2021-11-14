@@ -20,7 +20,7 @@ public class Taxes {
 
 	/**
 	 * A method to apply service charge.
-	 * @param original price
+	 * @param price original price
 	 * @return price with service charge
 	 */
 	public static double applyServiceCharge(double price) {
@@ -29,7 +29,7 @@ public class Taxes {
 	
 	/**
 	 * A method to apply GST.
-	 * @param original price
+	 * @param price original price
 	 * @return price with GST
 	 */
 	public static double applyGST(double price) {

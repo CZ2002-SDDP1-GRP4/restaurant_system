@@ -9,6 +9,11 @@ import main.Menu.Promotion;
 
 import main.IO.*;
 
+/**
+ * Menu Application to process Menu operations
+ * @author Maoters
+ *
+ */
 public class MenuApp implements RW {
 
     /**
@@ -553,8 +558,8 @@ public class MenuApp implements RW {
     /**
      * Given a menu choice and item choice, return the desired MenuItem object
      * 
-     * @param menuChoice
-     * @param itemChoice
+     * @param menuChoice array index of menu selected
+     * @param itemChoice array index of item selected based on menu
      * @return itemToFind
      */
     public static MenuItem findItem(int menuChoice, int itemChoice) {

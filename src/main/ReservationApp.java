@@ -238,6 +238,7 @@ public class ReservationApp {
      * @param date Date of reservation .
      * @param time Time of reservation.
      * @param pax  Number of people.
+     * @return table.getTableNumber() : int value of table number
      */
     public static int checkTableAvailability(LocalDate date, LocalTime time, int pax) {
         try {
@@ -292,8 +293,6 @@ public class ReservationApp {
     /**
      * Adds a table to the list of tables.
      * 
-     * @param table_number Table number of the new table.
-     * @param capacity     Capacity of the new table.
      */
     public void addTable() {
         System.out.println("Enter table number:");
@@ -308,7 +307,8 @@ public class ReservationApp {
     /**
      * Find Table and set available to false
      * 
-     * @param table_number
+     * @param table_number The number of the table
+     * @param availability The availability status of the table
      */
     public static void setTableStatus(int table_number, boolean availability) {
 

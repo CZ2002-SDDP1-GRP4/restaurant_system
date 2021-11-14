@@ -1,2 +1,8 @@
 module:restaurant_system
 main
+main.Discount
+main.IO
+main.Menu
+main.Order
+main.Reservation
+main.Staff

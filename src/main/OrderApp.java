@@ -31,12 +31,12 @@ public class OrderApp {
 	 * Method to add a new order to the order array list, after doing the necessary checks 
 	 * to gather relevant information
 	 * {@link StaffApp#getStaffbyId()}
-	 * {@link StaffApp#getStaffbyId(staffId)}
-	 * {@link ReservationApp#checkReservation()}
+	 * {@link StaffApp#getStaffbyId(int)}
+	 * {@link ReservationApp#checkReservation(String, LocalDate, LocalTime)}
 	 * {@link Reservation#getTableNumber()}
 	 * {@link ReservationApp#checkTableAvailability()}
-	 * {@link Order#Order()}
-	 * {@link ReservationApp#setTableStatus()}
+	 * {@link Order#Order(int, Staff)}
+	 * {@link ReservationApp#setTableStatus(int, boolean)}
 	 */
 	public void createOrder() {
 		int staffId = StaffApp.getStaffbyId();
@@ -180,7 +180,7 @@ public class OrderApp {
 
 	/**
 	 * Getter method to find an order using its index.
-	 * @param Integer value of order's index
+	 * @param choice Integer value of order's index
 	 * @return Order object
 	 */
 	public static Order get(int choice) {
@@ -190,7 +190,7 @@ public class OrderApp {
 	/**
 	 * Setter method to mark an order as done. This sets the table as available again, 
 	 * and removes the order from the list.
-	 * @param Integer value of order's index
+	 * @param choice Integer value of order's index
 	 */
 	public static void remove(int choice) {
 		ReservationApp.setTableStatus(orders.get(choice).getOrderTable(), true);

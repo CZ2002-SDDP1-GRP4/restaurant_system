@@ -23,8 +23,8 @@ public abstract class Discount {
 	/**
 	 * Public constructor to instantiate a discount object.
 	 * This will be called first before the constructor of the subclasses
-	 * @param name of discount
-	 * @param rate of discount
+	 * @param name The name of discount
+	 * @param rate The rate of discount
 	 */
 	public Discount(String name, double rate) {
 		this.name = name;
@@ -41,6 +41,7 @@ public abstract class Discount {
 	
 	/**
 	 * Setter method for discount rate
+	 * @param rate The rate of discount
 	 */
 	public void setDiscountRate(double rate) {
 		this.rate = rate;
@@ -48,7 +49,7 @@ public abstract class Discount {
 
 	/**
 	 * Getter method for discount rate
-	 * @retrun rate of discount
+	 * @return rate of discount
 	 */
 	public double getDiscountRate() {
 		return rate;
