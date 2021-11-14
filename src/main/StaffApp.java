@@ -73,7 +73,7 @@ public class StaffApp {
         }
         case 2:{
         	/** 
-        	 * Prints out details of all staff present and checked in on that day
+        	 * Prints out details of all staff objects in the system on that day
         	 */
         	for(Staff Staff: staffs) {
         		System.out.printf("Employee No: %d\n", Staff.getStaffId());

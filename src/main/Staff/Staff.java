@@ -1,13 +1,21 @@
 package main.Staff;
 
 public class Staff {
-	
+	/**
+	 * Attributes for each staff 
+	 */
 	private String name;
 	public enum Gender {Male, Female, Others};	
 	private Gender gender;
 	private int id;
 	private String title;
-	
+	/**
+	 * constructor for staff object 
+	 * @param name
+	 * @param id
+	 * @param title
+	 * @param sex
+	 */
 	public Staff(String name,int id,String title,int sex) {
 
 		this.name = name;
@@ -29,7 +37,9 @@ public class Staff {
 		}
 		
 	}
-	
+	/**
+	 * print details of each employee
+	 */
 	public void printDetails() {
 		
 		System.out.printf("Name: %s\nID: %d\nTitle: %s\nGender: %s\n",
@@ -43,7 +53,10 @@ public class Staff {
 	"Gender: " + this.gender + ", " +"Title: " + this.title;
 	}
 	
-	// COMMENT bleow i added this for StaffApp --> getStaffId
+	/**
+	 * get staff id of this particular employee
+	 * @return
+	 */
 	public int getStaffId() {
 		return id;
 	}
