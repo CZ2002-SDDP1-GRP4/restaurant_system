@@ -8,7 +8,7 @@ import main.Staff.Staff;
 
 
 public class StaffApp {
-	
+
 	// COMMENT bleow i changed this to static btw
 	private static ArrayList<Staff> staffs;
 	
@@ -33,32 +33,30 @@ public class StaffApp {
         choice = ErrorApp.safeInteger();
         
         switch(choice) {
-        case 1:
-        	String name,title;
-        	int sex,id;
+        case 1:{
         	
         	System.out.print("Please enter the ID number of staff:\n");
-        	id = ErrorApp.safeInteger();
+        	int id1 = ErrorApp.safeInteger();
         	
-        	for(Staff Staff: staffs) {
-        		if(id == Staff.getStaffId()) {
-        		System.out.println("Employee ID taken!");
-        		
+        	Staff NULL = null;
+        	
+			while(getStaffbyId(id1) != NULL) {
+        		System.out.println("Employee ID taken!");	
         		System.out.printf("These are the invalid IDs: ");
         		for(Staff Staff1: staffs) {
         				System.out.printf("%d ",Staff1.getStaffId());}
         		System.out.printf("\n");
-        		System.out.println("Please enter another ID:");
-        		id = ErrorApp.safeInteger();
-        		
-        	}}
+        		System.out.println("Please enter another ID:"); 
+        		id1 = ErrorApp.safeInteger();	
+        	};
+        	int id = id1;
         	
         	System.out.print("Please enter the name of staff:\n");
-        	name = ErrorApp.alphaString();
+        	String name = ErrorApp.alphaString();
 
         	System.out.print("Please enter the gender of staff: 1.Male 2.Female 3.Others\n");
         	
-        	sex = ErrorApp.safeInteger();
+        	int sex = ErrorApp.safeInteger();
         	
         	while(sex > 3 || sex <0) {
         		System.out.print("Please enter a valid option of 1/2/3 : 1.Male 2.Female 3.Others\n");
@@ -66,23 +64,23 @@ public class StaffApp {
         	}
         	    	
         	System.out.print("Please enter the title of the staff:\n");
-        	title = ErrorApp.alphaString();   
+        	String title = ErrorApp.alphaString();   
     
         	staffs.add(new Staff(name,id,title,sex));
         	System.out.println("Staff has been added!");
         	break;
-        	
-        case 2:
+        }
+        case 2:{
         	for(Staff Staff: staffs) {
         		System.out.printf("Employee No: %d\n", Staff.getStaffId());
         		Staff.printDetails();
         		System.out.printf("\n");
         	}
         	break;
-        }
-    } while(choice != -1);
+        }}
+        }while(choice != -1);
 
-	}
+    }
 	
 	//// COMMENT bleow 8/11 
 	// i use this for OrderApp --> CreateOrder
@@ -111,6 +109,7 @@ public class StaffApp {
 		return null;
 	}
 
-	
+
+
     
 }
